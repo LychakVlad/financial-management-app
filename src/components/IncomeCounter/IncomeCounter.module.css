@@ -1,0 +1,6 @@
+.main {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  justify-content: space-around;
+}

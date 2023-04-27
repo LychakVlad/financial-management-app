@@ -1,0 +1,9 @@
+.section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1380px;
+  padding: 0 32px;
+}
