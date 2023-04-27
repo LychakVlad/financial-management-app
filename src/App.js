@@ -4,6 +4,7 @@ import styles from './App.module.css';
 import IncomeCounter from './components/IncomeCounter/IncomeCounter';
 import { useCallback, useState, useMemo } from 'react';
 import Header from './components/Header/Header';
+import AuthProvider from './contexts/AuthContext';
 
 function App() {
   const [income, setIncome] = useState('');
@@ -19,18 +20,20 @@ function App() {
   }, [incomeList]);
 
   return (
-    <div className={styles.container}>
-      <Header />
-      <HomePage />
-      <IncomeCounter
-        income={income}
-        setIncome={setIncome}
-        handleAddIncome={handleAddIncome}
-        incomeList={incomeList}
-        totalIncome={totalIncome}
-      />
-      <TaxCalculator totalIncome={totalIncome} />
-    </div>
+    <AuthProvider>
+      <div className={styles.container}>
+        <Header />
+        <HomePage />
+        <IncomeCounter
+          income={income}
+          setIncome={setIncome}
+          handleAddIncome={handleAddIncome}
+          incomeList={incomeList}
+          totalIncome={totalIncome}
+        />
+        <TaxCalculator totalIncome={totalIncome} />
+      </div>
+    </AuthProvider>
   );
 }
 
