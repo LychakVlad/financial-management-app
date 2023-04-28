@@ -2,38 +2,46 @@ import HomePage from './components/HomePage/HomePage';
 import TaxCalculator from './components/TaxCalculator/TaxCalculator';
 import styles from './App.module.css';
 import IncomeCounter from './components/IncomeCounter/IncomeCounter';
-import { useCallback, useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Header from './components/Header/Header';
-import AuthProvider from './contexts/AuthContext';
+import Login from './components/Login/Login';
+import { collection, getDocs } from 'firebase/firestore';
+import { firestore } from './firebase';
 
 function App() {
   const [income, setIncome] = useState('');
   const [incomeList, setIncomeList] = useState([]);
 
-  const handleAddIncome = useCallback(() => {
-    setIncomeList([...incomeList, income]);
-    setIncome('');
-  }, [incomeList, income]);
+  const [users, setUsers] = useState([]);
+  const usersCollectionRef = collection(firestore, 'users');
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      console.log(users);
+    };
+    getUsers();
+  }, []);
 
   const totalIncome = useMemo(() => {
     return incomeList.reduce((acc, item) => acc + parseFloat(item), 0);
   }, [incomeList]);
 
   return (
-    <AuthProvider>
-      <div className={styles.container}>
-        <Header />
-        <HomePage />
-        <IncomeCounter
-          income={income}
-          setIncome={setIncome}
-          handleAddIncome={handleAddIncome}
-          incomeList={incomeList}
-          totalIncome={totalIncome}
-        />
-        <TaxCalculator totalIncome={totalIncome} />
-      </div>
-    </AuthProvider>
+    <div className={styles.container}>
+      <Header />
+      <Login />
+      <HomePage />
+      <IncomeCounter
+        income={income}
+        setIncome={setIncome}
+        setIncomeList={setIncomeList}
+        incomeList={incomeList}
+        totalIncome={totalIncome}
+      />
+      <TaxCalculator totalIncome={totalIncome} />
+    </div>
   );
 }
 

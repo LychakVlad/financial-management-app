@@ -39,6 +39,7 @@ const Header = () => {
 
   return (
     <div>
+      You logged with
       {currentUser && JSON.stringify(currentUser && currentUser.email)}
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
@@ -55,10 +56,10 @@ const Header = () => {
           <input type="password" ref={passwordConfirmRef} required />
         </div>
         <button disabled={loading} type="submit">
-          Sign In
+          Sign Up
         </button>
-        <button onClick={handleLogout}>Log out</button>
       </form>
+      <button onClick={handleLogout}>Log out</button>
     </div>
   );
 };

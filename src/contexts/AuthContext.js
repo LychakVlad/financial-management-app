@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { auth } from '../firebase';
+import { auth, firestore } from '../firebase';
 
 const AuthContext = React.createContext();
 
@@ -11,7 +11,21 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
 
   function signup(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password);
+    return auth.createUserWithEmailAndPassword(email, password).then((cred) => {
+      return firestore
+        .collection('users')
+        .doc(cred.user.uid)
+        .set({
+          income: {
+            amount: null,
+            type: null,
+          },
+        });
+    });
+  }
+
+  function login(email, password) {
+    return auth.signInWithEmailAndPassword(email, password);
   }
 
   function logout() {
@@ -28,6 +42,7 @@ export function AuthProvider({ children }) {
   const value = {
     currentUser,
     signup,
+    login,
     logout,
   };
 
