@@ -3,8 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { doc, getDoc } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 
-function IncomeList({ incomeList, totalIncome }) {
-  const [userIncome, setUserIncome] = useState(null);
+function IncomeList({ incomeList, setIncomeList, totalIncome }) {
   const currentUser = useAuth();
 
   useEffect(() => {
@@ -17,14 +16,7 @@ function IncomeList({ incomeList, totalIncome }) {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setUserIncome(
-          docSnap
-            .data()
-            .income.amount.reduce(
-              (item1, item2) => Number(item1) + Number(item2),
-              0
-            )
-        );
+        setIncomeList(docSnap.data().income.amount);
       } else {
         console.log('No such document!');
       }
@@ -33,14 +25,13 @@ function IncomeList({ incomeList, totalIncome }) {
     if (currentUser.currentUser) {
       getUserData();
     }
-  }, [currentUser]);
+  }, [currentUser, setIncomeList]);
 
   return (
     <ul>
-      {incomeList.map((item, index) => (
+      {incomeList?.map((item, index) => (
         <li key={index}>{item + '$'}</li>
       ))}
-      {userIncome && <p>Your income: {userIncome}</p>}
       <p>Your total income: {totalIncome}</p>
     </ul>
   );

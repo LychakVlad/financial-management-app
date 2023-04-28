@@ -19,13 +19,12 @@ function App() {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      console.log(users);
     };
     getUsers();
   }, []);
 
   const totalIncome = useMemo(() => {
-    return incomeList.reduce((acc, item) => acc + parseFloat(item), 0);
+    return incomeList?.reduce((acc, item) => acc + parseFloat(item), 0);
   }, [incomeList]);
 
   return (
