@@ -38,7 +38,9 @@ function IncomeCounter({
         },
       });
 
-      console.log(incomeList);
+      // pass the updated incomeList and typeList as props to the IncomeList component
+      setIncomeList([...incomeList, income]);
+      setTypeList([...typeList, type]);
     },
     [
       incomeList,

@@ -16,12 +16,28 @@ function IncomeList({
   const usersCollectionRef = collection(firestore, 'users');
 
   useEffect(() => {
-    const getUsers = async () => {
+    const getUser = async () => {
       const data = await getDocs(usersCollectionRef);
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
-    getUsers();
+
+    getUser();
   }, []);
+
+  useEffect(() => {
+    if (currentUser?.currentUser) {
+      const userDocRef = firestore
+        .collection('users')
+        .doc(currentUser.currentUser.uid);
+      const getUserData = async () => {
+        const userDoc = await userDocRef.get();
+        const userData = userDoc.data();
+        setIncomeList(userData.income.amount);
+        setTypeList(userData.income.type);
+      };
+      getUserData();
+    }
+  }, [currentUser]);
 
   const deleteAll = async () => {
     await deleteDoc(
@@ -37,11 +53,30 @@ function IncomeList({
     setTypeList([]);
   };
 
+  const deletePoint = async (index) => {
+    const updatedAmount = incomeList.filter((income, i) => i !== index);
+    const updatedType = typeList.filter((type, i) => i !== index);
+
+    await firestore
+      .collection('users')
+      .doc(currentUser.currentUser.uid)
+      .update({
+        income: {
+          amount: updatedAmount,
+          type: updatedType,
+        },
+      });
+
+    setIncomeList(updatedAmount);
+    setTypeList(updatedType);
+  };
+
   return (
     <ul>
       {incomeList?.map((income, index) => (
         <li key={index}>
           {income}${typeList[index]}
+          <button onClick={() => deletePoint(index)}>Delete this</button>
         </li>
       ))}
 

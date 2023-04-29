@@ -14,6 +14,18 @@ function App() {
   const [type, setType] = useState('');
   const [typeList, setTypeList] = useState([]);
 
+  const [users, setUsers] = useState([]);
+  const usersCollectionRef = collection(firestore, 'users');
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getUsers();
+  }, []);
+
   const totalIncome = useMemo(() => {
     return incomeList?.reduce((acc, item) => acc + parseFloat(item), 0);
   }, [incomeList]);
