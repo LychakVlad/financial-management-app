@@ -7,7 +7,7 @@ import styles from './TaxCalculator.module.css';
 
 function TaxCalculator({ totalIncome }) {
   const [filingStatus, setFilingStatus] = useState('single');
-  const [deductions, setDeductions] = useState('');
+  const [deductions, setDeductions] = useState('12500');
   const [totalTaxLiability, setTotalTaxLiability] = useState(0);
   const [stateTax, setStateTax] = useState(0);
   const [federalTax, setFederalTax] = useState(0);

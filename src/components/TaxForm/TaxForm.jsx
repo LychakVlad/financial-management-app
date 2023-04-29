@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function TaxForm({
   filingStatus,
@@ -7,6 +7,8 @@ function TaxForm({
   setDeductions,
   handleSubmit,
 }) {
+  const [useStandardDeduction, setUseStandardDeduction] = useState(true);
+
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="filingStatus">Filing status:</label>
@@ -19,13 +21,39 @@ function TaxForm({
         <option value="married">Married</option>
       </select>
 
-      <label htmlFor="deductions">Deductions:</label>
+      <label htmlFor="useStandardDeduction">Use standard deduction:</label>
       <input
-        type="number"
-        id="deductions"
-        value={deductions}
-        onChange={(event) => setDeductions(event.target.value)}
+        type="radio"
+        id="useStandardDeductionYes"
+        name="useStandardDeduction"
+        value="yes"
+        checked={useStandardDeduction}
+        onChange={() => setUseStandardDeduction(true)}
       />
+      <label htmlFor="useStandardDeductionYes">Yes</label>
+      <input
+        type="radio"
+        id="useStandardDeductionNo"
+        name="useStandardDeduction"
+        value="no"
+        checked={!useStandardDeduction}
+        onChange={() => setUseStandardDeduction(false)}
+      />
+      <label htmlFor="useStandardDeductionNo">No</label>
+
+      {useStandardDeduction ? (
+        <p>Standard deduction: $12,500</p>
+      ) : (
+        <>
+          <label htmlFor="deductions">Custom deductions:</label>
+          <input
+            type="number"
+            id="deductions"
+            value={deductions}
+            onChange={(event) => setDeductions(event.target.value)}
+          />
+        </>
+      )}
 
       <button type="submit">Calculate</button>
     </form>
