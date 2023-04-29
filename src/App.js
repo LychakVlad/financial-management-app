@@ -11,17 +11,8 @@ import { firestore } from './firebase';
 function App() {
   const [income, setIncome] = useState('');
   const [incomeList, setIncomeList] = useState([]);
-
-  const [users, setUsers] = useState([]);
-  const usersCollectionRef = collection(firestore, 'users');
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getUsers();
-  }, []);
+  const [type, setType] = useState('');
+  const [typeList, setTypeList] = useState([]);
 
   const totalIncome = useMemo(() => {
     return incomeList?.reduce((acc, item) => acc + parseFloat(item), 0);
@@ -35,6 +26,10 @@ function App() {
       <IncomeCounter
         income={income}
         setIncome={setIncome}
+        type={type}
+        setType={setType}
+        typeList={typeList}
+        setTypeList={setTypeList}
         setIncomeList={setIncomeList}
         incomeList={incomeList}
         totalIncome={totalIncome}

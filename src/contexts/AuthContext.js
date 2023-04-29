@@ -29,7 +29,9 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
-    return auth.signOut();
+    return auth.signOut().then(() => {
+      window.location.reload();
+    });
   }
 
   useEffect(() => {

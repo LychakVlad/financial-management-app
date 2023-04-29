@@ -9,8 +9,12 @@ import { useAuth } from '../../contexts/AuthContext';
 function IncomeCounter({
   income,
   setIncome,
+  type,
+  setType,
+  typeList,
+  setTypeList,
   setIncomeList,
-  incomeList = [], // initialize incomeList as an empty array
+  incomeList = [],
   totalIncome,
 }) {
   const { currentUser } = useAuth();
@@ -18,23 +22,35 @@ function IncomeCounter({
   const handleAddIncome = useCallback(
     async (e) => {
       if (Array.isArray(incomeList)) {
-        // check if incomeList is an array
         setIncomeList([...incomeList, income]);
+        setTypeList([...typeList, type]);
       } else {
         setIncomeList([income]);
+        setTypeList([type]);
       }
       setIncome('');
+      setType('');
 
       await setDoc(doc(firestore, 'users', currentUser?._delegate.uid), {
         income: {
-          amount: income,
-          type: null,
+          amount: [...incomeList, income],
+          type: [...typeList, type],
         },
       });
 
       console.log(incomeList);
     },
-    [incomeList, income, currentUser?._delegate.uid, setIncomeList]
+    [
+      incomeList,
+      income,
+      currentUser?._delegate.uid,
+      setIncomeList,
+      setIncome,
+      setType,
+      setTypeList,
+      type,
+      typeList,
+    ]
   );
 
   return (
@@ -42,9 +58,13 @@ function IncomeCounter({
       <IncomeForm
         income={income}
         setIncome={setIncome}
+        type={type}
+        setType={setType}
         handleAddIncome={handleAddIncome}
       />
       <IncomeList
+        typeList={typeList}
+        setTypeList={setTypeList}
         incomeList={incomeList}
         setIncomeList={setIncomeList}
         totalIncome={totalIncome}

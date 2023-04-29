@@ -1,38 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 
-function IncomeList({ incomeList, setIncomeList, totalIncome }) {
+function IncomeList({
+  typeList,
+  setTypeList,
+  incomeList,
+  setIncomeList,
+  totalIncome,
+}) {
   const currentUser = useAuth();
 
+  const [users, setUsers] = useState([]);
+  const usersCollectionRef = collection(firestore, 'users');
+
   useEffect(() => {
-    const getUserData = async () => {
-      const docRef = doc(
-        firestore,
-        'users',
-        currentUser.currentUser._delegate.uid
-      );
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setIncomeList(docSnap.data().income.amount);
-      } else {
-        console.log('No such document!');
-      }
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
+    getUsers();
+  }, []);
 
-    if (currentUser.currentUser) {
-      getUserData();
-    }
-  }, [currentUser, setIncomeList]);
+  const deleteAll = async () => {
+    await deleteDoc(
+      doc(firestore, 'users', currentUser?.currentUser._delegate.uid),
+      {
+        income: {
+          amount: null,
+          type: null,
+        },
+      }
+    );
+    setIncomeList([]);
+    setTypeList([]);
+  };
 
   return (
     <ul>
-      {incomeList?.map((item, index) => (
-        <li key={index}>{item + '$'}</li>
+      {incomeList?.map((income, index) => (
+        <li key={index}>
+          {income}${typeList[index]}
+        </li>
       ))}
+
       <p>Your total income: {totalIncome}</p>
+      <button
+        onClick={() => {
+          deleteAll();
+        }}
+      >
+        Delete all
+      </button>
     </ul>
   );
 }
