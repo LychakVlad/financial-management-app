@@ -11,6 +11,10 @@ function IncomeCounter({
   setIncome,
   type,
   setType,
+  date,
+  setDate,
+  dateList,
+  setDateList,
   typeList,
   setTypeList,
   setIncomeList,
@@ -19,28 +23,34 @@ function IncomeCounter({
 }) {
   const { currentUser } = useAuth();
 
+  let utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+
   const handleAddIncome = useCallback(
     async (e) => {
       if (Array.isArray(incomeList)) {
         setIncomeList([...incomeList, income]);
         setTypeList([...typeList, type]);
+        setDateList([...dateList, utc]);
       } else {
         setIncomeList([income]);
         setTypeList([type]);
+        setDate([utc]);
       }
       setIncome('');
       setType('');
+      setDate('');
 
       await setDoc(doc(firestore, 'users', currentUser?._delegate.uid), {
         income: {
           amount: [...incomeList, income],
           type: [...typeList, type],
+          date: [...dateList, utc],
         },
       });
 
-      // pass the updated incomeList and typeList as props to the IncomeList component
       setIncomeList([...incomeList, income]);
       setTypeList([...typeList, type]);
+      setDateList([...dateList, utc]);
     },
     [
       incomeList,
@@ -70,6 +80,8 @@ function IncomeCounter({
         incomeList={incomeList}
         setIncomeList={setIncomeList}
         totalIncome={totalIncome}
+        dateList={dateList}
+        setDateList={setDateList}
       />
     </div>
   );

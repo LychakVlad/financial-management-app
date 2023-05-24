@@ -9,6 +9,8 @@ function IncomeList({
   incomeList,
   setIncomeList,
   totalIncome,
+  dateList,
+  setDateList,
 }) {
   const currentUser = useAuth();
 
@@ -46,16 +48,19 @@ function IncomeList({
         income: {
           amount: null,
           type: null,
+          date: null,
         },
       }
     );
     setIncomeList([]);
     setTypeList([]);
+    setDateList([]);
   };
 
   const deletePoint = async (index) => {
     const updatedAmount = incomeList.filter((income, i) => i !== index);
     const updatedType = typeList.filter((type, i) => i !== index);
+    const updatedDate = dateList.filter((type, i) => i !== index);
 
     await firestore
       .collection('users')
@@ -64,11 +69,13 @@ function IncomeList({
         income: {
           amount: updatedAmount,
           type: updatedType,
+          date: updatedDate,
         },
       });
 
     setIncomeList(updatedAmount);
     setTypeList(updatedType);
+    setDateList(updatedDate);
   };
 
   return (
@@ -76,6 +83,7 @@ function IncomeList({
       {incomeList?.map((income, index) => (
         <li key={index}>
           {income}${typeList[index]}
+          {dateList[index]}
           <button onClick={() => deletePoint(index)}>Delete this</button>
         </li>
       ))}

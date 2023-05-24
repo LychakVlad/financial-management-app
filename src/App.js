@@ -13,6 +13,8 @@ function App() {
   const [incomeList, setIncomeList] = useState([]);
   const [type, setType] = useState('');
   const [typeList, setTypeList] = useState([]);
+  const [date, setDate] = useState('');
+  const [dateList, setDateList] = useState([]);
 
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(firestore, 'users');
@@ -44,6 +46,10 @@ function App() {
         setTypeList={setTypeList}
         setIncomeList={setIncomeList}
         incomeList={incomeList}
+        date={date}
+        setDate={setDate}
+        dateList={dateList}
+        setDateList={setDateList}
         totalIncome={totalIncome}
       />
       <TaxCalculator totalIncome={totalIncome} />
