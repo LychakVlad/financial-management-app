@@ -5,6 +5,7 @@ import styles from './IncomeCounter.module.css';
 import { doc, setDoc } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import { useAuth } from '../../contexts/AuthContext';
+import createStore from 'redux';
 
 function IncomeCounter({
   income,
