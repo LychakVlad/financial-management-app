@@ -15,8 +15,8 @@ function App() {
   const [typeList, setTypeList] = useState([]);
   const [date, setDate] = useState('');
   const [dateList, setDateList] = useState([]);
-
   const [users, setUsers] = useState([]);
+
   const usersCollectionRef = collection(firestore, 'users');
 
   useEffect(() => {
