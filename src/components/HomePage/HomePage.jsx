@@ -1,29 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './HomePage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  addIncomeAction,
+  removeIncomeAction,
+} from '../../store/actions/incomeActions';
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const cash = useSelector((state) => state.cash.cash);
-  const customers = useSelector((state) => state.customers.customers);
+  const [incomeItem, setIncomeItem] = useState({
+    amount: '',
+    type: '',
+  });
 
-  const addCash = () => {
-    dispatch({ type: 'ADD_CASH', payload: 5 });
+  const incomes = useSelector((state) => state.incomes.incomes);
+
+  const formatDate = (date) => {
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
   };
 
-  const getCash = () => {
-    dispatch({ type: 'GET_CASH', payload: 5 });
-  };
-
-  const addCustomer = (name) => {
-    const customer = {
-      name,
+  const addIncome = (amount, type) => {
+    const income = {
+      amount: incomeItem.amount,
+      type: incomeItem.type,
+      date: formatDate(new Date()),
       id: Date.now(),
     };
-    dispatch({ type: 'ADD_CUSTOMER', payload: customer });
+    dispatch(addIncomeAction(income));
+    setIncomeItem({ amount: '', type: '' });
   };
 
-  console.log(customers);
+  const removeIncome = (income) => {
+    dispatch(removeIncomeAction(income.id));
+  };
 
   return (
     <div className={styles.main}>
@@ -34,18 +46,42 @@ const HomePage = () => {
           Get started
         </a>
       </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          addIncome();
+        }}
+      >
+        <input
+          type="number"
+          name="amount"
+          value={incomeItem.amount}
+          placeholder="Amount"
+          onChange={(e) =>
+            setIncomeItem({ ...incomeItem, amount: e.target.value })
+          }
+        />
+        <input
+          type="text"
+          name="type"
+          value={incomeItem.type}
+          placeholder="Type"
+          onChange={(e) =>
+            setIncomeItem({ ...incomeItem, type: e.target.value })
+          }
+        />
+        <button type="submit">Submit</button>
+      </form>
       <div>
-        {cash}
-        <button onClick={() => addCash()}>Plus</button>
-        <button onClick={() => getCash()}>Minus</button>
-        <button onClick={() => addCustomer(prompt())}>PlusCust</button>
-        <button onClick={() => getCash()}>MinusCust</button>
-      </div>
-      <div>
-        {customers.length > 0 ? (
+        {incomes.length > 0 ? (
           <div>
-            {customers.map((customer) => (
-              <div>{customer.name}</div>
+            {incomes.map((income) => (
+              <>
+                {' '}
+                <div>{income.amount}</div> <div>{income.type}</div>
+                <div>{income.date}</div>{' '}
+                <button onClick={() => removeIncome(income)}>Delete</button>
+              </>
             ))}
           </div>
         ) : (

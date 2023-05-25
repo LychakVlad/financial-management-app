@@ -3,8 +3,7 @@ import { cashReducer } from './reducers/cashReducer';
 import { incomeReducer } from './reducers/IncomeReducer';
 
 const rootReducer = combineReducers({
-  cash: cashReducer,
-  customers: incomeReducer,
+  incomes: incomeReducer,
 });
 
 export default configureStore({
