@@ -28,10 +28,6 @@ function App() {
     getUsers();
   }, []);
 
-  const totalIncome = useMemo(() => {
-    return incomeList?.reduce((acc, item) => acc + parseFloat(item), 0);
-  }, [incomeList]);
-
   return (
     <div className={styles.container}>
       <Header />
@@ -50,9 +46,8 @@ function App() {
         setDate={setDate}
         dateList={dateList}
         setDateList={setDateList}
-        totalIncome={totalIncome}
       />
-      <TaxCalculator totalIncome={totalIncome} />
+      <TaxCalculator />
     </div>
   );
 }

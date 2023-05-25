@@ -1,17 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { firestore } from '../../firebase';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeIncomeAction } from '../../store/actions/incomeActions';
 
 function IncomeList({
   typeList,
   setTypeList,
   incomeList,
   setIncomeList,
-  totalIncome,
   dateList,
   setDateList,
 }) {
+  const incomes = useSelector((state) => state.incomes.incomes);
+  const dispatch = useDispatch();
+
+  console.log(incomes);
+
+  const totalIncome = useMemo(() => {
+    return incomes.reduce((n, { amount }) => n + Number(amount), 0);
+  }, [incomes]);
+
+  const removeIncome = (income) => {
+    dispatch(removeIncomeAction(income.id));
+  };
   const currentUser = useAuth();
 
   const [users, setUsers] = useState([]);
@@ -80,13 +93,19 @@ function IncomeList({
 
   return (
     <ul>
-      {incomeList?.map((income, index) => (
-        <li key={index}>
-          {income}${typeList[index]}
-          {dateList[index]}
-          <button onClick={() => deletePoint(index)}>Delete this</button>
-        </li>
-      ))}
+      {incomes.length > 0 ? (
+        <div>
+          {incomes.map((income) => (
+            <>
+              <div>{income.amount}</div> <div>{income.type}</div>
+              <div>{income.date}</div>
+              <button onClick={() => removeIncome(income)}>Delete</button>
+            </>
+          ))}
+        </div>
+      ) : (
+        <div>No income yet...</div>
+      )}
 
       <p>Your total income: {totalIncome}</p>
       <button
