@@ -9,12 +9,6 @@ import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from './firebase';
 
 function App() {
-  const [income, setIncome] = useState('');
-  const [incomeList, setIncomeList] = useState([]);
-  const [type, setType] = useState('');
-  const [typeList, setTypeList] = useState([]);
-  const [date, setDate] = useState('');
-  const [dateList, setDateList] = useState([]);
   const [users, setUsers] = useState([]);
 
   const usersCollectionRef = collection(firestore, 'users');
@@ -33,20 +27,7 @@ function App() {
       <Header />
       <Login />
       <HomePage />
-      <IncomeCounter
-        income={income}
-        setIncome={setIncome}
-        type={type}
-        setType={setType}
-        typeList={typeList}
-        setTypeList={setTypeList}
-        setIncomeList={setIncomeList}
-        incomeList={incomeList}
-        date={date}
-        setDate={setDate}
-        dateList={dateList}
-        setDateList={setDateList}
-      />
+      <IncomeCounter />
       <TaxCalculator />
     </div>
   );

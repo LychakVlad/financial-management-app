@@ -1,30 +1,20 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import firebase from 'firebase/compat/app';
 import { firestore } from '../../firebase';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeIncomeAction } from '../../store/actions/incomeActions';
+import {
+  removeIncomeAction,
+  updateIncomeAction,
+} from '../../store/actions/incomeActions';
 
-function IncomeList({
-  typeList,
-  setTypeList,
-  incomeList,
-  setIncomeList,
-  dateList,
-  setDateList,
-}) {
-  const incomes = useSelector((state) => state.incomes.incomes);
+function IncomeList() {
+  const incomes = useSelector((state) => state.incomes.incomes || []);
   const dispatch = useDispatch();
 
-  console.log(incomes);
+  const totalIncome = incomes.reduce((n, { amount }) => n + Number(amount), 0);
 
-  const totalIncome = useMemo(() => {
-    return incomes.reduce((n, { amount }) => n + Number(amount), 0);
-  }, [incomes]);
-
-  const removeIncome = (income) => {
-    dispatch(removeIncomeAction(income.id));
-  };
   const currentUser = useAuth();
 
   const [users, setUsers] = useState([]);
@@ -41,54 +31,39 @@ function IncomeList({
 
   useEffect(() => {
     if (currentUser?.currentUser) {
-      const userDocRef = firestore
-        .collection('users')
-        .doc(currentUser.currentUser.uid);
-      const getUserData = async () => {
+      const fetchData = async () => {
+        const userId = currentUser.currentUser.uid;
+        const userDocRef = firestore.collection('users').doc(userId);
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
-        setIncomeList(userData.income.amount);
-        setTypeList(userData.income.type);
+        dispatch(updateIncomeAction(userData?.incomes || []));
       };
-      getUserData();
+
+      fetchData();
     }
-  }, [currentUser]);
+  }, [currentUser, dispatch]);
 
   const deleteAll = async () => {
     await deleteDoc(
-      doc(firestore, 'users', currentUser?.currentUser._delegate.uid),
+      doc(firestore, 'users', currentUser?.currentUser?._delegate?.uid),
       {
-        income: {
-          amount: null,
-          type: null,
-          date: null,
-        },
+        incomes: [],
       }
     );
-    setIncomeList([]);
-    setTypeList([]);
-    setDateList([]);
+    dispatch(updateIncomeAction([]));
   };
 
-  const deletePoint = async (index) => {
-    const updatedAmount = incomeList.filter((income, i) => i !== index);
-    const updatedType = typeList.filter((type, i) => i !== index);
-    const updatedDate = dateList.filter((type, i) => i !== index);
+  const deletePoint = async (income) => {
+    const userId = currentUser?.currentUser?.uid;
 
     await firestore
       .collection('users')
-      .doc(currentUser.currentUser.uid)
+      .doc(userId)
       .update({
-        income: {
-          amount: updatedAmount,
-          type: updatedType,
-          date: updatedDate,
-        },
+        incomes: firebase.firestore.FieldValue.arrayRemove(income),
       });
 
-    setIncomeList(updatedAmount);
-    setTypeList(updatedType);
-    setDateList(updatedDate);
+    dispatch(removeIncomeAction(income.id));
   };
 
   return (
@@ -96,11 +71,12 @@ function IncomeList({
       {incomes.length > 0 ? (
         <div>
           {incomes.map((income) => (
-            <>
-              <div>{income.amount}</div> <div>{income.type}</div>
+            <div key={income.id}>
+              <div>{income.amount}</div>
+              <div>{income.type}</div>
               <div>{income.date}</div>
-              <button onClick={() => removeIncome(income)}>Delete</button>
-            </>
+              <button onClick={() => deletePoint(income)}>Delete</button>
+            </div>
           ))}
         </div>
       ) : (
@@ -108,13 +84,7 @@ function IncomeList({
       )}
 
       <p>Your total income: {totalIncome}</p>
-      <button
-        onClick={() => {
-          deleteAll();
-        }}
-      >
-        Delete all
-      </button>
+      <button onClick={deleteAll}>Delete all</button>
     </ul>
   );
 }
