@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { formatDate } from '../../hooks/dateFormat';
+import { formatDate } from '../../utils/dateFormat';
 import { addIncomeAction } from '../../store/actions/incomeActions';
 import { doc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../../contexts/AuthContext';

@@ -12,9 +12,7 @@ import { federalTaxRates, virginiaTaxRates } from '../../data/taxRates';
 function TaxForm() {
   const [useStandardDeduction, setUseStandardDeduction] = useState(true);
   const totalIncome = useSelector((state) => state.incomes.totalIncome);
-  const { filingStatus, deductions, stateTax, federalTax } = useSelector(
-    (state) => state.taxes
-  );
+  const { filingStatus, deductions } = useSelector((state) => state.taxes);
   const dispatch = useDispatch();
 
   const calculateTaxLiability = () => {
@@ -31,7 +29,7 @@ function TaxForm() {
           const taxableIncome = Math.min(remainingIncome, value.limit);
           taxLiability += taxableIncome * (value.rate / 100);
           remainingIncome -= taxableIncome;
-          dispatch(func(taxLiability));
+          dispatch(func(value.rate));
         } else {
           break;
         }

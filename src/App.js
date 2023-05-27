@@ -25,7 +25,6 @@ function App() {
   return (
     <div className={styles.container}>
       <Header />
-      <Login />
       <HomePage />
       <IncomeCounter />
       <TaxCalculator />
