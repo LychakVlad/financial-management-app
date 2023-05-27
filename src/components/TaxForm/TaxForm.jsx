@@ -1,13 +1,74 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setTotalTaxLiabilityAction,
+  setFilingStatusAction,
+  setDeductionsAction,
+  setStateTaxAction,
+  setFederalTaxAction,
+} from '../../store/actions/taxActions';
+import { federalTaxRates, virginiaTaxRates } from '../../data/taxRates';
 
-function TaxForm({
-  filingStatus,
-  setFilingStatus,
-  deductions,
-  setDeductions,
-  handleSubmit,
-}) {
+function TaxForm() {
   const [useStandardDeduction, setUseStandardDeduction] = useState(true);
+  const totalIncome = useSelector((state) => state.incomes.totalIncome);
+  const { filingStatus, deductions, stateTax, federalTax } = useSelector(
+    (state) => state.taxes
+  );
+  const dispatch = useDispatch();
+
+  const calculateTaxLiability = () => {
+    const deductionsNum = deductions ? parseFloat(deductions) : 0;
+
+    const calculateTaxLiabilityForBracket = (
+      bracket,
+      remainingIncome,
+      func
+    ) => {
+      let taxLiability = 0;
+      for (const [key, value] of Object.entries(bracket)) {
+        if (remainingIncome > 0) {
+          const taxableIncome = Math.min(remainingIncome, value.limit);
+          taxLiability += taxableIncome * (value.rate / 100);
+          remainingIncome -= taxableIncome;
+          dispatch(func(taxLiability));
+        } else {
+          break;
+        }
+      }
+      return taxLiability;
+    };
+
+    const virginiaTaxBrackets = virginiaTaxRates[filingStatus];
+    let remainingIncome = totalIncome - deductionsNum;
+    const virginiaTaxLiability = calculateTaxLiabilityForBracket(
+      virginiaTaxBrackets,
+      remainingIncome,
+      setStateTaxAction
+    );
+
+    const federalTaxBrackets = federalTaxRates[filingStatus];
+    remainingIncome = totalIncome - deductionsNum;
+    const federalTaxLiability = calculateTaxLiabilityForBracket(
+      federalTaxBrackets,
+      remainingIncome,
+      setFederalTaxAction
+    );
+
+    const ficaTaxLiability = totalIncome * (7.65 / 100);
+
+    const totalTaxLiability =
+      virginiaTaxLiability + federalTaxLiability + ficaTaxLiability;
+
+    return totalTaxLiability.toFixed(2);
+  };
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const taxLiability = calculateTaxLiability();
+    dispatch(setTotalTaxLiabilityAction(taxLiability));
+    console.log(taxLiability);
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -15,7 +76,9 @@ function TaxForm({
       <select
         id="filingStatus"
         value={filingStatus}
-        onChange={(event) => setFilingStatus(event.target.value)}
+        onChange={(event) =>
+          dispatch(setFilingStatusAction(event.target.value))
+        }
       >
         <option value="single">Single</option>
         <option value="married">Married</option>
@@ -50,7 +113,7 @@ function TaxForm({
             type="number"
             id="deductions"
             value={deductions}
-            onChange={(event) => setDeductions(event.target.value)}
+            onChange={(event) => setDeductionsAction(event.target.value)}
           />
         </>
       )}

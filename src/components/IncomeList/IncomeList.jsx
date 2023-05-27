@@ -11,9 +11,8 @@ import {
 
 function IncomeList() {
   const incomes = useSelector((state) => state.incomes.incomes || []);
+  const totalIncome = useSelector((state) => state.incomes.totalIncome);
   const dispatch = useDispatch();
-
-  const totalIncome = incomes.reduce((n, { amount }) => n + Number(amount), 0);
 
   const currentUser = useAuth();
 
