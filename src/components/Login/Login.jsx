@@ -35,6 +35,8 @@ const Login = () => {
     console.log(emailError);
     if (emailValue === '') {
       dispatch(updateEmailError('Incorrect email'));
+    } else {
+      dispatch(updateEmailError(''));
     }
   };
 
@@ -46,17 +48,17 @@ const Login = () => {
           id="email"
           label="E-mail"
           type="email"
-          required
           inputRef={emailRef}
           autoComplete="email"
-          helperText={emailError}
           error={emailError}
-          value={emailValue} // Track the value using the emailValue state
-          onChange={(e) => setEmailValue(e.target.value)} // Update the emailValue state on input change
+          helperText={emailError ? emailError : ' '}
+          value={emailValue}
+          onChange={(e) => setEmailValue(e.target.value)}
+          required
         ></TextField>
         <TextField
-          id="password-confirm"
-          label="Password Confirm"
+          id="password"
+          label="Password"
           type="password"
           required
           inputRef={passwordRef}
