@@ -111,7 +111,9 @@ function TaxForm() {
             type="number"
             id="deductions"
             value={deductions}
-            onChange={(event) => setDeductionsAction(event.target.value)}
+            onChange={(event) =>
+              dispatch(setDeductionsAction(event.target.value))
+            }
           />
         </>
       )}

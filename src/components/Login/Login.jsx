@@ -3,6 +3,8 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Button, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateEmailError } from '../../store/actions/errorActions';
+import styles from './Login.module.css';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const emailRef = useRef();
@@ -10,6 +12,7 @@ const Login = () => {
   const { login } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const history = useNavigate();
 
   const emailError = useSelector((state) => state.errors.email);
   const [emailValue, setEmailValue] = useState('');
@@ -23,6 +26,7 @@ const Login = () => {
       setError('');
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
+      history('/');
     } catch {
       setError('Failed to sign in');
     }
@@ -41,9 +45,9 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className={styles.main}>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <TextField
           id="email"
           label="E-mail"
@@ -72,6 +76,10 @@ const Login = () => {
         >
           Log in
         </Button>
+        <div>
+          Don't have an account?
+          <Link to="/signup">Sign up</Link>
+        </div>
       </form>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Button, TextField } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const emailRef = useRef();
@@ -10,6 +11,7 @@ const SignUp = () => {
   const { logout } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const history = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -21,6 +23,7 @@ const SignUp = () => {
       setError('');
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
+      history('/');
     } catch {
       setError('Failed to create an account');
     }
@@ -73,6 +76,10 @@ const SignUp = () => {
       <Button variant="outlined" onClick={handleLogout}>
         Log out
       </Button>
+      <div>
+        Already have an account?
+        <Link to="/login">Log in</Link>
+      </div>
     </div>
   );
 };

@@ -1,12 +1,10 @@
-import HomePage from './components/HomePage/HomePage';
-import TaxCalculator from './components/TaxCalculator/TaxCalculator';
-import styles from './App.module.css';
-import IncomeCounter from './components/IncomeCounter/IncomeCounter';
-import { useState, useMemo, useEffect } from 'react';
-import Header from './components/Header/Header';
-import Login from './components/Login/Login';
+import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from './firebase';
+import { BrowserRoute, Routes, Route, BrowserRouter } from 'react-router-dom';
+import MainPage from './pages/MainPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -23,12 +21,13 @@ function App() {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <Header />
-      <HomePage />
-      <IncomeCounter />
-      <TaxCalculator />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<MainPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
