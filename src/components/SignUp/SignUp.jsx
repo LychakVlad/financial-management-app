@@ -7,8 +7,7 @@ const SignUp = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
-  const { logout } = useAuth();
+  const { signup, logout } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useNavigate();
@@ -36,6 +35,7 @@ const SignUp = () => {
 
     try {
       await logout();
+      history('/login');
     } catch {
       setError('Failed to logout');
     }
