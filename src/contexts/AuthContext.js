@@ -25,9 +25,7 @@ export function AuthProvider({ children }) {
   }
 
   function login(email, password) {
-    return auth.signInWithEmailAndPassword(email, password).then(() => {
-      window.location.reload();
-    });
+    return auth.signInWithEmailAndPassword(email, password).then(() => {});
   }
 
   function logout() {

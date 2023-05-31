@@ -14,11 +14,6 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const history = useNavigate();
 
-  const emailError = useSelector((state) => state.errors.email);
-  const [emailValue, setEmailValue] = useState('');
-
-  const dispatch = useDispatch();
-
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -28,21 +23,11 @@ const Login = () => {
       await login(emailRef.current.value, passwordRef.current.value);
       history('/');
     } catch {
-      setError('Failed to sign in');
+      setError('Failed to sign up');
     }
 
     setLoading(false);
   }
-
-  const handleClick = () => {
-    console.log(emailValue);
-    console.log(emailError);
-    if (emailValue === '') {
-      dispatch(updateEmailError('Incorrect email'));
-    } else {
-      dispatch(updateEmailError(''));
-    }
-  };
 
   return (
     <div className={styles.main}>
@@ -54,10 +39,6 @@ const Login = () => {
           type="email"
           inputRef={emailRef}
           autoComplete="email"
-          error={emailError}
-          helperText={emailError ? emailError : ' '}
-          value={emailValue}
-          onChange={(e) => setEmailValue(e.target.value)}
           required
         ></TextField>
         <TextField
@@ -66,14 +47,8 @@ const Login = () => {
           type="password"
           required
           inputRef={passwordRef}
-          helperText={error}
         ></TextField>
-        <Button
-          variant="contained"
-          disabled={loading}
-          type="submit"
-          onClick={handleClick}
-        >
+        <Button variant="contained" disabled={loading} type="submit">
           Log in
         </Button>
         <div>

@@ -17,7 +17,7 @@ const SignUp = () => {
     e.preventDefault();
 
     if (passwordConfirmRef.current.value !== passwordRef.current.value) {
-      return setError('Password do not match');
+      return setError('Passwords do not match');
     }
     try {
       setError('');
