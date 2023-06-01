@@ -25,6 +25,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
+          index
           path="/"
           element={
             <PrivateRoute>
