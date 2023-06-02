@@ -1,10 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { Button, TextField } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateEmailError } from '../../store/actions/errorActions';
+import { Button } from '@mui/material';
 import styles from './Login.module.css';
 import { Link, useNavigate } from 'react-router-dom';
+import CustomInput from '../form/Input/CustomInput';
 
 const Login = () => {
   const emailRef = useRef();
@@ -33,21 +32,8 @@ const Login = () => {
     <div className={styles.main}>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit} className={styles.form}>
-        <TextField
-          id="email"
-          label="E-mail"
-          type="email"
-          inputRef={emailRef}
-          autoComplete="email"
-          required
-        ></TextField>
-        <TextField
-          id="password"
-          label="Password"
-          type="password"
-          required
-          inputRef={passwordRef}
-        ></TextField>
+        <CustomInput label="E-mail" type="email" inputRef={emailRef} />
+        <CustomInput label="Password" type="password" inputRef={passwordRef} />
         <Button variant="contained" disabled={loading} type="submit">
           Log in
         </Button>
