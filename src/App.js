@@ -6,6 +6,7 @@ import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import PrivateRoute from './pages/PrivateRoute';
+import './index.css';
 
 function App() {
   const [users, setUsers] = useState([]);

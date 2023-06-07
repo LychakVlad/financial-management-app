@@ -1,20 +1,71 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { updateEmailError } from '../../../store/actions/errorActions';
+import React, { useState, useEffect } from 'react';
+import styles from './CustomInput.module.css';
 
-const CustomInput = ({ label, type, inputRef }) => {
-  const dispatch = useDispatch();
+const CustomInput = React.memo(
+  ({
+    value,
+    label,
+    inputRef,
+    name,
+    placeholder,
+    type,
+    onChange,
+    required,
+    error,
+    description,
+    maxLength,
+    test,
+    testError,
+  }) => {
+    const [isFilled, setIsFilled] = useState(false);
 
-  const handleInputChange = (e) => {
-    dispatch(updateEmailError(e.target.value));
-  };
+    useEffect(() => {
+      setIsFilled(!!value);
+    }, [value]);
 
-  return (
-    <div>
-      <label>{label}</label>
-      <input type={type} ref={inputRef} onChange={handleInputChange} required />
-    </div>
-  );
-};
+    const handleClearInput = () => {
+      onChange({ target: { name, value: '' } });
+    };
+
+    return (
+      <div>
+        <div className={styles.inp}>
+          <input
+            type={type}
+            value={value}
+            name={name}
+            id={name}
+            ref={inputRef}
+            placeholder={placeholder}
+            onChange={onChange}
+            required={required}
+            maxLength={maxLength}
+            data-testid={test ? test : undefined}
+          />
+
+          {label && (
+            <label htmlFor={name} className={styles.label}>
+              {label}
+            </label>
+          )}
+          {isFilled && (
+            <span className="cross-icon" onClick={handleClearInput}>
+              Close
+            </span>
+          )}
+        </div>
+        {description && <div className="input-description">{description}</div>}
+        {error && (
+          <div
+            className="error-message"
+            data-testid={testError ? testError : undefined}
+          >
+            {error}
+          </div>
+        )}
+      </div>
+    );
+  }
+);
 
 export default CustomInput;
