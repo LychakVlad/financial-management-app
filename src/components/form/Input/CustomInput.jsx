@@ -29,14 +29,14 @@ const CustomInput = React.memo(
 
     return (
       <div>
-        <div className={styles.inp}>
+        <lable className={styles.inp}>
           <input
             type={type}
             value={value}
             name={name}
             id={name}
             ref={inputRef}
-            placeholder={placeholder}
+            placeholder="&nbsp;"
             onChange={onChange}
             required={required}
             maxLength={maxLength}
@@ -44,16 +44,16 @@ const CustomInput = React.memo(
           />
 
           {label && (
-            <label htmlFor={name} className={styles.label}>
+            <span htmlFor={name} className={styles.label}>
               {label}
-            </label>
+            </span>
           )}
           {isFilled && (
             <span className="cross-icon" onClick={handleClearInput}>
               Close
             </span>
           )}
-        </div>
+        </lable>
         {description && <div className="input-description">{description}</div>}
         {error && (
           <div

@@ -32,8 +32,8 @@ const Login = () => {
 
   return (
     <div className={styles.main}>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit} className={styles.form}>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <CustomInput
           label="E-mail"
           type="text"

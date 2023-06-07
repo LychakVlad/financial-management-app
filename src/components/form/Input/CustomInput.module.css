@@ -2,62 +2,59 @@
   position: relative;
   margin: auto;
   width: 100%;
-  max-width: 280px;
-  border-radius: 3px;
+  max-width: 300px;
   overflow: hidden;
-  pointer-events: none;
+  display: flex;
 }
 .inp .label {
   position: absolute;
-  top: 64%;
+  bottom: 16px;
   left: 12px;
-  font-size: 26px;
-  color: rgba(0, 0, 0, 0.5);
+  font-size: 24px;
+  color: #8488b7;
   font-weight: 500;
   transform-origin: 0 0;
   transform: translate3d(0, 0, 0);
   transition: all 0.2s ease;
   pointer-events: none;
 }
+
 .inp input {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
+  max-width: 300px;
   border: 0;
   font-family: inherit;
-  padding: 16px 12px 0 12px;
-  height: 56px;
+  padding: 16px 0px 0 12px;
+  height: 44px;
   font-size: 16px;
   font-weight: 400;
-  background: rgba(0, 0, 0, 0.02);
-  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  background: #f4f6f8;
+  border: 1px solid #f4f6f8;
   color: #000;
   transition: all 0.15s ease;
-  pointer-events: all;
+  border-radius: 12px;
+  padding-right: -12px;
 }
 .inp input:hover {
   background: rgba(0, 0, 0, 0.04);
-
-  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  border: 1px solid #2e8b43;
 }
 .inp input:not(:placeholder-shown) + .label {
   color: rgba(0, 0, 0, 0.5);
-
-  transform: translate3d(0, -12px, 0) scale(0.75);
+  transform: translate3d(0, -10px, 0) scale(0.6);
 }
 .inp input:focus {
   background: rgba(0, 0, 0, 0.05);
   outline: none;
-  box-shadow: inset 0 -2px 0 #0077ff;
+  border: 1px solid #2e8b43;
 }
 .inp input:focus + .label {
-  color: #0077ff;
-  top: 30%;
-  font-size: 20px;
-  transform: translate3d(0, -12px, 0) scale(0.75);
+  color: #2e8b43;
+  transform: translate3d(0, -10px, 0) scale(0.6);
 }
 .inp input:focus + .label + .focus-bg {
   transform: scaleX(1);
-
   transition: all 0.1s ease;
 }

@@ -1,10 +1,11 @@
 import React from 'react';
+import styles from './CustomButton.module.css';
 
 const CustomButton = ({ style, disabled, type, onClick, title, test }) => {
   return (
     <button
       data-testid={test ? test : undefined}
-      className={`button ${style}`}
+      className={styles.btn}
       onClick={onClick}
       type={type}
     >
