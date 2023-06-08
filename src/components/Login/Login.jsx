@@ -50,7 +50,7 @@ const Login = () => {
         />
         <CustomButton disabled={loading} type="submit" title="Log in" />
 
-        <div>
+        <div className={styles.link}>
           Don't have an account?
           <Link to="/signup">Sign up</Link>
         </div>

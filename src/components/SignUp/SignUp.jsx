@@ -1,7 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { Button, TextField } from '@mui/material';
+import styles from './SignUp.module.css';
 import { Link, useNavigate } from 'react-router-dom';
+import CustomInput from '../form/Input/CustomInput';
+import CustomButton from '../form/Button/CustomButton';
 
 const SignUp = () => {
   const emailRef = useRef();
@@ -42,41 +44,39 @@ const SignUp = () => {
   }
 
   return (
-    <div>
+    <div className={styles.main}>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <TextField
-          id="email"
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <CustomInput
           label="E-mail"
-          type="email"
-          required
+          type="text"
           inputRef={emailRef}
-          helperText={error}
-        ></TextField>
-        <TextField
-          id="password"
+          name="email"
+          required
+        />
+        <CustomInput
           label="Password"
           type="password"
-          required
           inputRef={passwordRef}
-          helperText={error}
-        ></TextField>
-        <TextField
-          id="password-confirm"
-          label="Password Confirm"
-          type="password"
+          name="password"
           required
+        />
+        <CustomInput
+          label="Password confirm"
+          type="password"
           inputRef={passwordConfirmRef}
-          helperText={error}
-        ></TextField>
-        <Button variant="contained" type="submit" disabled={loading}>
-          Sign up
-        </Button>
+          name="password-confirm"
+          required
+        />
+        <CustomButton disabled={loading} type="submit" title="Sign Up" />
+        <CustomButton
+          disabled={loading}
+          type="submit"
+          title="Log out"
+          onClick={handleLogout}
+        />
       </form>
-      <Button variant="outlined" onClick={handleLogout}>
-        Log out
-      </Button>
-      <div>
+      <div className={styles.link}>
         Already have an account?
         <Link to="/login">Log in</Link>
       </div>

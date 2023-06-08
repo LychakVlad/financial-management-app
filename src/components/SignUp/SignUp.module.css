@@ -1,0 +1,41 @@
+.main {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.link a {
+  text-decoration: none;
+  color: #8488b7;
+  font-weight: 700;
+
+  transition: opacity 0.3s ease;
+}
+
+.link a:hover {
+  opacity: 0.7;
+  text-decoration: underline;
+}
+
+.link a:active {
+  opacity: 0.5;
+}
