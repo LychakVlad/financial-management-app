@@ -9,15 +9,13 @@ import PrivateRoute from './pages/PrivateRoute';
 import './index.css';
 import TaxCalculator from './components/TaxCalculator/TaxCalculator';
 import IncomeCounter from './components/IncomeCounter/IncomeCounter';
-import Header from './components/Header/Header';
-import SideBar from './components/SideBar/SideBar';
-import { useAuth } from './contexts/AuthContext';
+import BudgetPlanner from './components/BudgetPlanner/BudgetPlanner';
+import ExpenseTracker from './components/ExpenseTracker/ExpenseTracker';
 
 function App() {
   const [users, setUsers] = useState([]);
 
   const usersCollectionRef = collection(firestore, 'users');
-  const { currentUser } = useAuth();
 
   useEffect(() => {
     const getUsers = async () => {
@@ -30,49 +28,63 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div>
-        {!currentUser && <Header />}
-        <div style={{ display: 'flex' }}>
-          {!currentUser && <SideBar />}
-          <div style={{ flex: 1 }}>
-            <Routes>
-              <Route
-                index
-                path="/"
-                element={
-                  <PrivateRoute>
-                    <MainPage />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                index
-                path="/income-tracker"
-                element={
-                  <PrivateRoute>
-                    <MainPage>
-                      <IncomeCounter />
-                    </MainPage>
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                index
-                path="/tax-calculator"
-                element={
-                  <PrivateRoute>
-                    <MainPage>
-                      <TaxCalculator />
-                    </MainPage>
-                  </PrivateRoute>
-                }
-              />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignupPage />} />
-            </Routes>
-          </div>
-        </div>
-      </div>
+      <Routes>
+        <Route
+          index
+          path="/"
+          element={
+            <PrivateRoute>
+              <MainPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          index
+          path="/income-tracker"
+          element={
+            <PrivateRoute>
+              <MainPage>
+                <IncomeCounter />
+              </MainPage>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          index
+          path="/tax-calculator"
+          element={
+            <PrivateRoute>
+              <MainPage>
+                <TaxCalculator />
+              </MainPage>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          index
+          path="/expense-tracker"
+          element={
+            <PrivateRoute>
+              <MainPage>
+                <ExpenseTracker />
+              </MainPage>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          index
+          path="/budget-planner"
+          element={
+            <PrivateRoute>
+              <MainPage>
+                <BudgetPlanner />
+              </MainPage>
+            </PrivateRoute>
+          }
+        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+      </Routes>
     </BrowserRouter>
   );
 }

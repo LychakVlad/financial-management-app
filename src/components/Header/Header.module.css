@@ -8,9 +8,8 @@
   font-weight: 600;
   font-size: 24px;
   line-height: 32px;
-  /* identical to box height, or 133% */
-
-  /* Dark Quiz */
 
   color: #3f4765;
+  border-bottom: 2px solid #eceff9;
+  box-shadow: -24px 0px 80px rgba(49, 79, 124, 0.02);
 }
