@@ -1,0 +1,13 @@
+.side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 256px;
+  height: calc(100vh - 92px);
+}
+.menu {
+  padding: 16px;
+}
+.logout {
+  padding: 16px;
+}

@@ -1,18 +1,15 @@
 import React from 'react';
 import Header from '../components/Header/Header';
-import HomePage from '../components/HomePage/HomePage';
-import ExpenseTracker from '../components/ExpenseTracker/ExpenseTracker';
-import IncomeCounter from '../components/IncomeCounter/IncomeCounter';
-import TaxCalculator from '../components/TaxCalculator/TaxCalculator';
+import SideBar from '../components/SideBar/SideBar';
 
-const MainPage = () => {
+const MainPage = ({ children }) => {
   return (
     <>
       <Header />
-      <HomePage />
-      <ExpenseTracker />
-      <IncomeCounter />
-      <TaxCalculator />
+      <div style={{ display: 'flex' }}>
+        <SideBar />
+        <div style={{ flex: 1 }}>{children}</div>
+      </div>
     </>
   );
 };

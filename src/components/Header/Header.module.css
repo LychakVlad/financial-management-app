@@ -1,0 +1,16 @@
+.header {
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  /* identical to box height, or 133% */
+
+  /* Dark Quiz */
+
+  color: #3f4765;
+}
