@@ -1,0 +1,21 @@
+.title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 32px;
+
+  color: #3f4765;
+}
+
+.form {
+  background: white;
+  padding: 32px;
+  box-shadow: -24px 0px 80px rgba(49, 79, 124, 0.02);
+  border-radius: 12px;
+}
+
+.inputs {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}

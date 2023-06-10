@@ -8,7 +8,7 @@ const MainPage = ({ children }) => {
       <Header />
       <div style={{ display: 'flex' }}>
         <SideBar />
-        <div style={{ flex: 1 }}>{children}</div>
+        <div style={{ width: '100%' }}>{children}</div>
       </div>
     </>
   );

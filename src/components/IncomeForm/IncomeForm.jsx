@@ -5,6 +5,9 @@ import { addIncomeAction } from '../../store/actions/incomeActions';
 import { doc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../../contexts/AuthContext';
 import { firestore } from '../../firebase';
+import styles from './IncomeForm.module.css';
+import CustomInput from '../form/Input/CustomInput';
+import CustomButton from '../form/Button/CustomButton';
 
 function IncomeForm() {
   const { currentUser } = useAuth();
@@ -36,30 +39,33 @@ function IncomeForm() {
   );
 
   return (
-    <form onSubmit={(e) => handleAddIncome(e)}>
-      <h2>Write your income in the input below</h2>
-      <label htmlFor="income">Income:</label>
-      <input
-        type="number"
-        id="income"
-        step="0.01"
-        value={incomeItem.amount}
-        onChange={(event) =>
-          setIncomeItem({ ...incomeItem, amount: event.target.value })
-        }
-        required
-      />
-      <label htmlFor="type">Type:</label>
-      <input
-        type="text"
-        id="type"
-        value={incomeItem.type}
-        onChange={(event) =>
-          setIncomeItem({ ...incomeItem, type: event.target.value })
-        }
-        required
-      />
-      <button type="submit">Add Income</button>
+    <form onSubmit={(e) => handleAddIncome(e)} className={styles.form}>
+      <h2 className={styles.title}>Write down your income</h2>
+      <div className={styles.inputs}>
+        <CustomInput
+          label="Amount"
+          type="number"
+          id="income"
+          step="0.01"
+          value={incomeItem.amount}
+          required
+          onChange={(event) =>
+            setIncomeItem({ ...incomeItem, amount: event.target.value })
+          }
+        />
+        <CustomInput
+          label="Type of income"
+          type="text"
+          id="type"
+          name="password"
+          value={incomeItem.type}
+          required
+          onChange={(event) =>
+            setIncomeItem({ ...incomeItem, type: event.target.value })
+          }
+        />
+        <CustomButton type="submit" title="Add income" />
+      </div>
     </form>
   );
 }
