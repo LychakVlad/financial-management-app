@@ -1,6 +1,5 @@
 .main {
   display: flex;
-  align-items: flex-start;
   flex-direction: column;
 
   background-color: #f4f6f8;

@@ -9,8 +9,8 @@
   box-shadow: 0px 12px 20px rgba(141, 199, 90, 0.16);
   border-radius: 12px;
   width: 100%;
-  min-width: 300px;
-  height: 48px;
+  max-width: 300px;
+  height: 62px;
   border: none;
   cursor: pointer;
 

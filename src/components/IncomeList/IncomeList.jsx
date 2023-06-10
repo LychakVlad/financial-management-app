@@ -8,6 +8,8 @@ import {
   removeIncomeAction,
   updateIncomeAction,
 } from '../../store/actions/incomeActions';
+import CustomButton from '../form/Button/CustomButton';
+import styles from './IncomeList.module.css';
 
 function IncomeList() {
   const incomes = useSelector((state) => state.incomes.incomes || []);
@@ -66,24 +68,29 @@ function IncomeList() {
   };
 
   return (
-    <ul>
+    <ul className={styles.list}>
       {incomes.length > 0 ? (
-        <div>
+        <div className={styles.listWrapper}>
           {incomes.map((income) => (
-            <div key={income.id}>
-              <div>{income.amount}</div>
+            <div key={income.id} className={styles.item}>
+              <div>{income.amount} $</div>
               <div>{income.type}</div>
               <div>{income.date}</div>
-              <button onClick={() => deletePoint(income)}>Delete</button>
+              <CustomButton
+                type="submit"
+                title="Delete"
+                onClick={() => deletePoint(income)}
+              />
             </div>
           ))}
         </div>
       ) : (
         <div>No income yet...</div>
       )}
-
-      <p>Your total income: {totalIncome}</p>
-      <button onClick={deleteAll}>Delete all</button>
+      <div className={styles.total}>
+        <p>Your total income: {totalIncome} $</p>
+        <CustomButton type="submit" title="Delete all" onClick={deleteAll} />
+      </div>
     </ul>
   );
 }
