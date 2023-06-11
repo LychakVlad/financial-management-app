@@ -19,10 +19,12 @@ function IncomeForm() {
     type: '',
   });
   const [validationError, setValidationError] = useState(false);
+  const [dropdownLabel, setDropdownLabel] = useState('Type of income');
+  const [incomeAdded, setIncomeAdded] = useState(false); // New state variable
 
   const options = [
-    { value: 'Taxble', label: 'Taxble' },
-    { value: 'Non-taxble', label: 'Non-taxble' },
+    { value: 'Taxable', label: 'Taxable' },
+    { value: 'Non-taxable', label: 'Non-taxable' },
   ];
 
   const handleAddIncome = useCallback(
@@ -45,7 +47,9 @@ function IncomeForm() {
       await setDoc(doc(firestore, 'users', currentUser?.uid), {
         incomes: [...incomes, income],
       });
+      setDropdownLabel('Type of income');
       setIncomeItem({ amount: '', type: '' });
+      setIncomeAdded(true);
     },
     [currentUser?.uid, incomeItem.amount, incomeItem.type, dispatch, incomes]
   );
@@ -71,10 +75,11 @@ function IncomeForm() {
           }
         />
         <Dropdown
-          placeHolder="Type of income"
+          placeHolder={dropdownLabel}
           options={options}
           onChange={handleDropdownChange}
           error={validationError}
+          incomeAdded={incomeAdded}
         />
         <CustomButton type="submit" title="Add income" />
       </div>

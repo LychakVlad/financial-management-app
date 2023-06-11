@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styles from './Dropdown.module.css';
 import { ReactComponent as Icon } from '../../../assets/dropdown.svg';
 
-const Dropdown = ({ placeHolder, options, onChange, error }) => {
+const Dropdown = ({ placeHolder, options, onChange, error, incomeAdded }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [selectedValue, setSelectedValue] = useState(null);
-  const [labelActive, setLabelActive] = useState(false);
 
   useEffect(() => {
     const handler = () => setShowMenu(false);
@@ -24,13 +23,15 @@ const Dropdown = ({ placeHolder, options, onChange, error }) => {
   const handleItemClick = (option) => {
     setSelectedValue(option);
     setShowMenu(false);
-    setLabelActive(true); // Set labelActive to true when an item is selected
     if (onChange) {
       onChange(option);
     }
   };
 
   const getDisplay = () => {
+    if (incomeAdded) {
+      return placeHolder;
+    }
     if (selectedValue) {
       return selectedValue.label;
     }
@@ -41,15 +42,9 @@ const Dropdown = ({ placeHolder, options, onChange, error }) => {
     <>
       <div className={styles.container}>
         <div onClick={handleInputClick} className={styles.input}>
-          <div
-            className={`${styles.selectedValue} ${
-              labelActive ? styles.labelActive : ''
-            }`}
-          >
-            {getDisplay()}
-          </div>
+          <div className={styles.selectedValue}>{getDisplay()}</div>
           <div className={styles.tools}>
-            <div className={`${styles.icon} ${showMenu ? styles.active : ''}`}>
+            <div className={`${styles.icon} ${showMenu && styles.active}`}>
               <Icon />
             </div>
           </div>
