@@ -7,6 +7,10 @@
   padding: 32px;
 }
 
+.income {
+  color: #24a959;
+}
+
 .item {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -52,9 +56,17 @@
   line-height: 32px;
 
   color: #3f4765;
-  margin-left: 16px;
 }
 
 .total button {
   background: #f85842;
+}
+
+.empty {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 32px;
+
+  color: #3f4765;
 }

@@ -8,6 +8,7 @@ import { firestore } from '../../firebase';
 import styles from './IncomeForm.module.css';
 import CustomInput from '../form/Input/CustomInput';
 import CustomButton from '../form/Button/CustomButton';
+import Dropdown from '../form/Dropdown/Dropdown';
 
 function IncomeForm() {
   const { currentUser } = useAuth();
@@ -17,10 +18,21 @@ function IncomeForm() {
     amount: '',
     type: '',
   });
+  const [validationError, setValidationError] = useState(false);
+
+  const options = [
+    { value: 'Taxble', label: 'Taxble' },
+    { value: 'Non-taxble', label: 'Non-taxble' },
+  ];
 
   const handleAddIncome = useCallback(
     async (e) => {
       e.preventDefault();
+
+      if (!incomeItem.type) {
+        setValidationError(true);
+        return;
+      }
 
       const income = {
         amount: incomeItem.amount,
@@ -38,6 +50,11 @@ function IncomeForm() {
     [currentUser?.uid, incomeItem.amount, incomeItem.type, dispatch, incomes]
   );
 
+  const handleDropdownChange = (option) => {
+    setIncomeItem({ ...incomeItem, type: option.value });
+    setValidationError(false);
+  };
+
   return (
     <form onSubmit={(e) => handleAddIncome(e)} className={styles.form}>
       <h2 className={styles.title}>Write down your income</h2>
@@ -53,16 +70,11 @@ function IncomeForm() {
             setIncomeItem({ ...incomeItem, amount: event.target.value })
           }
         />
-        <CustomInput
-          label="Type of income"
-          type="text"
-          id="type"
-          name="password"
-          value={incomeItem.type}
-          required
-          onChange={(event) =>
-            setIncomeItem({ ...incomeItem, type: event.target.value })
-          }
+        <Dropdown
+          placeHolder="Type of income"
+          options={options}
+          onChange={handleDropdownChange}
+          error={validationError}
         />
         <CustomButton type="submit" title="Add income" />
       </div>

@@ -73,7 +73,7 @@ function IncomeList() {
         <div className={styles.listWrapper}>
           {incomes.map((income) => (
             <div key={income.id} className={styles.item}>
-              <div>{income.amount} $</div>
+              <div className={styles.income}>+{income.amount} $</div>
               <div>{income.type}</div>
               <div>{income.date}</div>
               <CustomButton
@@ -85,7 +85,7 @@ function IncomeList() {
           ))}
         </div>
       ) : (
-        <div>No income yet...</div>
+        <div className={styles.empty}>No income yet...</div>
       )}
       <div className={styles.total}>
         <p>Your total income: {totalIncome} $</p>
