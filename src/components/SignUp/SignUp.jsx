@@ -43,6 +43,18 @@ const SignUp = () => {
     }
   }
 
+  const handleEmailChange = (value) => {
+    emailRef.current.value = value;
+  };
+
+  const handlePasswordChange = (value) => {
+    passwordRef.current.value = value;
+  };
+
+  const handlePasswordConfirmChange = (value) => {
+    passwordConfirmRef.current.value = value;
+  };
+
   return (
     <div className={styles.main}>
       {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -53,6 +65,7 @@ const SignUp = () => {
           inputRef={emailRef}
           name="email"
           required
+          onChange={handleEmailChange}
         />
         <CustomInput
           label="Password"
@@ -60,6 +73,7 @@ const SignUp = () => {
           inputRef={passwordRef}
           name="password"
           required
+          onChange={handlePasswordChange}
         />
         <CustomInput
           label="Password confirm"
@@ -67,6 +81,7 @@ const SignUp = () => {
           inputRef={passwordConfirmRef}
           name="password-confirm"
           required
+          onChange={handlePasswordConfirmChange}
         />
         <CustomButton disabled={loading} type="submit" title="Sign Up" />
         <CustomButton

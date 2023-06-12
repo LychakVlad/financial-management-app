@@ -50,7 +50,6 @@ function App() {
           }
         />
         <Route
-          index
           path="/tax-calculator"
           element={
             <PrivateRoute>
@@ -61,7 +60,6 @@ function App() {
           }
         />
         <Route
-          index
           path="/expense-tracker"
           element={
             <PrivateRoute>
@@ -72,7 +70,6 @@ function App() {
           }
         />
         <Route
-          index
           path="/budget-planner"
           element={
             <PrivateRoute>
