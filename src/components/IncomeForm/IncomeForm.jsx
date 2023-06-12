@@ -18,7 +18,8 @@ function IncomeForm() {
     amount: '',
     type: '',
   });
-  const [validationError, setValidationError] = useState(false);
+  const [dropdownError, setDropdownError] = useState(false);
+  const [inputError, setInputError] = useState('');
   const [dropdownLabel, setDropdownLabel] = useState('Type of income');
   const [incomeAdded, setIncomeAdded] = useState(false); // New state variable
 
@@ -32,7 +33,7 @@ function IncomeForm() {
       e.preventDefault();
 
       if (!incomeItem.type) {
-        setValidationError(true);
+        setDropdownError(true);
         return;
       }
 
@@ -50,13 +51,23 @@ function IncomeForm() {
       setDropdownLabel('Type of income');
       setIncomeItem({ amount: '', type: '' });
       setIncomeAdded(true);
+      setInputError('');
     },
     [currentUser?.uid, incomeItem.amount, incomeItem.type, dispatch, incomes]
   );
 
   const handleDropdownChange = (option) => {
     setIncomeItem({ ...incomeItem, type: option.value });
-    setValidationError(false);
+    setDropdownError(false);
+  };
+
+  const handleInputChange = (e) => {
+    setIncomeItem({ ...incomeItem, amount: e.target.value });
+    if (incomeItem.amount === '') {
+      console.log('da');
+      setInputError('Enter the value');
+      return;
+    }
   };
 
   return (
@@ -69,16 +80,15 @@ function IncomeForm() {
           id="income"
           step="0.01"
           value={incomeItem.amount}
+          error={inputError}
           required
-          onChange={(event) =>
-            setIncomeItem({ ...incomeItem, amount: event.target.value })
-          }
+          onChange={handleInputChange}
         />
         <Dropdown
           placeHolder={dropdownLabel}
           options={options}
           onChange={handleDropdownChange}
-          error={validationError}
+          error={dropdownError}
           incomeAdded={incomeAdded}
         />
         <CustomButton type="submit" title="Add income" />
