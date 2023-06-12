@@ -16,10 +16,14 @@
   cursor: pointer;
 
   width: 100%;
-  max-width: 300px;
+  width: 300px;
   height: 62px;
 
   transition: border 0.3s ease;
+}
+
+.container.error {
+  border: 1px solid #f85842;
 }
 
 .container:hover {
@@ -67,4 +71,9 @@
 
 .icon.active svg {
   transform: rotate(180deg);
+}
+
+.validationError {
+  color: #f85842;
+  margin-bottom: 0px;
 }

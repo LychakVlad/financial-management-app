@@ -39,8 +39,8 @@ const Dropdown = ({ placeHolder, options, onChange, error, incomeAdded }) => {
   };
 
   return (
-    <>
-      <div className={styles.container}>
+    <div className={styles.wrapper}>
+      <div className={`${styles.container} ${error && styles.error}`}>
         <div onClick={handleInputClick} className={styles.input}>
           <div className={styles.selectedValue}>{getDisplay()}</div>
           <div className={styles.tools}>
@@ -64,11 +64,9 @@ const Dropdown = ({ placeHolder, options, onChange, error, incomeAdded }) => {
         )}
       </div>
       {error && (
-        <p className={styles.validationError}>
-          Please choose an option from the dropdown.
-        </p>
+        <p className={styles.validationError}>Please choose an option.</p>
       )}
-    </>
+    </div>
   );
 };
 
