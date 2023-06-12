@@ -15,13 +15,13 @@ function IncomeForm() {
   const incomes = useSelector((state) => state.incomes.incomes);
   const dispatch = useDispatch();
   const [incomeItem, setIncomeItem] = useState({
-    amount: '',
+    amount: null,
     type: '',
   });
   const [dropdownError, setDropdownError] = useState(false);
+  const [dropdownPlaceholder, setDropdownPlaceholder] =
+    useState('Type of Income');
   const [inputError, setInputError] = useState('');
-  const [dropdownLabel, setDropdownLabel] = useState('Type of income');
-  const [incomeAdded, setIncomeAdded] = useState(false); // New state variable
 
   const options = [
     { value: 'Taxable', label: 'Taxable' },
@@ -48,10 +48,9 @@ function IncomeForm() {
       await setDoc(doc(firestore, 'users', currentUser?.uid), {
         incomes: [...incomes, income],
       });
-      setDropdownLabel('Type of income');
       setIncomeItem({ amount: '', type: '' });
-      setIncomeAdded(true);
       setInputError('');
+      setDropdownPlaceholder('Type of Income');
     },
     [currentUser?.uid, incomeItem.amount, incomeItem.type, dispatch, incomes]
   );
@@ -61,12 +60,12 @@ function IncomeForm() {
     setDropdownError(false);
   };
 
-  const handleInputChange = (e) => {
-    setIncomeItem({ ...incomeItem, amount: e.target.value });
-    if (incomeItem.amount === '') {
-      console.log('da');
+  const handleInputChange = (value) => {
+    setIncomeItem({ ...incomeItem, amount: value });
+    if (value === '') {
       setInputError('Enter the value');
-      return;
+    } else {
+      setInputError('');
     }
   };
 
@@ -85,11 +84,11 @@ function IncomeForm() {
           onChange={handleInputChange}
         />
         <Dropdown
-          placeHolder={dropdownLabel}
+          placeHolder={dropdownPlaceholder}
+          setPlaceHolder={setDropdownPlaceholder}
           options={options}
           onChange={handleDropdownChange}
           error={dropdownError}
-          incomeAdded={incomeAdded}
         />
         <CustomButton type="submit" title="Add income" />
       </div>

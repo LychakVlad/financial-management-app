@@ -6,6 +6,10 @@
   overflow: hidden;
   display: flex;
 }
+input.error {
+  border: red;
+}
+
 .inp .label {
   position: absolute;
   bottom: 16px;

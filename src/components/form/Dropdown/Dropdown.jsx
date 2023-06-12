@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import styles from './Dropdown.module.css';
 import { ReactComponent as Icon } from '../../../assets/dropdown.svg';
 
-const Dropdown = ({ placeHolder, options, onChange, error, incomeAdded }) => {
+const Dropdown = ({
+  placeHolder,
+  options,
+  onChange,
+  error,
+  setPlaceHolder,
+}) => {
   const [showMenu, setShowMenu] = useState(false);
   const [selectedValue, setSelectedValue] = useState(null);
 
@@ -26,23 +32,14 @@ const Dropdown = ({ placeHolder, options, onChange, error, incomeAdded }) => {
     if (onChange) {
       onChange(option);
     }
-  };
-
-  const getDisplay = () => {
-    if (incomeAdded) {
-      return placeHolder;
-    }
-    if (selectedValue) {
-      return selectedValue.label;
-    }
-    return placeHolder;
+    setPlaceHolder(option.label);
   };
 
   return (
     <div className={styles.wrapper}>
       <div className={`${styles.container} ${error && styles.error}`}>
         <div onClick={handleInputClick} className={styles.input}>
-          <div className={styles.selectedValue}>{getDisplay()}</div>
+          <div className={styles.selectedValue}>{placeHolder}</div>
           <div className={styles.tools}>
             <div className={`${styles.icon} ${showMenu && styles.active}`}>
               <Icon />

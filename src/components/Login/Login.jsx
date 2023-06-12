@@ -12,16 +12,15 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useNavigate();
+  const [emailError, setEmailError] = useState('');
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
       setError('');
-      console.log(emailRef.current.value);
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      console.log(emailRef.current.value);
       history('/');
     } catch {
       setError('Failed to sign up');
@@ -29,6 +28,14 @@ const Login = () => {
 
     setLoading(false);
   }
+
+  const handleEmailChange = (value) => {
+    emailRef.current.value = value;
+  };
+
+  const handlePasswordChange = (value) => {
+    passwordRef.current.value = value;
+  };
 
   return (
     <div className={styles.main}>
@@ -40,6 +47,7 @@ const Login = () => {
           inputRef={emailRef}
           name="email"
           required
+          onChange={handleEmailChange}
         />
         <CustomInput
           label="Password"
@@ -47,6 +55,7 @@ const Login = () => {
           inputRef={passwordRef}
           name="password"
           required
+          onChange={handlePasswordChange}
         />
         <CustomButton disabled={loading} type="submit" title="Log in" />
 

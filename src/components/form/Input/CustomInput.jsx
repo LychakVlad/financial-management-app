@@ -9,7 +9,6 @@ const CustomInput = React.memo(
     name,
     type,
     onChange,
-    required,
     error,
     description,
     maxLength,
@@ -23,12 +22,19 @@ const CustomInput = React.memo(
     }, [value]);
 
     const handleClearInput = () => {
-      onChange({ target: { name, value: '' } });
+      onChange('');
+      setIsFilled(false);
+    };
+
+    const handleInputChange = (e) => {
+      const inputValue = e.target.value;
+      onChange(inputValue);
+      setIsFilled(!!inputValue);
     };
 
     return (
       <div>
-        <lable className={`${styles.inp} ${error && styles.error}`}>
+        <label className={styles.inp}>
           <input
             type={type}
             value={value}
@@ -36,10 +42,10 @@ const CustomInput = React.memo(
             id={name}
             ref={inputRef}
             placeholder="&nbsp;"
-            onChange={onChange}
-            required={required}
+            onChange={handleInputChange}
             maxLength={maxLength}
             data-testid={test ? test : undefined}
+            className={`${error && styles.error}`}
           />
 
           {label && (
@@ -52,7 +58,7 @@ const CustomInput = React.memo(
               Close
             </span>
           )}
-        </lable>
+        </label>
         {description && <div className="input-description">{description}</div>}
         {error && (
           <div
