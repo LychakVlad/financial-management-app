@@ -21,16 +21,22 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  function signup(email, password) {
+  function signup(name, email, password) {
     return auth.createUserWithEmailAndPassword(email, password).then((cred) => {
-      return firestore
-        .collection('users')
-        .doc(cred.user.uid)
-        .set({
-          income: {
-            amount: null,
-            type: null,
-          },
+      return cred.user
+        .updateProfile({
+          displayName: name,
+        })
+        .then(() => {
+          return firestore
+            .collection('users')
+            .doc(cred.user.uid)
+            .set({
+              income: {
+                amount: null,
+                type: null,
+              },
+            });
         });
     });
   }

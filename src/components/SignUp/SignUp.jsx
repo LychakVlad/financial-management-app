@@ -9,9 +9,12 @@ const SignUp = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
+  const nameRef = useRef();
+
   const { signup, logout } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
   const history = useNavigate();
 
   async function handleSubmit(e) {
@@ -23,7 +26,11 @@ const SignUp = () => {
     try {
       setError('');
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
+      await signup(
+        nameRef.current.value,
+        emailRef.current.value,
+        passwordRef.current.value
+      );
       history('/');
     } catch {
       setError('Failed to create an account');
@@ -55,6 +62,10 @@ const SignUp = () => {
     passwordConfirmRef.current.value = value;
   };
 
+  const handleNameChange = (value) => {
+    nameRef.current.value = value;
+  };
+
   return (
     <div className={styles.main}>
       {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -66,6 +77,14 @@ const SignUp = () => {
           name="email"
           required
           onChange={handleEmailChange}
+        />
+        <CustomInput
+          label="Name"
+          type="text"
+          inputRef={nameRef}
+          name="name"
+          required
+          onChange={handleNameChange}
         />
         <CustomInput
           label="Password"

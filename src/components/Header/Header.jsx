@@ -7,8 +7,7 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      Welcome Back,
-      {currentUser && JSON.stringify(currentUser && currentUser.email)}
+      Welcome back, {currentUser && currentUser.displayName}!
     </header>
   );
 };

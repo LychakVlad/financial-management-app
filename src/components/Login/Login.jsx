@@ -15,8 +15,6 @@ const Login = () => {
   const [emailError, setEmailError] = useState('');
   const { currentUser } = useAuth();
 
-  console.log(currentUser);
-
   async function handleSubmit(e) {
     e.preventDefault();
 
