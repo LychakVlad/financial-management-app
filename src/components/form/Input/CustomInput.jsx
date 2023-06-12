@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CustomInput.module.css';
+import { ReactComponent as Icon } from '../../../assets/input-close.svg';
 
 const CustomInput = React.memo(
   ({
@@ -55,18 +56,18 @@ const CustomInput = React.memo(
           )}
           {isFilled && (
             <span className={styles.closeIcon} onClick={handleClearInput}>
-              Close
+              <Icon />
             </span>
           )}
         </label>
         {description && <div className="input-description">{description}</div>}
         {error && (
-          <div
+          <p
             className={styles.errorValidation}
             data-testid={testError ? testError : undefined}
           >
             {error}
-          </div>
+          </p>
         )}
       </div>
     );

@@ -75,5 +75,6 @@
 
 .validationError {
   color: #f85842;
+  margin-top: 12px;
   margin-bottom: 0px;
 }

@@ -6,8 +6,8 @@
   overflow: hidden;
   display: flex;
 }
-input.error {
-  border: red;
+.inp input.error {
+  border: 1px solid #f85842;
 }
 
 .inp .label {
@@ -30,7 +30,7 @@ input.error {
   max-width: 300px;
   border: 0;
   font-family: inherit;
-  padding: 16px 0px 0 12px;
+  padding: 16px 52px 0 12px;
   height: 44px;
   font-size: 16px;
   font-weight: 400;
@@ -39,7 +39,6 @@ input.error {
   color: #000;
   transition: all 0.15s ease;
   border-radius: 12px;
-  padding-right: -12px;
 }
 .inp input:hover {
   background: rgba(0, 0, 0, 0.04);
@@ -61,4 +60,23 @@ input.error {
 .inp input:focus + .label + .focus-bg {
   transform: scaleX(1);
   transition: all 0.1s ease;
+}
+
+.errorValidation {
+  color: #f85842;
+  margin-top: 12px;
+  margin-bottom: 0px;
+}
+
+.closeIcon {
+  position: absolute;
+  left: 85%;
+  top: 30%;
+}
+
+.closeIcon svg {
+  transform: rotate(45deg);
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
 }

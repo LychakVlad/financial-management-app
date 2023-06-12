@@ -15,7 +15,7 @@ function IncomeForm() {
   const incomes = useSelector((state) => state.incomes.incomes);
   const dispatch = useDispatch();
   const [incomeItem, setIncomeItem] = useState({
-    amount: null,
+    amount: '',
     type: '',
   });
   const [dropdownError, setDropdownError] = useState(false);
@@ -31,6 +31,11 @@ function IncomeForm() {
   const handleAddIncome = useCallback(
     async (e) => {
       e.preventDefault();
+
+      if (!incomeItem.amount) {
+        setInputError('Enter the value');
+        return;
+      }
 
       if (!incomeItem.type) {
         setDropdownError(true);
@@ -62,15 +67,11 @@ function IncomeForm() {
 
   const handleInputChange = (value) => {
     setIncomeItem({ ...incomeItem, amount: value });
-    if (value === '') {
-      setInputError('Enter the value');
-    } else {
-      setInputError('');
-    }
+    setInputError('');
   };
 
   return (
-    <form onSubmit={(e) => handleAddIncome(e)} className={styles.form}>
+    <form onSubmit={handleAddIncome} className={styles.form}>
       <h2 className={styles.title}>Write down your income</h2>
       <div className={styles.inputs}>
         <CustomInput
