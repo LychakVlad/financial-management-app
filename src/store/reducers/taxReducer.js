@@ -7,7 +7,7 @@ import {
 } from '../actions/taxActions';
 
 const initialState = {
-  filingStatus: 'single',
+  filingStatus: '',
   deductions: '12500',
   totalTaxLiability: 0,
   stateTax: 0,

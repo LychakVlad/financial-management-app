@@ -23,6 +23,8 @@ function TaxForm() {
     useState('Filing status');
   const dispatch = useDispatch();
 
+  console.log(filingStatus);
+
   const options = [
     { value: 'married', label: 'Married' },
     { value: 'single', label: 'Single' },
@@ -75,8 +77,18 @@ function TaxForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    console.log(filingStatus);
+
+    if (!filingStatus) {
+      setDropdownError(true);
+      return;
+    }
+
     const taxLiability = calculateTaxLiability();
     dispatch(setTotalTaxLiabilityAction(taxLiability));
+    setDropdownPlaceholder('Filing status');
+    dispatch(setFilingStatusAction());
   }
 
   const handleDropdownChange = (option) => {
@@ -88,8 +100,6 @@ function TaxForm() {
     dispatch(setDeductionsAction(event));
     setDropdownError(false);
   };
-
-  console.log(useStandardDeduction);
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
