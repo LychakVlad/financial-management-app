@@ -23,8 +23,6 @@ function TaxForm() {
     useState('Filing status');
   const dispatch = useDispatch();
 
-  console.log(filingStatus);
-
   const options = [
     { value: 'married', label: 'Married' },
     { value: 'single', label: 'Single' },
@@ -77,8 +75,6 @@ function TaxForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    console.log(filingStatus);
 
     if (!filingStatus) {
       setDropdownError(true);

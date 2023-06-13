@@ -1,12 +1,37 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './TaxSummary.module.css';
+import { updateIncomeAction } from '../../store/actions/incomeActions';
+import { useAuth } from '../../contexts/AuthContext';
+import { firestore } from '../../firebase';
+import FadeLoader from 'react-spinners/FadeLoader';
 
 function TaxSummary() {
   const totalIncome = useSelector((state) => state.incomes.totalIncome);
   const { stateTax, federalTax, totalTaxLiability } = useSelector(
     (state) => state.taxes
   );
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const currentUser = useAuth();
+
+  useEffect(() => {
+    if (currentUser?.currentUser) {
+      const fetchData = async () => {
+        setLoading(true);
+        const userId = currentUser.currentUser.uid;
+        const userDocRef = firestore.collection('users').doc(userId);
+        const userDoc = await userDocRef.get();
+        const userData = userDoc.data();
+        dispatch(updateIncomeAction(userData?.incomes || []));
+        setLoading(false);
+      };
+
+      fetchData();
+    }
+  }, [currentUser, dispatch]);
+
   return (
     <div className={styles.form}>
       <p>
@@ -20,7 +45,10 @@ function TaxSummary() {
       </p>
 
       <p>
-        Your total income: <span className={styles.income}>{totalIncome}$</span>
+        Your total income:{' '}
+        <span className={styles.income}>
+          {loading ? <span>Loading...</span> : `${totalIncome}$`}
+        </span>
       </p>
       <p>
         You need to pay:{' '}
