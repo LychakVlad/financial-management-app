@@ -53,7 +53,7 @@ export function AuthProvider({ children }) {
   };
 
   if (loading) {
-    return <LoadingPage />;
+    return;
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

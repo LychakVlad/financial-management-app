@@ -10,6 +10,7 @@ import {
 } from '../../store/actions/incomeActions';
 import CustomButton from '../form/Button/CustomButton';
 import styles from './IncomeList.module.css';
+import MoonLoader from 'react-spinners/MoonLoader';
 
 function IncomeList() {
   const incomes = useSelector((state) => state.incomes.incomes || []);
@@ -20,6 +21,7 @@ function IncomeList() {
 
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(firestore, 'users');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
@@ -33,11 +35,13 @@ function IncomeList() {
   useEffect(() => {
     if (currentUser?.currentUser) {
       const fetchData = async () => {
+        setLoading(true);
         const userId = currentUser.currentUser.uid;
         const userDocRef = firestore.collection('users').doc(userId);
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
         dispatch(updateIncomeAction(userData?.incomes || []));
+        setLoading(false);
       };
 
       fetchData();
@@ -69,26 +73,42 @@ function IncomeList() {
 
   return (
     <ul className={styles.list}>
-      {incomes.length > 0 ? (
-        <div className={styles.listWrapper}>
-          {incomes.map((income) => (
-            <div key={income.id} className={styles.item}>
-              <div className={styles.income}>+{income.amount} $</div>
-              <div>{income.type}</div>
-              <div>{income.date}</div>
-              <CustomButton
-                type="submit"
-                title="Delete"
-                onClick={() => deletePoint(income)}
-              />
-            </div>
-          ))}
+      {loading ? (
+        <div className={styles.loading}>
+          <MoonLoader color="#2e8b43" />
         </div>
       ) : (
-        <div className={styles.empty}>No income yet...</div>
+        <>
+          {incomes.length > 0 ? (
+            <div className={styles.listWrapper}>
+              {incomes.map((income) => (
+                <div key={income.id} className={styles.item}>
+                  <div className={styles.income}>+{income.amount} $</div>
+                  <div>{income.type}</div>
+                  <div>{income.date}</div>
+                  <CustomButton
+                    type="submit"
+                    title="Delete"
+                    onClick={() => deletePoint(income)}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className={styles.empty}>No income yet...</div>
+          )}
+        </>
       )}
       <div className={styles.total}>
-        <p>Your total income: {totalIncome} $</p>
+        <p>
+          Your total income:
+          {loading ? (
+            <span className={styles.totalDigit}> Loading...</span>
+          ) : (
+            <span className={styles.totalDigit}> {totalIncome} $</span>
+          )}
+        </p>
+
         <CustomButton type="submit" title="Delete all" onClick={deleteAll} />
       </div>
     </ul>

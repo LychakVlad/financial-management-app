@@ -4,7 +4,6 @@ import styles from './TaxSummary.module.css';
 import { updateIncomeAction } from '../../store/actions/incomeActions';
 import { useAuth } from '../../contexts/AuthContext';
 import { firestore } from '../../firebase';
-import FadeLoader from 'react-spinners/FadeLoader';
 
 function TaxSummary() {
   const totalIncome = useSelector((state) => state.incomes.totalIncome);
