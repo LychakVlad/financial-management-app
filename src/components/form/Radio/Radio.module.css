@@ -1,0 +1,30 @@
+.radio {
+  margin-bottom: 10px;
+}
+
+.radioInput {
+  /* Hide the actual radio button */
+  display: none;
+}
+
+.radioLabel {
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+}
+
+.radioLabel:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border: 1px solid #cfe2f4;
+  border-radius: 50%;
+}
+
+.radioInput:checked + .radioLabel:before {
+  background-color: #2e8b43;
+}

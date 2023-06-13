@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import styles from './TaxSummary.module.css';
 
 function TaxSummary() {
   const totalIncome = useSelector((state) => state.incomes.totalIncome);
@@ -7,13 +8,24 @@ function TaxSummary() {
     (state) => state.taxes
   );
   return (
-    <div>
-      <p>State tax: {stateTax}%</p>
-      <p>Federal tax: {federalTax}%</p>
-      <p>FICA tax: 7.65%</p>
+    <div className={styles.form}>
+      <p>
+        State tax: <span className={styles.tax}>{stateTax}%</span>
+      </p>
+      <p>
+        Federal tax: <span className={styles.tax}>{federalTax}%</span>
+      </p>
+      <p>
+        FICA tax: <span className={styles.tax}> 7.65%</span>
+      </p>
 
-      <p>Your total income: {totalIncome}$</p>
-      <p>You need to pay: {totalTaxLiability}$</p>
+      <p>
+        Your total income: <span className={styles.income}>{totalIncome}$</span>
+      </p>
+      <p>
+        You need to pay:{' '}
+        <span className={styles.totalTax}>{totalTaxLiability}$</span>
+      </p>
     </div>
   );
 }

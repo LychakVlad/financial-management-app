@@ -8,13 +8,25 @@ import {
   setFederalTaxAction,
 } from '../../store/actions/taxActions';
 import { federalTaxRates, virginiaTaxRates } from '../../data/taxRates';
+import styles from './TaxForm.module.css';
+import CustomButton from '../form/Button/CustomButton';
+import Dropdown from '../form/Dropdown/Dropdown';
+import CustomInput from '../form/Input/CustomInput';
+import Radio from '../form/Radio/Radio';
 
 function TaxForm() {
   const [useStandardDeduction, setUseStandardDeduction] = useState(true);
   const totalIncome = useSelector((state) => state.incomes.totalIncome);
   const { filingStatus, deductions } = useSelector((state) => state.taxes);
+  const [dropdownError, setDropdownError] = useState(false);
+  const [dropdownPlaceholder, setDropdownPlaceholder] =
+    useState('Filing status');
   const dispatch = useDispatch();
 
+  const options = [
+    { value: 'married', label: 'Married' },
+    { value: 'single', label: 'Single' },
+  ];
   const calculateTaxLiability = () => {
     const deductionsNum = deductions ? parseFloat(deductions) : 0;
 
@@ -65,60 +77,64 @@ function TaxForm() {
     e.preventDefault();
     const taxLiability = calculateTaxLiability();
     dispatch(setTotalTaxLiabilityAction(taxLiability));
-    console.log(taxLiability);
   }
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="filingStatus">Filing status:</label>
-      <select
-        id="filingStatus"
-        value={filingStatus}
-        onChange={(event) =>
-          dispatch(setFilingStatusAction(event.target.value))
-        }
-      >
-        <option value="single">Single</option>
-        <option value="married">Married</option>
-      </select>
+  const handleDropdownChange = (option) => {
+    dispatch(setFilingStatusAction(option.value));
+    setDropdownError(false);
+  };
 
-      <label htmlFor="useStandardDeduction">Use standard deduction:</label>
-      <input
-        type="radio"
-        id="useStandardDeductionYes"
-        name="useStandardDeduction"
-        value="yes"
-        checked={useStandardDeduction}
-        onChange={() => setUseStandardDeduction(true)}
+  const handleDeductionsInputChange = (event) => {
+    dispatch(setDeductionsAction(event));
+    setDropdownError(false);
+  };
+
+  console.log(useStandardDeduction);
+
+  return (
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <Dropdown
+        placeHolder={dropdownPlaceholder}
+        setPlaceHolder={setDropdownPlaceholder}
+        options={options}
+        onChange={handleDropdownChange}
+        error={dropdownError}
       />
-      <label htmlFor="useStandardDeductionYes">Yes</label>
-      <input
-        type="radio"
-        id="useStandardDeductionNo"
-        name="useStandardDeduction"
-        value="no"
-        checked={!useStandardDeduction}
-        onChange={() => setUseStandardDeduction(false)}
-      />
-      <label htmlFor="useStandardDeductionNo">No</label>
+      <div className={styles.radios}>
+        <label htmlFor="useStandardDeduction">Use standard deduction:</label>
+        <Radio
+          id="useStandardDeductionYes"
+          name="StandardDeduction"
+          value="Yes"
+          selectedOption={useStandardDeduction}
+          onChange={() => setUseStandardDeduction(true)}
+        />
+
+        <Radio
+          id="useStandardDeductionNo"
+          name="StandardDeduction"
+          value="No"
+          selectedOption={!useStandardDeduction}
+          onChange={() => setUseStandardDeduction(false)}
+        />
+      </div>
 
       {useStandardDeduction ? (
         <p>Standard deduction: $12,500</p>
       ) : (
-        <>
-          <label htmlFor="deductions">Custom deductions:</label>
-          <input
+        <div className={styles.deductionsBlock}>
+          <CustomInput
+            label="Deductions"
             type="number"
             id="deductions"
+            step="0.01"
             value={deductions}
-            onChange={(event) =>
-              dispatch(setDeductionsAction(event.target.value))
-            }
+            onChange={handleDeductionsInputChange}
           />
-        </>
+        </div>
       )}
 
-      <button type="submit">Calculate</button>
+      <CustomButton type="submit" title="Calculate" />
     </form>
   );
 }

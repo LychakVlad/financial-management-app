@@ -28,15 +28,11 @@ export function AuthProvider({ children }) {
           displayName: name,
         })
         .then(() => {
-          return firestore
-            .collection('users')
-            .doc(cred.user.uid)
-            .set({
-              income: {
-                amount: null,
-                type: null,
-              },
-            });
+          return firestore.collection('users').doc(cred.user.uid).set({
+            incomes: {},
+            expenses: {},
+            subs: {},
+          });
         });
     });
   }
