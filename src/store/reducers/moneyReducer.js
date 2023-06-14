@@ -1,18 +1,17 @@
 import {
-  ADD_INCOME,
-  REMOVE_INCOME,
-  UPDATE_INCOME,
-} from '../actions/incomeActions';
+  ADD_MONEY,
+  ADD_EXPENSE,
+  REMOVE_EXPENSE,
+} from '../actions/moneyActions';
 
 const defaultState = {
-  incomes: [],
-  totalIncome: 0,
-  incomeToSpend: 0,
+  totalMoney: 0,
+  expenses: [],
 };
 
-export const incomeReducer = (state = defaultState, action) => {
+export const moneyReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case ADD_INCOME:
+    case ADD_MONEY:
       return {
         ...state,
         incomes: [...state.incomes, action.payload],
@@ -20,12 +19,8 @@ export const incomeReducer = (state = defaultState, action) => {
           (total, income) => total + Number(income.amount),
           Number(action.payload.amount)
         ),
-        incomeToSpend: state.incomes.reduce(
-          (total, income) => total + Number(income.amount),
-          Number(action.payload.amount)
-        ),
       };
-    case REMOVE_INCOME:
+    case ADD_EXPENSE:
       const updatedIncomes = state.incomes.filter(
         (income) => income.id !== action.payload
       );
@@ -37,7 +32,7 @@ export const incomeReducer = (state = defaultState, action) => {
           0
         ),
       };
-    case UPDATE_INCOME:
+    case REMOVE_EXPENSE:
       return {
         ...state,
         incomes: action.payload,

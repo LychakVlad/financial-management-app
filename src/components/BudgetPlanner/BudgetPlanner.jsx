@@ -1,7 +1,7 @@
 import React from 'react';
 
 const BudgetPlanner = () => {
-  return <div>BudgetPlanner</div>;
+  return <div>In development</div>;
 };
 
 export default BudgetPlanner;

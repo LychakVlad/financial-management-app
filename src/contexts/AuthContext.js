@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { auth, firestore } from '../firebase';
-import LoadingPage from '../components/LoadingPage/LoadingPage';
 
 const AuthContext = React.createContext();
 

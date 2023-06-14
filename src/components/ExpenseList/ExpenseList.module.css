@@ -1,0 +1,21 @@
+.form {
+  background: white;
+  width: 100%;
+  padding: 32px;
+  max-width: 1130px;
+  box-shadow: -24px 0px 80px rgba(49, 79, 124, 0.02);
+  border-radius: 12px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #3f4765;
+
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 3;
+
+  margin-bottom: 40px;
+}
