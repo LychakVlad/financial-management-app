@@ -4,41 +4,38 @@ import {
   UPDATE_EXPENSE,
 } from '../actions/expenseActions';
 
-const defaultState = {
+const initialState = {
   expenses: [],
-  totalExpenses: 0,
+  totalExpense: 0,
 };
 
-export const expenseReducer = (state = defaultState, action) => {
+export const expenseReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_EXPENSE:
+      return {
+        ...state,
+        expenses: [...state.expenses, action.payload],
+        totalExpense: state.totalExpense + parseFloat(action.payload.amount),
+      };
+    case REMOVE_EXPENSE:
       const updatedExpenses = state.expenses.filter(
-        (expense) => expense.id !== action.payload.id
+        (expense) => expense.id !== action.payload
+      );
+      const updatedTotalExpense = updatedExpenses.reduce(
+        (total, expense) => total + parseFloat(expense.amount),
+        0
       );
       return {
         ...state,
         expenses: updatedExpenses,
-        totalExpenses: updatedExpenses.reduce(
-          (total, expense) => total + Number(expense.amount),
-          0
-        ),
+        totalExpense: updatedTotalExpense,
       };
-    case REMOVE_EXPENSE:
-      return {
-        ...state,
-        expenses: action.payload,
-        totalExpenses: action.payload.reduce(
-          (total, expense) => total + Number(expense.amount),
-          0
-        ),
-      };
-
     case UPDATE_EXPENSE:
       return {
         ...state,
         expenses: action.payload,
-        totalExpenses: action.payload.reduce(
-          (total, expense) => total + Number(expense.amount),
+        totalExpense: action.payload.reduce(
+          (total, expense) => total + parseFloat(expense.amount),
           0
         ),
       };

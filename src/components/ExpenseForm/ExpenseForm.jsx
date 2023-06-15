@@ -63,6 +63,8 @@ const ExpenseForm = () => {
         expenses: arrayUnion(Expense),
       });
 
+      console.log(Expense);
+
       setExpenseItem({ amount: '', type: '' });
       setInputError('');
       setDropdownPlaceholder('Type of Expense');

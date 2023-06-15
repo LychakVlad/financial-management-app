@@ -23,12 +23,14 @@ const ExpenseList = () => {
   useEffect(() => {
     if (currentUser?.currentUser) {
       const fetchData = async () => {
+        console.log('fetching');
         setLoading(true);
         const userId = currentUser.currentUser.uid;
         const userDocRef = firestore.collection('users').doc(userId);
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
         dispatch(updateExpenseAction(userData?.expenses || []));
+        console.log(userData?.expenses);
         setLoading(false);
       };
 
