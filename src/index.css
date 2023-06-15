@@ -9,6 +9,19 @@ body {
   overflow: hidden;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+ul,
+li,
+a {
+  margin: 0;
+  padding: 0;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

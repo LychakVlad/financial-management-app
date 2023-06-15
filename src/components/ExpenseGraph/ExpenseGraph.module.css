@@ -1,7 +1,7 @@
 .form {
   background: white;
   width: 100%;
-  padding: 32px;
+  padding: 18px;
   max-width: 630px;
   box-shadow: -24px 0px 80px rgba(49, 79, 124, 0.02);
   border-radius: 12px;
@@ -16,4 +16,18 @@
 
   display: flex;
   justify-content: space-between;
+}
+
+.list {
+  overflow-y: auto;
+}
+
+.form h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.form p {
+  font-size: 18px;
+  margin-bottom: 8px;
 }

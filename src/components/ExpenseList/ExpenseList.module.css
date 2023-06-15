@@ -6,7 +6,7 @@
   max-width: 1130px;
   box-shadow: -24px 0px 80px rgba(49, 79, 124, 0.02);
   border-radius: 12px;
-  max-height: 280px;
+  max-height: 250px;
 
   font-style: normal;
   font-weight: 500;
@@ -26,7 +26,10 @@
 
 .item {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: min-content;
+  grid-auto-flow: dense;
+
   border-bottom: 2px solid #eceff9;
 
   padding: 12px;
@@ -71,4 +74,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.description {
+  font-size: 16px;
+  font-weight: 500;
+  word-break: break-word;
+  padding-right: 12px;
+
+  opacity: 0.6;
 }

@@ -29,7 +29,6 @@ const ExpenseList = () => {
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
         dispatch(updateExpenseAction(userData?.expenses || []));
-        console.log(userData?.expenses);
         setLoading(false);
       };
 
@@ -63,6 +62,9 @@ const ExpenseList = () => {
               {expenses.map((expense) => (
                 <div key={expense.id} className={styles.item}>
                   <div className={styles.expense}>-{expense.amount} $</div>
+                  <span className={styles.description}>
+                    {expense.description}
+                  </span>
                   <div>{expense.type}</div>
                   <div>{expense.date}</div>
                   <CustomButton

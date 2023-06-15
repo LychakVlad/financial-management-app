@@ -16,6 +16,7 @@ const ExpenseForm = () => {
   const [expenseItem, setExpenseItem] = useState({
     type: '',
     amount: '',
+    description: '',
   });
   const [dropdownError, setDropdownError] = useState(false);
   const [dropdownPlaceholder, setDropdownPlaceholder] =
@@ -26,11 +27,10 @@ const ExpenseForm = () => {
     { value: 'Groceries', label: 'Groceries' },
     { value: 'Housing', label: 'Housing' },
     { value: 'Transportation', label: 'Transportation' },
-    { value: 'Utilities', label: 'Utilities' },
     { value: 'Healthcare', label: 'Healthcare' },
     { value: 'Education', label: 'Education' },
     { value: 'Entertainment', label: 'Entertainment' },
-    { value: 'Debt Payments', label: 'Debt Payments' },
+
     { value: 'Savings', label: 'Savings' },
     { value: 'Other', label: 'Other' },
   ];
@@ -53,6 +53,7 @@ const ExpenseForm = () => {
       const Expense = {
         amount: expenseItem.amount,
         type: expenseItem.type,
+        description: expenseItem.description,
         date: formatDate(new Date()),
         id: Date.now(),
       };
@@ -65,11 +66,17 @@ const ExpenseForm = () => {
 
       console.log(Expense);
 
-      setExpenseItem({ amount: '', type: '' });
+      setExpenseItem({ amount: '', type: '', description: '' });
       setInputError('');
       setDropdownPlaceholder('Type of Expense');
     },
-    [currentUser?.uid, expenseItem.amount, expenseItem.type, dispatch]
+    [
+      currentUser?.uid,
+      expenseItem.amount,
+      expenseItem.type,
+      expenseItem.description,
+      dispatch,
+    ]
   );
 
   const handleDropdownChange = (option) => {
@@ -77,9 +84,13 @@ const ExpenseForm = () => {
     setDropdownError(false);
   };
 
-  const handleInputChange = (value) => {
+  const handleAmountChange = (value) => {
     setExpenseItem({ ...expenseItem, amount: value });
     setInputError('');
+  };
+
+  const handleDescChange = (value) => {
+    setExpenseItem({ ...expenseItem, description: value });
   };
 
   return (
@@ -94,7 +105,15 @@ const ExpenseForm = () => {
           value={expenseItem.amount}
           error={inputError}
           required
-          onChange={handleInputChange}
+          onChange={handleAmountChange}
+        />
+        <CustomInput
+          label="Description"
+          type="text"
+          id="expense-desc"
+          value={expenseItem.description}
+          required
+          onChange={handleDescChange}
         />
         <Dropdown
           placeHolder={dropdownPlaceholder}

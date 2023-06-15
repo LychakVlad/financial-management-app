@@ -1,13 +1,14 @@
 import React from 'react';
 import styles from './ExpenseGraph.module.css';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
-import { useSelector } from 'react-redux';
+import { Chart, Doughnut } from 'react-chartjs-2';
+import { useDispatch, useSelector } from 'react-redux';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ExpenseGraph = () => {
   const expenses = useSelector((state) => state.expenses.expenses || []);
+  const dispatch = useDispatch();
 
   const options = {
     plugins: {
@@ -27,11 +28,11 @@ const ExpenseGraph = () => {
   }, {});
 
   const data = {
-    labels: expenses.map((item) => `You spend $${item.amount} on ${item.type}`),
+    labels: Object.keys(categoryTotals),
     datasets: [
       {
         label: 'Spend $',
-        data: expenses.map((item) => item.amount),
+        data: Object.values(categoryTotals),
         backgroundColor: [
           'rgba(255, 99, 132, 0.9)',
           'rgba(54, 162, 235, 0.9)',
@@ -57,11 +58,13 @@ const ExpenseGraph = () => {
     <div className={styles.form}>
       <div className={styles.expenses}>
         <h2>Expenses:</h2>
-        {Object.entries(categoryTotals).map(([category, total]) => (
-          <p key={category}>
-            You spend ${total.toFixed(2)} in {category}
-          </p>
-        ))}
+        <div className={styles.list}>
+          {Object.entries(categoryTotals).map(([category, total]) => (
+            <p key={category}>
+              {total.toFixed(2)} $ in {category}
+            </p>
+          ))}
+        </div>
       </div>
       <Doughnut data={data} options={options} height={1000} width={1000} />
     </div>
