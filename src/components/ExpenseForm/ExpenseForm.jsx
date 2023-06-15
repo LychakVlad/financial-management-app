@@ -38,7 +38,6 @@ const ExpenseForm = () => {
   const handleAddExpense = useCallback(
     async (e) => {
       e.preventDefault();
-      console.log('addd');
 
       if (!expenseItem.amount) {
         setInputError('Enter the value');
@@ -63,8 +62,6 @@ const ExpenseForm = () => {
       await updateDoc(doc(firestore, 'users', currentUser?.uid), {
         expenses: arrayUnion(Expense),
       });
-
-      console.log(Expense);
 
       setExpenseItem({ amount: '', type: '', description: '' });
       setInputError('');

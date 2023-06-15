@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   filingStatus: '',
-  deductions: '12500',
+  deductions: '',
   totalTaxLiability: 0,
   stateTax: 0,
   federalTax: 0,

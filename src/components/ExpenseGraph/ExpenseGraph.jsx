@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ExpenseGraph.module.css';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Chart, Doughnut } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import { useDispatch, useSelector } from 'react-redux';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
