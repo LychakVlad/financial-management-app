@@ -6,7 +6,7 @@
   max-width: 1130px;
   box-shadow: -24px 0px 80px rgba(49, 79, 124, 0.02);
   border-radius: 12px;
-  max-height: 324px;
+  max-height: 280px;
 
   font-style: normal;
   font-weight: 500;
@@ -42,11 +42,12 @@
   border: #f85842 1px solid;
   background: white;
   color: #3f4765;
+  box-shadow: none;
 }
 
 .listWrapper {
   overflow-y: auto;
-  height: 340px;
+  max-height: 300px;
 
   font-style: normal;
   font-weight: 500;

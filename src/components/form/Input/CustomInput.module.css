@@ -12,9 +12,9 @@
 
 .inp .label {
   position: absolute;
-  bottom: 16px;
+  bottom: 8px;
   left: 12px;
-  font-size: 24px;
+  font-size: 20px;
   color: #8488b7;
   font-weight: 500;
   transform-origin: 0 0;
@@ -31,8 +31,8 @@
   border: 0;
   font-family: inherit;
   padding: 16px 52px 0 12px;
-  height: 44px;
-  font-size: 16px;
+  height: 28px;
+  font-size: 14px;
   font-weight: 400;
   background: #f4f6f8;
   border: 1px solid #f4f6f8;
@@ -46,7 +46,7 @@
 }
 .inp input:not(:placeholder-shown) + .label {
   color: rgba(0, 0, 0, 0.5);
-  transform: translate3d(0, -10px, 0) scale(0.6);
+  transform: translate3d(0, -8px, 0) scale(0.6);
 }
 .inp input:focus {
   background: rgba(0, 0, 0, 0.05);
@@ -55,7 +55,7 @@
 }
 .inp input:focus + .label {
   color: #2e8b43;
-  transform: translate3d(0, -10px, 0) scale(0.6);
+  transform: translate3d(0, -8px, 0) scale(0.6);
 }
 .inp input:focus + .label + .focus-bg {
   transform: scaleX(1);
@@ -71,7 +71,7 @@
 .closeIcon {
   position: absolute;
   left: 85%;
-  top: 30%;
+  top: 20%;
 }
 
 .closeIcon svg {

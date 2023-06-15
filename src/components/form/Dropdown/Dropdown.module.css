@@ -8,7 +8,7 @@
 
   font-style: normal;
   font-weight: 500;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 20px;
 
   color: #6e7499;
@@ -17,7 +17,7 @@
 
   width: 100%;
   width: 300px;
-  height: 62px;
+  height: 46px;
 
   transition: border 0.3s ease;
 }
@@ -64,12 +64,14 @@
 }
 
 .icon svg {
+  padding-top: 4px;
   width: 16px;
   height: 16px;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .icon.active svg {
+  padding-top: 0px;
   transform: rotate(180deg);
 }
 

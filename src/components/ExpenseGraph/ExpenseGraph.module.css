@@ -12,4 +12,8 @@
   line-height: 24px;
 
   color: #3f4765;
+  overflow: visible;
+
+  display: flex;
+  justify-content: space-between;
 }
