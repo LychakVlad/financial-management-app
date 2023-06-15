@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatDate } from '../../utils/dateFormat';
 import { addIncomeAction } from '../../store/actions/incomeActions';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { useAuth } from '../../contexts/AuthContext';
 import { firestore } from '../../firebase';
 import styles from './IncomeForm.module.css';
@@ -12,7 +12,7 @@ import Dropdown from '../form/Dropdown/Dropdown';
 
 function IncomeForm() {
   const { currentUser } = useAuth();
-  const incomes = useSelector((state) => state.incomes.incomes);
+  const totalAmount = useSelector((state) => state.incomes.totalAmount);
   const dispatch = useDispatch();
   const [incomeItem, setIncomeItem] = useState({
     amount: '',
@@ -48,16 +48,25 @@ function IncomeForm() {
         date: formatDate(new Date()),
         id: Date.now(),
       };
+
       dispatch(addIncomeAction(income));
 
-      await setDoc(doc(firestore, 'users', currentUser?.uid), {
-        incomes: [...incomes, income],
+      await updateDoc(doc(firestore, 'users', currentUser?.uid), {
+        incomes: arrayUnion(income),
+        totalAmount: totalAmount + parseFloat(incomeItem.amount),
       });
+
       setIncomeItem({ amount: '', type: '' });
       setInputError('');
       setDropdownPlaceholder('Type of Income');
     },
-    [currentUser?.uid, incomeItem.amount, incomeItem.type, dispatch, incomes]
+    [
+      currentUser?.uid,
+      incomeItem.amount,
+      incomeItem.type,
+      dispatch,
+      totalAmount,
+    ]
   );
 
   const handleDropdownChange = (option) => {

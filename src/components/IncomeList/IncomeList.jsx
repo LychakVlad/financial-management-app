@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { deleteDoc, doc } from 'firebase/firestore';
 import firebase from 'firebase/compat/app';
 import { firestore } from '../../firebase';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,18 +19,7 @@ function IncomeList() {
 
   const currentUser = useAuth();
 
-  const [users, setUsers] = useState([]);
-  const usersCollectionRef = collection(firestore, 'users');
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const getUser = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-
-    getUser();
-  }, []);
 
   useEffect(() => {
     if (currentUser?.currentUser) {
