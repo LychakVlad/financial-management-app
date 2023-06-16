@@ -1,7 +1,7 @@
 import {
   setStateTaxAction,
   setFederalTaxAction,
-} from '../../store/actions/taxActions';
+} from '../../../store/actions/taxActions';
 
 export const calculateTaxLiability = (
   deductions,

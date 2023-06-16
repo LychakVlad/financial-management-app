@@ -4,13 +4,13 @@ import {
   setTotalTaxLiabilityAction,
   setFilingStatusAction,
   setDeductionsAction,
-} from '../../store/actions/taxActions';
-import { federalTaxRates, virginiaTaxRates } from '../../data/taxRates';
+} from '../../../store/actions/taxActions';
+import { federalTaxRates, virginiaTaxRates } from '../../../data/taxRates';
 import styles from './TaxForm.module.css';
-import CustomButton from '../form/Button/CustomButton';
-import Dropdown from '../form/Dropdown/Dropdown';
-import CustomInput from '../form/Input/CustomInput';
-import Radio from '../form/Radio/Radio';
+import CustomButton from '../../form/Button/CustomButton';
+import Dropdown from '../../form/Dropdown/Dropdown';
+import CustomInput from '../../form/Input/CustomInput';
+import Radio from '../../form/Radio/Radio';
 import { calculateTaxLiability } from './taxCalculation';
 
 function TaxForm() {

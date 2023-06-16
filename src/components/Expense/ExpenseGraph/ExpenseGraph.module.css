@@ -2,7 +2,7 @@
   background: white;
   width: 100%;
   padding: 18px;
-  max-width: 630px;
+  max-width: 650px;
   box-shadow: -24px 0px 80px rgba(49, 79, 124, 0.02);
   border-radius: 12px;
 
@@ -30,4 +30,8 @@
 .form p {
   font-size: 18px;
   margin-bottom: 8px;
+}
+
+.category {
+  opacity: 0.6;
 }

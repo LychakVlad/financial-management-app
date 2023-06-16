@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SideBar.module.css';
-import { ReactComponent as MenuIcon } from '../../assets/menu-icon.svg';
-import { ReactComponent as MenuIcon1 } from '../../assets/menu-icon1.svg';
-import { ReactComponent as MenuIcon2 } from '../../assets/menu-icon2.svg';
-import { ReactComponent as MenuIcon3 } from '../../assets/menu-icon3.svg';
-import { ReactComponent as LogOut } from '../../assets/logout.svg';
-import { useAuth } from '../../contexts/AuthContext';
+import { ReactComponent as MenuIcon } from '../../../assets/menu-icon.svg';
+import { ReactComponent as MenuIcon1 } from '../../../assets/menu-icon1.svg';
+import { ReactComponent as MenuIcon2 } from '../../../assets/menu-icon2.svg';
+import { ReactComponent as MenuIcon3 } from '../../../assets/menu-icon3.svg';
+import { ReactComponent as LogOut } from '../../../assets/logout.svg';
 import SideItem from './SideItem';
+import { useAuth } from '../../../contexts/AuthContext';
 
 const SideBar = () => {
   const { logout } = useAuth();

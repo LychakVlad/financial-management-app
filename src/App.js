@@ -7,10 +7,10 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import PrivateRoute from './pages/PrivateRoute';
 import './index.css';
-import TaxCalculator from './components/TaxCalculator/TaxCalculator';
-import IncomeCounter from './components/IncomeCounter/IncomeCounter';
-import BudgetPlanner from './components/BudgetPlanner/BudgetPlanner';
-import ExpenseTracker from './components/ExpenseTracker/ExpenseTracker';
+import TaxCalculator from './components/Tax/TaxCalculator/TaxCalculator';
+import IncomeCounter from './components/Income/IncomeCounter/IncomeCounter';
+import BudgetPlanner from './components/Budget/BudgetPlanner/BudgetPlanner';
+import ExpenseTracker from './components/Expense/ExpenseTracker/ExpenseTracker';
 
 function App() {
   const [users, setUsers] = useState([]);

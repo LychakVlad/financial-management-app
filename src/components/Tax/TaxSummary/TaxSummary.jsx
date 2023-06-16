@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './TaxSummary.module.css';
-import { updateIncomeAction } from '../../store/actions/incomeActions';
-import { useAuth } from '../../contexts/AuthContext';
-import { firestore } from '../../firebase';
+import { updateIncomeAction } from '../../../store/actions/incomeActions';
+import { firestore } from '../../../firebase';
+import { useAuth } from '../../../contexts/AuthContext';
 
 function TaxSummary() {
   const totalIncome = useSelector((state) => state.incomes.totalIncome);

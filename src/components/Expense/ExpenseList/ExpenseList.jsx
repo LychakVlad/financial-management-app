@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ExpenseList.module.css';
 import MoonLoader from 'react-spinners/MoonLoader';
-import CustomButton from '../form/Button/CustomButton';
 import firebase from 'firebase/compat/app';
 import {
   removeExpenseAction,
   updateExpenseAction,
-} from '../../store/actions/expenseActions';
-import { firestore } from '../../firebase';
-import { useAuth } from '../../contexts/AuthContext';
+} from '../../../store/actions/expenseActions';
+import { firestore } from '../../../firebase';
 import { useDispatch, useSelector } from 'react-redux';
+import { useAuth } from '../../../contexts/AuthContext';
+import CustomButton from '../../form/Button/CustomButton';
 
 const ExpenseList = () => {
   const expenses = useSelector((state) => state.expenses.expenses || []);
-  const totalexpense = useSelector((state) => state.expenses.totalexpense);
   const dispatch = useDispatch();
 
   const currentUser = useAuth();

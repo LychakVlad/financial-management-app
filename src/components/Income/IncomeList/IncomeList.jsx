@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
 import { deleteDoc, doc } from 'firebase/firestore';
 import firebase from 'firebase/compat/app';
-import { firestore } from '../../firebase';
+import { firestore } from '../../../firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   removeIncomeAction,
   updateIncomeAction,
-} from '../../store/actions/incomeActions';
-import CustomButton from '../form/Button/CustomButton';
+} from '../../../store/actions/incomeActions';
+
 import styles from './IncomeList.module.css';
 import MoonLoader from 'react-spinners/MoonLoader';
+import { useAuth } from '../../../contexts/AuthContext';
+import CustomButton from '../../form/Button/CustomButton';
 
 function IncomeList() {
   const incomes = useSelector((state) => state.incomes.incomes || []);

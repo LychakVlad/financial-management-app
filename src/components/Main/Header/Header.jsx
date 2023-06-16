@@ -1,6 +1,7 @@
 import React from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+
 import styles from './Header.module.css';
+import { useAuth } from '../../../contexts/AuthContext';
 
 const Header = () => {
   const { currentUser } = useAuth();

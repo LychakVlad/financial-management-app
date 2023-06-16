@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+
 import styles from './Login.module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import CustomInput from '../form/Input/CustomInput';
-import CustomButton from '../form/Button/CustomButton';
+import { useAuth } from '../../../contexts/AuthContext';
+import CustomInput from '../../form/Input/CustomInput';
+import CustomButton from '../../form/Button/CustomButton';
 
 const Login = () => {
   const emailRef = useRef();
@@ -12,8 +13,6 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useNavigate();
-  const [emailError, setEmailError] = useState('');
-  const { currentUser } = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();

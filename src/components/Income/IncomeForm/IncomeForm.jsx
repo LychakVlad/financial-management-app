@@ -1,14 +1,15 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { formatDate } from '../../utils/dateFormat';
-import { addIncomeAction } from '../../store/actions/incomeActions';
+import { formatDate } from '../../../utils/dateFormat';
+import { addIncomeAction } from '../../../store/actions/incomeActions';
 import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
-import { useAuth } from '../../contexts/AuthContext';
-import { firestore } from '../../firebase';
+
+import { firestore } from '../../../firebase';
 import styles from './IncomeForm.module.css';
-import CustomInput from '../form/Input/CustomInput';
-import CustomButton from '../form/Button/CustomButton';
-import Dropdown from '../form/Dropdown/Dropdown';
+import CustomInput from '../../form/Input/CustomInput';
+import Dropdown from '../../form/Dropdown/Dropdown';
+import CustomButton from '../../form/Button/CustomButton';
+import { useAuth } from '../../../contexts/AuthContext';
 
 function IncomeForm() {
   const { currentUser } = useAuth();

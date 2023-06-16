@@ -2,13 +2,12 @@ import React from 'react';
 import styles from './ExpenseGraph.module.css';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ExpenseGraph = () => {
   const expenses = useSelector((state) => state.expenses.expenses || []);
-  const dispatch = useDispatch();
 
   const options = {
     plugins: {
@@ -61,7 +60,8 @@ const ExpenseGraph = () => {
         <div className={styles.list}>
           {Object.entries(categoryTotals).map(([category, total]) => (
             <p key={category}>
-              {total.toFixed(2)} $ in {category}
+              {total.toFixed(2)} $
+              <span className={styles.category}> in {category}</span>
             </p>
           ))}
         </div>

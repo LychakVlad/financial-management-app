@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../components/Header/Header';
-import SideBar from '../components/SideBar/SideBar';
+import Header from '../components/Main/Header/Header';
+import SideBar from '../components/Main/SideBar/SideBar';
 
 const MainPage = ({ children }) => {
   return (
