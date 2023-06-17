@@ -20,11 +20,13 @@
 
 .list {
   overflow-y: auto;
+  padding-left: 12px;
 }
 
 .form h2 {
   font-size: 28px;
   margin-bottom: 12px;
+  padding-left: 12px;
 }
 
 .form p {
@@ -34,4 +36,8 @@
 
 .category {
   opacity: 0.6;
+}
+
+.graph {
+  padding-right: 40px;
 }

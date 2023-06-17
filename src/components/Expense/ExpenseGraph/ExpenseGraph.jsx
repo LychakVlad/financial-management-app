@@ -58,15 +58,19 @@ const ExpenseGraph = () => {
       <div className={styles.expenses}>
         <h2>Expenses:</h2>
         <div className={styles.list}>
-          {Object.entries(categoryTotals).map(([category, total]) => (
-            <p key={category}>
-              {total.toFixed(2)} $
-              <span className={styles.category}> in {category}</span>
-            </p>
-          ))}
+          {Object.entries(categoryTotals)
+            .sort(([, totalA], [, totalB]) => totalB - totalA)
+            .map(([category, total]) => (
+              <p key={category}>
+                {total.toFixed(2)} $
+                <span className={styles.category}> in {category}</span>
+              </p>
+            ))}
         </div>
       </div>
-      <Doughnut data={data} options={options} height={1000} width={1000} />
+      <div className={styles.graph}>
+        <Doughnut data={data} options={options} height={1000} width={1000} />
+      </div>
     </div>
   );
 };

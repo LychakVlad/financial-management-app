@@ -6,5 +6,7 @@ with:
 - TOTAL MONEY
 - TOTAL EXPENSES
 
+add budget planner
+
 add calendar to income tracker
 add calendar to expense tracker

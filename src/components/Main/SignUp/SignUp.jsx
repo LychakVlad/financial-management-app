@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../../contexts/AuthContext';
 import styles from './SignUp.module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import CustomInput from '../form/Input/CustomInput';
-import CustomButton from '../form/Button/CustomButton';
+import CustomInput from '../../form/Input/CustomInput';
+import CustomButton from '../../form/Button/CustomButton';
 
 const SignUp = () => {
   const emailRef = useRef();

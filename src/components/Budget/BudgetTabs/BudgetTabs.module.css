@@ -1,0 +1,30 @@
+.form {
+  background: white;
+  width: 100%;
+  padding: 32px;
+  max-width: 1130px;
+  box-shadow: -24px 0px 80px rgba(49, 79, 124, 0.02);
+  border-radius: 12px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #3f4765;
+
+  display: flex;
+  gap: 24px;
+}
+
+.button {
+  cursor: pointer;
+  background-color: rgba(244, 246, 248, 0.8);
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.button.active {
+  color: white;
+  background: linear-gradient(151.19deg, #1cac70 21.77%, #eddc46 111.4%);
+}
