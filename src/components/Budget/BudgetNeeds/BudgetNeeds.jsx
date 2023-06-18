@@ -10,13 +10,9 @@ const BudgetNeeds = () => {
   const total = useSelector((state) => state.budget.totalPlan);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(needs);
-    console.log(total);
-  }, [needs]);
-
   const handleInputChange = (event, category) => {
-    dispatch(addNeedsAction({ category, value: parseFloat(event) }));
+    const value = event !== '' ? parseFloat(event) : null;
+    dispatch(addNeedsAction({ category, value }));
   };
 
   return (
@@ -30,7 +26,7 @@ const BudgetNeeds = () => {
             id={category.key}
             step="0.01"
             required
-            value={category.value}
+            value={category.value !== null ? category.value : ''}
             onChange={(event) => handleInputChange(event, category.category)}
           />
         ))}
