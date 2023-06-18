@@ -3,6 +3,7 @@ import CustomInput from '../../form/Input/CustomInput';
 import styles from './BudgetNeeds.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNeedsAction } from '../../../store/actions/budgetActions';
+import CustomButton from '../../form/Button/CustomButton';
 
 const BudgetNeeds = () => {
   const needs = useSelector((state) => state.budget.needs);
@@ -14,80 +15,35 @@ const BudgetNeeds = () => {
     console.log(total);
   }, [needs]);
 
-  console.log(needs);
+  const handleInputChange = (event, category) => {
+    dispatch(addNeedsAction({ category, value: parseFloat(event) }));
+  };
+
   return (
-    <div className={styles.grid}>
-      <CustomInput
-        label="Rent/Mortgage"
-        type="number"
-        id="rentExpense"
-        step="0.01"
-        required
-        onChange={(event) => dispatch(addNeedsAction(event))}
-      />
-
-      <CustomInput
-        label="Gasoline"
-        type="number"
-        id="gasolineExpense"
-        step="0.01"
-        required
-        onChange={(event) => dispatch(addNeedsAction(event))}
-      />
-      <CustomInput
-        label="Car Payment"
-        type="number"
-        id="carPaymentExpense"
-        step="0.01"
-        required
-      />
-
-      <CustomInput
-        label="Electricity and Gas"
-        type="number"
-        id="electricityExpense"
-        step="0.01"
-        required
-      />
-      <CustomInput
-        label="Water Bill"
-        type="number"
-        id="waterExpense"
-        step="0.01"
-        required
-      />
-
-      <CustomInput
-        label="Health Insurance"
-        type="number"
-        id="healthInsuranceExpense"
-        step="0.01"
-        required
-      />
-
-      <CustomInput
-        label="Groceries"
-        type="number"
-        id="groceriesExpense"
-        step="0.01"
-        required
-      />
-
-      <CustomInput
-        label="Student Loan"
-        type="number"
-        id="studentLoanExpense"
-        step="0.01"
-        required
-      />
-
-      <CustomInput
-        label="Phone and Internet"
-        type="number"
-        id="phineAndInternetExpense"
-        step="0.01"
-        required
-      />
+    <div>
+      <div className={styles.grid}>
+        {needs.map((category) => (
+          <CustomInput
+            key={category.key}
+            label={category.category}
+            type="number"
+            id={category.key}
+            step="0.01"
+            required
+            value={category.value}
+            onChange={(event) => handleInputChange(event, category.category)}
+          />
+        ))}
+      </div>
+      <div className={styles.total}>
+        <CustomButton type="submit" title="Save Needs" />
+        <div>
+          <p>
+            Your total for needs:
+            <span className={styles.totalDigit}> {total} $</span>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

@@ -4,4 +4,17 @@
   grid-template-rows: 1fr 1fr 1fr;
 
   row-gap: 24px;
+  margin-bottom: 40px;
+}
+
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 40px;
+}
+
+.totalDigit {
+  font-size: 32px;
+  color: #1cac70;
 }
