@@ -1,24 +1,24 @@
 import React from 'react';
 import CustomInput from '../../form/Input/CustomInput';
-import styles from './BudgetNeeds.module.css';
+import styles from './BudgetWants.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNeedsAction } from '../../../store/actions/budgetActions';
+import { addWantsAction } from '../../../store/actions/budgetActions';
 import CustomButton from '../../form/Button/CustomButton';
 
-const BudgetNeeds = () => {
-  const needs = useSelector((state) => state.budget.needs);
-  const total = useSelector((state) => state.budget.totalNeeds);
+const BudgetWants = () => {
+  const wants = useSelector((state) => state.budget.wants);
+  const total = useSelector((state) => state.budget.totalWants);
   const dispatch = useDispatch();
 
   const handleInputChange = (event, category) => {
     const value = event !== '' ? parseFloat(event) : null;
-    dispatch(addNeedsAction({ category, value }));
+    dispatch(addWantsAction({ category, value }));
   };
 
   return (
     <div>
       <div className={styles.grid}>
-        {needs.map((category) => (
+        {wants.map((category) => (
           <CustomInput
             key={category.key}
             label={category.category}
@@ -32,11 +32,11 @@ const BudgetNeeds = () => {
         ))}
       </div>
       <div className={styles.total}>
-        <CustomButton type="submit" title="Save Needs" />
+        <CustomButton type="submit" title="Save Wants" />
         <div>
           <p>
-            Your total for needs:
-            <span className={styles.totalDigit}> {total} $ </span>
+            Your total for wants:
+            <span className={styles.totalDigit}> {total} $</span>
           </p>
         </div>
       </div>
@@ -44,4 +44,4 @@ const BudgetNeeds = () => {
   );
 };
 
-export default BudgetNeeds;
+export default BudgetWants;
