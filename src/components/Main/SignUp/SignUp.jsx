@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useAuth } from '../../../contexts/AuthContext';
 import styles from './SignUp.module.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import CustomInput from '../../form/Input/CustomInput';
 import CustomButton from '../../form/Button/CustomButton';
 
@@ -11,9 +11,10 @@ const SignUp = () => {
   const passwordConfirmRef = useRef();
   const nameRef = useRef();
 
-  const { signup, logout } = useAuth();
+  const { signup } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const { currentUser } = useAuth();
 
   const history = useNavigate();
 
@@ -39,17 +40,6 @@ const SignUp = () => {
     setLoading(false);
   }
 
-  async function handleLogout() {
-    setError('');
-
-    try {
-      await logout();
-      history('/login');
-    } catch {
-      setError('Failed to logout');
-    }
-  }
-
   const handleEmailChange = (value) => {
     emailRef.current.value = value;
   };
@@ -65,6 +55,10 @@ const SignUp = () => {
   const handleNameChange = (value) => {
     nameRef.current.value = value;
   };
+
+  if (currentUser) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className={styles.main}>
@@ -103,12 +97,6 @@ const SignUp = () => {
           onChange={handlePasswordConfirmChange}
         />
         <CustomButton disabled={loading} type="submit" title="Sign Up" />
-        <CustomButton
-          disabled={loading}
-          type="submit"
-          title="Log out"
-          onClick={handleLogout}
-        />
       </form>
       <div className={styles.link}>
         Already have an account?

@@ -22,6 +22,7 @@ const SideBar = () => {
       history('/login');
     } catch {
       setError('Failed to logout');
+      console.log(error);
     }
   }
 

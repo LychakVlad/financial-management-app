@@ -4,14 +4,10 @@ import styles from './BudgetNeeds.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNeedsAction } from '../../../store/actions/budgetActions';
 import CustomButton from '../../form/Button/CustomButton';
-import { doc, setDoc, updateDoc } from 'firebase/firestore';
-import { firestore } from '../../../firebase';
-import { useAuth } from '../../../contexts/AuthContext';
 import { setTabAction } from '../../../store/actions/tabsActions';
 import { formatNumber } from '../../../utils/formatNumber';
 
-const BudgetNeeds = () => {
-  const { currentUser } = useAuth();
+const BudgetNeeds = React.memo(() => {
   const needs = useSelector((state) => state.budget.needs);
   const total = useSelector((state) => state.budget.totalNeeds);
   const dispatch = useDispatch();
@@ -54,6 +50,6 @@ const BudgetNeeds = () => {
       </div>
     </form>
   );
-};
+});
 
 export default BudgetNeeds;

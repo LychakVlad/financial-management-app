@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 import styles from './Login.module.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contexts/AuthContext';
 import CustomInput from '../../form/Input/CustomInput';
 import CustomButton from '../../form/Button/CustomButton';
@@ -13,6 +13,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useNavigate();
+  const { currentUser } = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -36,6 +37,11 @@ const Login = () => {
   const handlePasswordChange = (value) => {
     passwordRef.current.value = value;
   };
+
+  if (currentUser) {
+    // User is already signed in, redirect to the main page
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className={styles.main}>
@@ -64,6 +70,13 @@ const Login = () => {
           <Link to="/signup">Sign up</Link>
         </div>
       </form>
+      <div className={styles.popup}>
+        <p>Hi, thanks for visiting this app!👋</p>
+        <br></br> If you want to try all the functionality you can create an
+        account with any fake email Or you can use these details
+        <p className={styles.data}> Email: testing@gmail.com</p>
+        <p className={styles.data}> Password: 123456</p>
+      </div>
     </div>
   );
 };

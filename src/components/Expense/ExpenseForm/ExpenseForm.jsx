@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styles from './ExpenseForm.module.css';
 import { useDispatch } from 'react-redux';
 import { useAuth } from '../../../contexts/AuthContext';

@@ -37,3 +37,19 @@
 .link a:active {
   opacity: 0.5;
 }
+
+.popup {
+  position: absolute;
+  max-width: 300px;
+
+  right: 70%;
+  border: 1px solid gray;
+  border-radius: 20px;
+  padding: 20px;
+  font-size: 20px;
+}
+
+.data {
+  font-weight: 700;
+  margin-top: 12px;
+}
