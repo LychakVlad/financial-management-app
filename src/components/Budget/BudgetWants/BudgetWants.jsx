@@ -8,6 +8,7 @@ import { doc, setDoc, updateDoc } from 'firebase/firestore';
 import { firestore } from '../../../firebase';
 import { useAuth } from '../../../contexts/AuthContext';
 import { setTabAction } from '../../../store/actions/tabsActions';
+import { formatNumber } from '../../../utils/formatNumber';
 
 const BudgetWants = () => {
   const { currentUser } = useAuth();
@@ -47,7 +48,7 @@ const BudgetWants = () => {
         <div>
           <p>
             Total spent on wants:
-            <span className={styles.totalDigit}> {total} $</span>
+            <span className={styles.totalDigit}> {formatNumber(total)} $</span>
           </p>
         </div>
       </div>

@@ -4,6 +4,7 @@ import styles from './TaxSummary.module.css';
 import { updateIncomeAction } from '../../../store/actions/incomeActions';
 import { firestore } from '../../../firebase';
 import { useAuth } from '../../../contexts/AuthContext';
+import { formatNumber } from '../../../utils/formatNumber';
 
 function TaxSummary() {
   const incomes = useSelector((state) => state.incomes.incomes);
@@ -54,12 +55,18 @@ function TaxSummary() {
       <p>
         Your income before taxes:{' '}
         <span className={styles.income}>
-          {loading ? <span>Loading...</span> : `${incomeBeforeTax}$`}
+          {loading ? (
+            <span>Loading...</span>
+          ) : (
+            `${formatNumber(incomeBeforeTax)} $`
+          )}
         </span>
       </p>
       <p>
         You need to pay:{' '}
-        <span className={styles.totalTax}>{totalTaxLiability}$</span>
+        <span className={styles.totalTax}>
+          {formatNumber(Math.round(totalTaxLiability))} $
+        </span>
       </p>
     </div>
   );

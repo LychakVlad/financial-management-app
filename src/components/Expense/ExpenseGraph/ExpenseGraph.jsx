@@ -3,6 +3,7 @@ import styles from './ExpenseGraph.module.css';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
+import { formatNumber } from '../../../utils/formatNumber';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -62,7 +63,7 @@ const ExpenseGraph = () => {
             .sort(([, totalA], [, totalB]) => totalB - totalA)
             .map(([category, total]) => (
               <p key={category}>
-                {total.toFixed(2)} $
+                {formatNumber(total)} $
                 <span className={styles.category}> in {category}</span>
               </p>
             ))}

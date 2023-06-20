@@ -12,6 +12,7 @@ import styles from './IncomeList.module.css';
 import MoonLoader from 'react-spinners/MoonLoader';
 import { useAuth } from '../../../contexts/AuthContext';
 import CustomButton from '../../form/Button/CustomButton';
+import { formatNumber } from '../../../utils/formatNumber';
 
 function IncomeList() {
   const incomes = useSelector((state) => state.incomes.incomes || []);
@@ -73,7 +74,9 @@ function IncomeList() {
             <div className={styles.listWrapper}>
               {incomes.map((income) => (
                 <div key={income.id} className={styles.item}>
-                  <div className={styles.income}>+{income.amount} $</div>
+                  <div className={styles.income}>
+                    +{formatNumber(income.amount)} $
+                  </div>
                   <div>{income.type}</div>
                   <div>{income.date}</div>
                   <CustomButton
@@ -95,7 +98,10 @@ function IncomeList() {
           {loading ? (
             <span className={styles.totalDigit}> Loading...</span>
           ) : (
-            <span className={styles.totalDigit}> {totalIncome} $</span>
+            <span className={styles.totalDigit}>
+              {' '}
+              {formatNumber(totalIncome)} $
+            </span>
           )}
         </p>
 

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addSavingsAction } from '../../../store/actions/budgetActions';
 import CustomButton from '../../form/Button/CustomButton';
 import { setTabAction } from '../../../store/actions/tabsActions';
+import { formatNumber } from '../../../utils/formatNumber';
 
 const BudgetSavings = () => {
   const savings = useSelector((state) => state.budget.savings);
@@ -47,7 +48,7 @@ const BudgetSavings = () => {
         <div>
           <p>
             Total spent on savings and paying off debt:
-            <span className={styles.totalDigit}> {total} $</span>
+            <span className={styles.totalDigit}> {formatNumber(total)} $</span>
           </p>
         </div>
       </div>

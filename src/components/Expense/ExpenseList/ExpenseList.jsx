@@ -10,6 +10,7 @@ import { firestore } from '../../../firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from '../../../contexts/AuthContext';
 import CustomButton from '../../form/Button/CustomButton';
+import { formatNumber } from '../../../utils/formatNumber';
 
 const ExpenseList = () => {
   const expenses = useSelector((state) => state.expenses.expenses || []);
@@ -60,7 +61,9 @@ const ExpenseList = () => {
             <div className={styles.listWrapper}>
               {expenses.map((expense) => (
                 <div key={expense.id} className={styles.item}>
-                  <div className={styles.expense}>-{expense.amount} $</div>
+                  <div className={styles.expense}>
+                    -{formatNumber(expense.amount)} $
+                  </div>
                   <span className={styles.description}>
                     {expense.description}
                   </span>
