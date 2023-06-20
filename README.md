@@ -6,7 +6,8 @@ with:
 - TOTAL MONEY
 - TOTAL EXPENSES
 
-add budget planner
-
 add calendar to income tracker
 add calendar to expense tracker
+
+style total budget planner
+save redux state after refresh
