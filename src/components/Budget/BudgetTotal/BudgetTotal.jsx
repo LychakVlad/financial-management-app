@@ -7,22 +7,35 @@ const BudgetTotal = () => {
     (state) => state.budget
   );
   const totalIncome = useSelector((state) => state.incomes.totalIncome);
+  const totalTax = useSelector((state) => state.taxes.totalTaxLiability);
+
+  const totalAfterTax = totalIncome - totalTax;
 
   return (
-    <div>
-      <ul>
-        <li>Total Needs: {totalNeeds} $</li>
-        <li>Total Wants: {totalWants} $</li>
-        <li>Total Savings: {totalSavings} $</li>
-      </ul>
+    <div className={styles.main}>
       <div>
-        <div>Your total income: {totalIncome} $</div>
-        <div>50/30/20 comparison:</div>
-        <div>50% for necessities: {(totalIncome / 100) * 50}</div>
-        <div>30% for wants: {(totalIncome / 100) * 30}</div>
-        <div>
-          20% for savings and debt repayment: {(totalIncome / 100) * 20}
-        </div>
+        <h2 className={styles.title}>Your totals:</h2>
+        <ul className={styles.list}>
+          <li className={styles.point}>Total Needs: {totalNeeds} $</li>
+          <li className={styles.point}>Total Wants: {totalWants} $</li>
+          <li className={styles.point}>Total Savings: {totalSavings} $</li>
+        </ul>
+      </div>
+      <div>
+        <h2 className={styles.title}>50/30/20 comparison:</h2>
+        <ul className={styles.list}>
+          {' '}
+          <li className={styles.point}>Your total income: {totalAfterTax} $</li>
+          <li className={styles.point}>
+            50% for necessities: {(totalAfterTax / 100) * 50}
+          </li>
+          <li className={styles.point}>
+            30% for wants: {(totalAfterTax / 100) * 30}
+          </li>
+          <li className={styles.point}>
+            20% for savings and debt repayment: {(totalAfterTax / 100) * 20}
+          </li>
+        </ul>
       </div>
     </div>
   );

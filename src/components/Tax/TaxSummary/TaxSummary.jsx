@@ -6,7 +6,7 @@ import { firestore } from '../../../firebase';
 import { useAuth } from '../../../contexts/AuthContext';
 
 function TaxSummary() {
-  const totalIncome = useSelector((state) => state.incomes.totalIncome);
+  const incomes = useSelector((state) => state.incomes.incomes);
   const { stateTax, federalTax, totalTaxLiability } = useSelector(
     (state) => state.taxes
   );
@@ -31,6 +31,14 @@ function TaxSummary() {
     }
   }, [currentUser, dispatch]);
 
+  const incomeBeforeTax = incomes.reduce((accumulator, item) => {
+    if (item.type === 'Taxable') {
+      return accumulator + parseFloat(item.amount);
+    } else {
+      return accumulator;
+    }
+  }, 0);
+
   return (
     <div className={styles.form}>
       <p>
@@ -46,7 +54,7 @@ function TaxSummary() {
       <p>
         Your total income:{' '}
         <span className={styles.income}>
-          {loading ? <span>Loading...</span> : `${totalIncome}$`}
+          {loading ? <span>Loading...</span> : `${incomeBeforeTax}$`}
         </span>
       </p>
       <p>

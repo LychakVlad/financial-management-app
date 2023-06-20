@@ -1,0 +1,16 @@
+.main {
+  display: flex;
+  gap: 80px;
+}
+
+.list {
+  list-style: none;
+}
+
+.point {
+  margin-bottom: 12px;
+}
+
+.title {
+  margin-bottom: 24px;
+}

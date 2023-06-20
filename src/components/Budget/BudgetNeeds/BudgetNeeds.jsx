@@ -35,7 +35,7 @@ const BudgetNeeds = () => {
         <CustomButton type="submit" title="Save Needs" />
         <div>
           <p>
-            Your total for needs:
+            Total spent on necessities:
             <span className={styles.totalDigit}> {total} $ </span>
           </p>
         </div>
