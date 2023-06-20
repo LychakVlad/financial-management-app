@@ -5,6 +5,7 @@ import BudgetNeeds from '../BudgetNeeds/BudgetNeeds';
 import { useSelector } from 'react-redux';
 import BudgetWants from '../BudgetWants/BudgetWants';
 import BudgetSavings from '../BudgetSavings/BudgetSavings';
+import BudgetTotal from '../BudgetTotal/BudgetTotal';
 
 const BudgetPlanner = () => {
   const tab = useSelector((state) => state.tabs.currentTab);
@@ -16,6 +17,7 @@ const BudgetPlanner = () => {
         {tab === 'needs' ? <BudgetNeeds /> : null}
         {tab === 'wants' ? <BudgetWants /> : null}
         {tab === 'savings' ? <BudgetSavings /> : null}
+        {tab === 'total' ? <BudgetTotal /> : null}
       </div>
     </div>
   );
