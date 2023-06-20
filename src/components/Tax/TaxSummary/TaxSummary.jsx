@@ -52,7 +52,7 @@ function TaxSummary() {
       </p>
 
       <p>
-        Your total income:{' '}
+        Your income before taxes:{' '}
         <span className={styles.income}>
           {loading ? <span>Loading...</span> : `${incomeBeforeTax}$`}
         </span>

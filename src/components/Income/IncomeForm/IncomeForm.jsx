@@ -26,7 +26,7 @@ function IncomeForm() {
 
   const options = [
     { value: 'Taxable', label: 'Taxable' },
-    { value: 'Non-taxable', label: 'Non-taxable' },
+    { value: 'After tax', label: 'After tax' },
   ];
 
   const handleAddIncome = useCallback(

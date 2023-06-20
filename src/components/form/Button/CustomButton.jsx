@@ -8,6 +8,7 @@ const CustomButton = ({ style, disabled, type, onClick, title, test }) => {
       className={styles.btn}
       onClick={onClick}
       type={type}
+      disabled={disabled}
     >
       <div>{title}</div>
     </button>

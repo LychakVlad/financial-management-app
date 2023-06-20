@@ -4,6 +4,7 @@ import styles from './BudgetSavings.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSavingsAction } from '../../../store/actions/budgetActions';
 import CustomButton from '../../form/Button/CustomButton';
+import { setTabAction } from '../../../store/actions/tabsActions';
 
 const BudgetSavings = () => {
   const savings = useSelector((state) => state.budget.savings);
@@ -13,9 +14,13 @@ const BudgetSavings = () => {
   const handleInputChange = (event, category) => {
     const value = event !== '' ? parseFloat(event) : null;
     dispatch(addSavingsAction({ category, value }));
-    console.log(category);
-    console.log(total);
   };
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    dispatch(setTabAction('total'));
+  }
 
   return (
     <div>
@@ -34,7 +39,11 @@ const BudgetSavings = () => {
         ))}
       </div>
       <div className={styles.total}>
-        <CustomButton type="submit" title="Save Savings" />
+        <CustomButton
+          type="submit"
+          title="Save Savings"
+          onClick={handleSubmit}
+        />
         <div>
           <p>
             Total spent on savings and paying off debt:

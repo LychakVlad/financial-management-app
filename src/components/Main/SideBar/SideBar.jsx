@@ -36,14 +36,14 @@ const SideBar = () => {
             label="Income Tracker"
           />
           <SideItem
-            to="/tax-calculator"
-            icon={MenuIcon2}
-            label="Tax Calculator"
-          />
-          <SideItem
             to="/expense-tracker"
             icon={MenuIcon1}
             label="Expense Tracker"
+          />
+          <SideItem
+            to="/tax-calculator"
+            icon={MenuIcon2}
+            label="Tax Calculator"
           />
           <SideItem
             to="/budget-planner"
