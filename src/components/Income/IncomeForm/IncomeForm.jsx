@@ -12,6 +12,7 @@ import CustomButton from '../../form/Button/CustomButton';
 import { useAuth } from '../../../contexts/AuthContext';
 
 function IncomeForm() {
+  const [loading, setLoading] = useState(false);
   const { currentUser } = useAuth();
   const totalAmount = useSelector((state) => state.incomes.totalAmount);
   const dispatch = useDispatch();
@@ -43,6 +44,8 @@ function IncomeForm() {
         return;
       }
 
+      setLoading(true);
+
       const income = {
         amount: incomeItem.amount,
         type: incomeItem.type,
@@ -60,6 +63,7 @@ function IncomeForm() {
       setIncomeItem({ amount: '', type: '' });
       setInputError('');
       setDropdownPlaceholder('Type of Income');
+      setLoading(false);
     },
     [
       currentUser?.uid,
@@ -79,6 +83,8 @@ function IncomeForm() {
     setIncomeItem({ ...incomeItem, amount: value });
     setInputError('');
   };
+
+  const buttonTitle = loading ? 'Loading...' : 'Add income';
 
   return (
     <form onSubmit={handleAddIncome} className={styles.form}>
@@ -101,7 +107,7 @@ function IncomeForm() {
           onChange={handleDropdownChange}
           error={dropdownError}
         />
-        <CustomButton type="submit" title="Add income" />
+        <CustomButton type="submit" title={buttonTitle} disabled={loading} />
       </div>
     </form>
   );

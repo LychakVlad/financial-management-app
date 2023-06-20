@@ -22,6 +22,7 @@ const ExpenseForm = () => {
   const [dropdownPlaceholder, setDropdownPlaceholder] =
     useState('Type of Expense');
   const [inputError, setInputError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const options = [
     { value: 'Groceries', label: 'Groceries' },
@@ -49,6 +50,8 @@ const ExpenseForm = () => {
         return;
       }
 
+      setLoading(true);
+
       const Expense = {
         amount: expenseItem.amount,
         type: expenseItem.type,
@@ -64,6 +67,7 @@ const ExpenseForm = () => {
       });
 
       setExpenseItem({ amount: '', type: '', description: '' });
+      setLoading(false);
       setInputError('');
       setDropdownPlaceholder('Type of Expense');
     },
@@ -89,6 +93,8 @@ const ExpenseForm = () => {
   const handleDescChange = (value) => {
     setExpenseItem({ ...expenseItem, description: value });
   };
+
+  const buttonTitle = loading ? 'Loading...' : 'Add income';
 
   return (
     <form onSubmit={handleAddExpense} className={styles.form}>
@@ -119,7 +125,7 @@ const ExpenseForm = () => {
           onChange={handleDropdownChange}
           error={dropdownError}
         />
-        <CustomButton type="submit" title="Add Expense" />
+        <CustomButton type="submit" title={buttonTitle} disabled={loading} />
       </div>
     </form>
   );

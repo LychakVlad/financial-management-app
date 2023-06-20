@@ -28,8 +28,8 @@ const ExpenseList = () => {
         const userDocRef = firestore.collection('users').doc(userId);
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
-        dispatch(updateExpenseAction(userData?.expenses || []));
         setLoading(false);
+        dispatch(updateExpenseAction(userData?.expenses || []));
       };
 
       fetchData();
@@ -73,6 +73,7 @@ const ExpenseList = () => {
                     type="submit"
                     title="Delete"
                     onClick={() => deletePoint(expense)}
+                    disabled={loading}
                   />
                 </div>
               ))}

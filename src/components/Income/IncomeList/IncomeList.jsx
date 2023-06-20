@@ -83,6 +83,7 @@ function IncomeList() {
                     type="submit"
                     title="Delete"
                     onClick={() => deletePoint(income)}
+                    disabled={loading}
                   />
                 </div>
               ))}

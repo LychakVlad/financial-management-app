@@ -17,6 +17,7 @@ import { firestore } from '../../../firebase';
 import { useAuth } from '../../../contexts/AuthContext';
 
 function TaxForm() {
+  const [loading, setLoading] = useState(false);
   const { currentUser } = useAuth();
   const [useStandardDeduction, setUseStandardDeduction] = useState(false);
   const incomes = useSelector((state) => state.incomes.incomes);
@@ -39,10 +40,9 @@ function TaxForm() {
     }
   }, 0);
 
-  console.log(incomeBeforeTax);
-
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
 
     if (!filingStatus) {
       setDropdownError(true);
@@ -64,6 +64,8 @@ function TaxForm() {
     dispatch(setTotalTaxLiabilityAction(taxLiability));
     setDropdownPlaceholder('Filing status');
     dispatch(setFilingStatusAction());
+
+    setLoading(false);
   }
 
   const handleDropdownChange = (option) => {
@@ -119,7 +121,7 @@ function TaxForm() {
         </div>
       )}
 
-      <CustomButton type="submit" title="Calculate" />
+      <CustomButton type="submit" title="Calculate" disabled={loading} />
     </form>
   );
 }
