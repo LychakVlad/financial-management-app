@@ -1,13 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './BudgetTotal.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAuth } from '../../../contexts/AuthContext';
+import { firestore } from '../../../firebase';
+import { updateIncomeAction } from '../../../store/actions/incomeActions';
+import { setTotalTaxLiabilityAction } from '../../../store/actions/taxActions';
 
 const BudgetTotal = () => {
+  const [loading, setLoading] = useState(false);
   const { totalWants, totalSavings, totalNeeds } = useSelector(
     (state) => state.budget
   );
-  const totalIncome = useSelector((state) => state.incomes.totalIncome);
   const totalTax = useSelector((state) => state.taxes.totalTaxLiability);
+  const totalIncome = useSelector((state) => state.incomes.totalIncome);
+  const currentUser = useAuth();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (currentUser?.currentUser) {
+      const fetchData = async () => {
+        setLoading(true);
+        const userId = currentUser.currentUser.uid;
+        const userDocRef = firestore.collection('users').doc(userId);
+        const userDoc = await userDocRef.get();
+        const userData = userDoc.data();
+        dispatch(setTotalTaxLiabilityAction(userData?.totalTax || 0));
+        dispatch(updateIncomeAction(userData?.incomes || []));
+        setLoading(false);
+      };
+
+      fetchData();
+    }
+  }, [currentUser, dispatch]);
 
   const totalAfterTax = Math.round(totalIncome - totalTax);
 
@@ -16,10 +40,16 @@ const BudgetTotal = () => {
       <div>
         <h2 className={styles.title}>Your totals:</h2>
         <ul className={styles.list}>
-          <li className={styles.point}>Needs: {totalNeeds} $</li>
-          <li className={styles.point}>Wants: {totalWants} $</li>
           <li className={styles.point}>
-            Savings and debt repayment: {totalSavings} $
+            Needs: <span className={styles.number}>{totalNeeds} $</span>
+          </li>
+
+          <li className={styles.point}>
+            Wants: <span className={styles.number}>{totalWants} $</span>
+          </li>
+          <li className={styles.point}>
+            Savings and debt repayment:{' '}
+            <span className={styles.number}>{totalSavings} $</span>
           </li>
         </ul>
       </div>
@@ -28,16 +58,29 @@ const BudgetTotal = () => {
         <ul className={styles.list}>
           {' '}
           <li className={styles.point}>
-            Your total income after tax: {totalAfterTax} $
+            Your total income after tax:{' '}
+            <span className={styles.number}>{totalAfterTax} $</span>
           </li>
           <li className={styles.point}>
-            50% for necessities: {(totalAfterTax / 100) * 50}
+            50% for necessities:
+            <span className={styles.number}>
+              {' '}
+              {Math.round(totalAfterTax / 100) * 50} $
+            </span>
           </li>
           <li className={styles.point}>
-            30% for wants: {(totalAfterTax / 100) * 30}
+            30% for wants:
+            <span className={styles.number}>
+              {' '}
+              {Math.round(totalAfterTax / 100) * 30} $
+            </span>
           </li>
           <li className={styles.point}>
-            20% for savings and debt repayment: {(totalAfterTax / 100) * 20}
+            20% for savings and debt repayment:{' '}
+            <span className={styles.number}>
+              {' '}
+              {Math.round(totalAfterTax / 100) * 20} $
+            </span>
           </li>
         </ul>
       </div>

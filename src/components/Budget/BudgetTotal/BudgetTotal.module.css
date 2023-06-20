@@ -1,6 +1,8 @@
 .main {
   display: flex;
-  gap: 80px;
+  gap: 100px;
+
+  font-size: 28px;
 }
 
 .list {
@@ -8,9 +10,13 @@
 }
 
 .point {
-  margin-bottom: 12px;
+  margin-bottom: 24px;
 }
 
 .title {
-  margin-bottom: 24px;
+  margin-bottom: 40px;
+}
+
+.number {
+  color: #1cac70;
 }
