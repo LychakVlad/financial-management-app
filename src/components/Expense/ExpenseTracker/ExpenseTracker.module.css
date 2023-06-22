@@ -4,6 +4,6 @@
 
   row-gap: 32px;
   column-gap: 100px;
-  grid-template-columns: 400px 1fr;
-  grid-template-rows: 340px 1fr;
+  grid-template-columns: 0.5fr 1fr;
+  grid-template-rows: minmax(200px, 350px) 1fr;
 }

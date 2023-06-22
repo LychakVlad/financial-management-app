@@ -1,6 +1,6 @@
 .form {
   background: white;
-  padding: 18px;
+  padding: 28px;
   box-shadow: -24px 0px 80px rgba(49, 79, 124, 0.02);
   border-radius: 12px;
 
@@ -23,7 +23,7 @@
 
 .form h2 {
   font-size: 28px;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
   padding-left: 12px;
 }
 

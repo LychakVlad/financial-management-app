@@ -2,9 +2,4 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  background-color: #f4f6f8;
-}
-
-ul {
-  margin: 0;
 }

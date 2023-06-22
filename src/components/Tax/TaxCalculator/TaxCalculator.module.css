@@ -1,10 +1,5 @@
 .section {
   display: flex;
   flex-direction: column;
-
-  background-color: #f4f6f8;
-  height: calc(100vh - 92px);
-  padding: 24px;
-
   gap: 24px;
 }

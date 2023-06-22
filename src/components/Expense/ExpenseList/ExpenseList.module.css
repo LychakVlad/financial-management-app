@@ -54,6 +54,7 @@
   line-height: 32px;
 
   color: #3f4765;
+  max-height: calc(100vh - 570px);
 }
 
 .empty {

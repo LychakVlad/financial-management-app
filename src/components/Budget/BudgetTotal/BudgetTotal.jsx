@@ -36,13 +36,13 @@ const BudgetTotal = () => {
   const totalAfterTax = Math.round(totalIncome - totalTax);
   const fiftyPercent = loading
     ? 'Loading...'
-    : formatNumber(Math.round(totalAfterTax / 100) * 50);
+    : formatNumber(Math.round(totalAfterTax / 100) * 50) + '$';
   const thirtyPercent = loading
     ? 'Loading...'
-    : formatNumber(Math.round(totalAfterTax / 100) * 30);
+    : formatNumber(Math.round(totalAfterTax / 100) * 30) + '$';
   const twentyPercent = loading
     ? 'Loading...'
-    : formatNumber(Math.round(totalAfterTax / 100) * 20);
+    : formatNumber(Math.round(totalAfterTax / 100) * 20) + '$';
 
   return (
     <div className={styles.main}>
@@ -77,15 +77,15 @@ const BudgetTotal = () => {
 
           <li className={styles.point}>
             50% for necessities:{' '}
-            <span className={styles.number}>{fiftyPercent} $</span>
+            <span className={styles.number}>{fiftyPercent} </span>
           </li>
           <li className={styles.point}>
             30% for wants:{' '}
-            <span className={styles.number}>{thirtyPercent} $</span>
+            <span className={styles.number}>{thirtyPercent} </span>
           </li>
           <li className={styles.point}>
             20% for savings and debt repayment:{' '}
-            <span className={styles.number}>{twentyPercent} $</span>
+            <span className={styles.number}>{twentyPercent} </span>
           </li>
         </ul>
       </div>
