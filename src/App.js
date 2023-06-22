@@ -11,6 +11,7 @@ import TaxCalculator from './components/Tax/TaxCalculator/TaxCalculator';
 import IncomeCounter from './components/Income/IncomeCounter/IncomeCounter';
 import BudgetPlanner from './components/Budget/BudgetPlanner/BudgetPlanner';
 import ExpenseTracker from './components/Expense/ExpenseTracker/ExpenseTracker';
+import MainStats from './components/Stats/MainStats/MainStats';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -34,7 +35,9 @@ function App() {
           path="/"
           element={
             <PrivateRoute>
-              <MainPage />
+              <MainPage>
+                <MainStats />
+              </MainPage>
             </PrivateRoute>
           }
         />

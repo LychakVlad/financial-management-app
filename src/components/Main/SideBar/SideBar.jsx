@@ -5,6 +5,7 @@ import { ReactComponent as MenuIcon } from '../../../assets/menu-icon.svg';
 import { ReactComponent as MenuIcon1 } from '../../../assets/menu-icon1.svg';
 import { ReactComponent as MenuIcon2 } from '../../../assets/menu-icon2.svg';
 import { ReactComponent as MenuIcon3 } from '../../../assets/menu-icon3.svg';
+import { ReactComponent as MenuIcon4 } from '../../../assets/menu-icon4.svg';
 import { ReactComponent as LogOut } from '../../../assets/logout.svg';
 import SideItem from './SideItem';
 import { useAuth } from '../../../contexts/AuthContext';
@@ -31,6 +32,7 @@ const SideBar = () => {
       <div className={styles.menu}>
         <h3 className={styles.title}>Main menu</h3>
         <ul className={styles.list}>
+          <SideItem to="/" icon={MenuIcon4} label="Main Page" />
           <SideItem
             to="/income-tracker"
             icon={MenuIcon3}

@@ -16,6 +16,7 @@ const ExpenseGraph = () => {
         display: false,
       },
     },
+    maintainAspectRatio: false, // Set maintainAspectRatio to false
   };
 
   const categoryTotals = expenses.reduce((totals, item) => {
@@ -70,7 +71,7 @@ const ExpenseGraph = () => {
         </div>
       </div>
       <div className={styles.graph}>
-        <Doughnut data={data} options={options} height={1000} width={1000} />
+        <Doughnut data={data} options={options} height={1000} width={300} />
       </div>
     </div>
   );

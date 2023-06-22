@@ -14,6 +14,7 @@
 
   color: #3f4765;
   margin-left: 16px;
+  margin-bottom: 20px;
 }
 .menu {
   padding: 16px;
@@ -60,8 +61,8 @@
   border-radius: 8px;
   fill: #9fa8c7;
   border: 1px solid #e7eeef;
-  width: 40px;
-  height: 40px;
+  width: 40%;
+  height: 40%;
   padding: 8px;
 }
 
