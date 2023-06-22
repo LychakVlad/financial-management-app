@@ -31,8 +31,8 @@ function IncomeList() {
         const userDocRef = firestore.collection('users').doc(userId);
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
-        dispatch(updateIncomeAction(userData?.incomes || []));
         setLoading(false);
+        dispatch(updateIncomeAction(userData?.incomes || []));
       };
 
       fetchData();

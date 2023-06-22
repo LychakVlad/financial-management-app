@@ -24,9 +24,9 @@ const BudgetTotal = () => {
         const userDocRef = firestore.collection('users').doc(userId);
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
+        setLoading(false);
         dispatch(setTotalTaxLiabilityAction(userData?.totalTax || 0));
         dispatch(updateIncomeAction(userData?.incomes || []));
-        setLoading(false);
       };
 
       fetchData();

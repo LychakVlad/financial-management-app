@@ -39,7 +39,6 @@ const Login = () => {
   };
 
   if (currentUser) {
-    // User is already signed in, redirect to the main page
     return <Navigate to="/" replace />;
   }
 
