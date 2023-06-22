@@ -1,14 +1,15 @@
 import React from 'react';
 import Header from '../components/Main/Header/Header';
 import SideBar from '../components/Main/SideBar/SideBar';
+import styles from './MainPage.module.css';
 
 const MainPage = ({ children }) => {
   return (
     <>
       <Header />
-      <div style={{ display: 'flex' }}>
+      <div className={styles.main}>
         <SideBar />
-        <div style={{ width: '100%' }}>{children}</div>
+        <div className={styles.block}>{children}</div>
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import firebase from 'firebase/compat/app';
 import { firestore } from '../../../firebase';
 import { useDispatch, useSelector } from 'react-redux';
@@ -40,10 +40,11 @@ function IncomeList() {
   }, [currentUser, dispatch]);
 
   const deleteAll = async () => {
-    await deleteDoc(
+    await updateDoc(
       doc(firestore, 'users', currentUser?.currentUser?._delegate?.uid),
       {
-        incomes: [],
+        incomes: {},
+        totalAmount: 0,
       }
     );
     dispatch(updateIncomeAction([]));

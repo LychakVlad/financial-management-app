@@ -1,0 +1,11 @@
+.main {
+  display: flex;
+  height: calc(100vh - 96px);
+}
+
+.block {
+  background: #f4f6f8;
+  width: 100%;
+  padding: 32px;
+  width: 100%;
+}

@@ -25,11 +25,14 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      {`${greetings}${
-        currentUser.displayName !== null
-          ? `, ${currentUser.displayName}`
-          : ', welcome to this app'
-      }!`}
+      <h1>
+        {' '}
+        {`${greetings}${
+          currentUser.displayName !== null
+            ? `, ${currentUser.displayName}`
+            : ', welcome to this app'
+        }!`}
+      </h1>
     </header>
   );
 };

@@ -1,8 +1,6 @@
 .main {
   display: grid;
   background-color: #f4f6f8;
-  height: 100%;
-  padding: 24px;
 
   row-gap: 32px;
   column-gap: 100px;
