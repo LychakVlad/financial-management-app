@@ -62,7 +62,6 @@ const SignUp = () => {
 
   return (
     <div className={styles.main}>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit} className={styles.form}>
         <CustomInput
           label="E-mail"
@@ -96,6 +95,7 @@ const SignUp = () => {
           required
           onChange={handlePasswordConfirmChange}
         />
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <CustomButton disabled={loading} type="submit" title="Sign Up" />
       </form>
       <div className={styles.link}>

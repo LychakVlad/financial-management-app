@@ -24,7 +24,7 @@ const Login = () => {
       await login(emailRef.current.value, passwordRef.current.value);
       history('/');
     } catch {
-      setError('Failed to sign up');
+      setError('Failed to sign in');
     }
 
     setLoading(false);
