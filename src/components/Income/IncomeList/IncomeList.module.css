@@ -11,7 +11,7 @@
 
 .item {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   border-bottom: 2px solid #eceff9;
 
   padding: 12px;

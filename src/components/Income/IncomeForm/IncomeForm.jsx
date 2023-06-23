@@ -19,15 +19,24 @@ function IncomeForm() {
   const [incomeItem, setIncomeItem] = useState({
     amount: '',
     type: '',
+    tax: '',
   });
+  const [dropdownTaxError, setDropdownTaxError] = useState(false);
+  const [dropdownTaxPlaceholder, setDropdownTaxPlaceholder] =
+    useState('Is it taxable?');
   const [dropdownError, setDropdownError] = useState(false);
   const [dropdownPlaceholder, setDropdownPlaceholder] =
     useState('Type of Income');
   const [inputError, setInputError] = useState('');
 
-  const options = [
+  const optionsTax = [
     { value: 'Taxable', label: 'Taxable' },
     { value: 'After tax', label: 'After tax' },
+  ];
+
+  const optionsPay = [
+    { value: 'Cash', label: 'Cash' },
+    { value: 'Card', label: 'Card' },
   ];
 
   const handleAddIncome = useCallback(
@@ -44,11 +53,17 @@ function IncomeForm() {
         return;
       }
 
+      if (!incomeItem.tax) {
+        setDropdownError(true);
+        return;
+      }
+
       setLoading(true);
 
       const income = {
         amount: incomeItem.amount,
         type: incomeItem.type,
+        tax: incomeItem.tax,
         date: formatDate(new Date()),
         id: Date.now(),
       };
@@ -63,12 +78,14 @@ function IncomeForm() {
       setIncomeItem({ amount: '', type: '' });
       setInputError('');
       setDropdownPlaceholder('Type of Income');
+      setDropdownTaxPlaceholder('Is it taxable?');
       setLoading(false);
     },
     [
       currentUser?.uid,
       incomeItem.amount,
       incomeItem.type,
+      incomeItem.tax,
       dispatch,
       totalAmount,
     ]
@@ -77,6 +94,11 @@ function IncomeForm() {
   const handleDropdownChange = (option) => {
     setIncomeItem({ ...incomeItem, type: option.value });
     setDropdownError(false);
+  };
+
+  const handleTaxDropdownChange = (option) => {
+    setIncomeItem({ ...incomeItem, tax: option.value });
+    setDropdownTaxError(false);
   };
 
   const handleInputChange = (value) => {
@@ -103,9 +125,16 @@ function IncomeForm() {
         <Dropdown
           placeHolder={dropdownPlaceholder}
           setPlaceHolder={setDropdownPlaceholder}
-          options={options}
+          options={optionsPay}
           onChange={handleDropdownChange}
           error={dropdownError}
+        />
+        <Dropdown
+          placeHolder={dropdownTaxPlaceholder}
+          setPlaceHolder={setDropdownTaxPlaceholder}
+          options={optionsTax}
+          onChange={handleTaxDropdownChange}
+          error={dropdownTaxError}
         />
         <CustomButton type="submit" title={buttonTitle} disabled={loading} />
       </div>

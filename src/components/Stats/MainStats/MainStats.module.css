@@ -1,0 +1,18 @@
+.section {
+  display: flex;
+  flex-direction: column;
+
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.title {
+  margin-bottom: 24px;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

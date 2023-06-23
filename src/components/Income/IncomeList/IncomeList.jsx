@@ -79,6 +79,7 @@ function IncomeList() {
                     +{formatNumber(income.amount)} $
                   </div>
                   <div>{income.type}</div>
+                  <div>{income.tax}</div>
                   <div>{income.date}</div>
                   <CustomButton
                     type="submit"

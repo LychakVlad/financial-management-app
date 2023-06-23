@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styles from './ExpenseForm.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from '../../../contexts/AuthContext';
 import { firestore } from '../../../firebase';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
@@ -13,6 +13,7 @@ import { formatDate } from '../../../utils/dateFormat';
 const ExpenseForm = () => {
   const { currentUser } = useAuth();
   const dispatch = useDispatch();
+  const totalExpense = useSelector((state) => state.expenses.totalExpense);
   const [expenseItem, setExpenseItem] = useState({
     type: '',
     amount: '',
@@ -64,6 +65,7 @@ const ExpenseForm = () => {
 
       await updateDoc(doc(firestore, 'users', currentUser?.uid), {
         expenses: arrayUnion(Expense),
+        totalExpense: totalExpense + parseFloat(Expense.amount),
       });
 
       setExpenseItem({ amount: '', type: '', description: '' });
@@ -77,6 +79,7 @@ const ExpenseForm = () => {
       expenseItem.type,
       expenseItem.description,
       dispatch,
+      totalExpense,
     ]
   );
 
