@@ -21,8 +21,6 @@ const Header = () => {
     }
   }, [currentTime]);
 
-  console.log(currentUser);
-
   return (
     <header className={styles.header}>
       <h1>

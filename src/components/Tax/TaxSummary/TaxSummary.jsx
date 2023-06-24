@@ -33,7 +33,7 @@ function TaxSummary() {
   }, [currentUser, dispatch]);
 
   const incomeBeforeTax = incomes.reduce((accumulator, item) => {
-    if (item.type === 'Taxable') {
+    if (item.tax === 'Taxable') {
       return accumulator + parseFloat(item.amount);
     } else {
       return accumulator;

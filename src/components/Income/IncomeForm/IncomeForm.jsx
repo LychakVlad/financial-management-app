@@ -74,29 +74,23 @@ function IncomeForm() {
 
       dispatch(addIncomeAction(income));
 
-      const totalCash =
-        incomes
-          .filter((item) => item.type === 'Cash')
-          .reduce((total, item) => total + parseFloat(item.amount), 0) +
-          incomeItem.type ===
-        'Card'
-          ? parseFloat(incomeItem.amount)
-          : 0;
+      const totalCash = incomes
+        .filter((item) => item.type === 'Cash')
+        .reduce((total, item) => total + parseFloat(item.amount), 0);
 
-      const totalCard =
-        incomes
-          .filter((item) => item.type === 'Card')
-          .reduce((total, item) => total + parseFloat(item.amount), 0) +
-          incomeItem.type ===
-        'Cash'
-          ? parseFloat(incomeItem.amount)
-          : 0;
+      const totalCard = incomes
+        .filter((item) => item.type === 'Card')
+        .reduce((total, item) => total + parseFloat(item.amount), 0);
 
       await updateDoc(doc(firestore, 'users', currentUser?.uid), {
         incomes: arrayUnion(income),
         money: {
-          totalCash: totalCash,
-          totalCard: totalCard,
+          totalCash:
+            totalCash +
+            (incomeItem.type === 'Cash' ? parseFloat(incomeItem.amount) : 0),
+          totalCard:
+            totalCard +
+            (incomeItem.type === 'Card' ? parseFloat(incomeItem.amount) : 0),
           totalMoney: totalAmount + parseFloat(incomeItem.amount),
         },
       });
