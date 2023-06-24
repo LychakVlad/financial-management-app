@@ -68,6 +68,7 @@ const ExpenseList = () => {
                     {expense.description}
                   </span>
                   <div>{expense.type}</div>
+                  <div>{expense.pay}</div>
                   <div>{expense.date}</div>
                   <CustomButton
                     type="submit"

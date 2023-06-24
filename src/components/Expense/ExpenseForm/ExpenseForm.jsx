@@ -18,9 +18,12 @@ const ExpenseForm = () => {
     type: '',
     amount: '',
     description: '',
+    pay: '',
   });
   const [dropdownError, setDropdownError] = useState(false);
-  const [dropdownPlaceholder, setDropdownPlaceholder] =
+  const [dropdownPlaceholder, setDropdownPlaceholder] = useState('Category');
+  const [dropdownPayError, setDropdownPayError] = useState(false);
+  const [dropdownPayPlaceholder, setDropdownPayPlaceholder] =
     useState('Type of Expense');
   const [inputError, setInputError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -32,9 +35,13 @@ const ExpenseForm = () => {
     { value: 'Healthcare', label: 'Healthcare' },
     { value: 'Education', label: 'Education' },
     { value: 'Entertainment', label: 'Entertainment' },
-
     { value: 'Savings', label: 'Savings' },
     { value: 'Other', label: 'Other' },
+  ];
+
+  const optionsPay = [
+    { value: 'Cash', label: 'Cash' },
+    { value: 'Card', label: 'Card' },
   ];
 
   const handleAddExpense = useCallback(
@@ -51,11 +58,17 @@ const ExpenseForm = () => {
         return;
       }
 
+      if (!expenseItem.pay) {
+        setDropdownPayError(true);
+        return;
+      }
+
       setLoading(true);
 
       const Expense = {
         amount: expenseItem.amount,
         type: expenseItem.type,
+        pay: expenseItem.pay,
         description: expenseItem.description,
         date: formatDate(new Date()),
         id: Date.now(),
@@ -68,16 +81,18 @@ const ExpenseForm = () => {
         totalExpense: totalExpense + parseFloat(Expense.amount),
       });
 
-      setExpenseItem({ amount: '', type: '', description: '' });
+      setExpenseItem({ amount: '', type: '', description: '', pay: '' });
       setLoading(false);
       setInputError('');
-      setDropdownPlaceholder('Type of Expense');
+      setDropdownPlaceholder('Category');
+      setDropdownPayPlaceholder('Type of expense');
     },
     [
       currentUser?.uid,
       expenseItem.amount,
       expenseItem.type,
       expenseItem.description,
+      expenseItem.pay,
       dispatch,
       totalExpense,
     ]
@@ -86,6 +101,11 @@ const ExpenseForm = () => {
   const handleDropdownChange = (option) => {
     setExpenseItem({ ...expenseItem, type: option.value });
     setDropdownError(false);
+  };
+
+  const handleDropdownPayChange = (option) => {
+    setExpenseItem({ ...expenseItem, pay: option.value });
+    setDropdownPayError(false);
   };
 
   const handleAmountChange = (value) => {
@@ -127,6 +147,13 @@ const ExpenseForm = () => {
           options={options}
           onChange={handleDropdownChange}
           error={dropdownError}
+        />
+        <Dropdown
+          placeHolder={dropdownPayPlaceholder}
+          setPlaceHolder={setDropdownPayPlaceholder}
+          options={optionsPay}
+          onChange={handleDropdownPayChange}
+          error={dropdownPayError}
         />
         <CustomButton type="submit" title={buttonTitle} disabled={loading} />
       </div>

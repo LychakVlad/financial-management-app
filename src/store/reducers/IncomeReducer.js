@@ -1,13 +1,18 @@
 import {
   ADD_INCOME,
   REMOVE_INCOME,
+  UPDATE_CARD,
+  UPDATE_CASH,
   UPDATE_INCOME,
+  UPDATE_MONEY,
 } from '../actions/incomeActions';
 
 const defaultState = {
   incomes: [],
   totalIncome: 0,
   totalAmount: 0,
+  totalCash: 0,
+  totalCard: 0,
 };
 
 export const incomeReducer = (state = defaultState, action) => {
@@ -57,6 +62,16 @@ export const incomeReducer = (state = defaultState, action) => {
           (total, income) => total + Number(income.amount),
           0
         ),
+      };
+    case UPDATE_CARD:
+      return {
+        ...state,
+        totalCard: action.payload,
+      };
+    case UPDATE_CASH:
+      return {
+        ...state,
+        totalCash: action.payload,
       };
 
     default:

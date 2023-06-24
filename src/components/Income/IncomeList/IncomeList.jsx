@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import firebase from 'firebase/compat/app';
 import { firestore } from '../../../firebase';
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,7 +44,9 @@ function IncomeList() {
       doc(firestore, 'users', currentUser?.currentUser?._delegate?.uid),
       {
         incomes: {},
-        totalAmount: 0,
+        money: {
+          totalIncome: 0,
+        },
       }
     );
     dispatch(updateIncomeAction([]));

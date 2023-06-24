@@ -1,7 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatDate } from '../../../utils/dateFormat';
-import { addIncomeAction } from '../../../store/actions/incomeActions';
+import {
+  addIncomeAction,
+  updateCardAction,
+  updateCashAction,
+} from '../../../store/actions/incomeActions';
 import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 
 import { firestore } from '../../../firebase';
@@ -14,7 +18,7 @@ import { useAuth } from '../../../contexts/AuthContext';
 function IncomeForm() {
   const [loading, setLoading] = useState(false);
   const { currentUser } = useAuth();
-  const totalAmount = useSelector((state) => state.incomes.totalAmount);
+  const { totalAmount, incomes } = useSelector((state) => state.incomes);
   const dispatch = useDispatch();
   const [incomeItem, setIncomeItem] = useState({
     amount: '',
@@ -70,10 +74,35 @@ function IncomeForm() {
 
       dispatch(addIncomeAction(income));
 
+      const totalCash =
+        incomes
+          .filter((item) => item.type === 'Cash')
+          .reduce((total, item) => total + parseFloat(item.amount), 0) +
+          incomeItem.type ===
+        'Card'
+          ? parseFloat(incomeItem.amount)
+          : 0;
+
+      const totalCard =
+        incomes
+          .filter((item) => item.type === 'Card')
+          .reduce((total, item) => total + parseFloat(item.amount), 0) +
+          incomeItem.type ===
+        'Cash'
+          ? parseFloat(incomeItem.amount)
+          : 0;
+
       await updateDoc(doc(firestore, 'users', currentUser?.uid), {
         incomes: arrayUnion(income),
-        totalAmount: totalAmount + parseFloat(incomeItem.amount),
+        money: {
+          totalCash: totalCash,
+          totalCard: totalCard,
+          totalMoney: totalAmount + parseFloat(incomeItem.amount),
+        },
       });
+
+      dispatch(updateCashAction(totalCash));
+      dispatch(updateCardAction(totalCard));
 
       setIncomeItem({ amount: '', type: '' });
       setInputError('');
@@ -86,6 +115,7 @@ function IncomeForm() {
       incomeItem.amount,
       incomeItem.type,
       incomeItem.tax,
+      incomes,
       dispatch,
       totalAmount,
     ]
