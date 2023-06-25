@@ -1,10 +1,7 @@
 .section {
-  display: flex;
-  flex-direction: column;
-
-  background: white;
-  border-radius: 12px;
-  padding: 32px;
+  display: grid;
+  grid-template-columns: 1.4fr 0.6fr;
+  gap: 24px;
 }
 
 .title {
@@ -15,4 +12,24 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.money {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.expense {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+}
+.income {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+
+  grid-column-start: 1;
+  grid-column-end: 3;
 }

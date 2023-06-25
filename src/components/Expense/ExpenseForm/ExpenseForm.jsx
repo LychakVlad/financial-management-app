@@ -3,7 +3,7 @@ import styles from './ExpenseForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from '../../../contexts/AuthContext';
 import { firestore } from '../../../firebase';
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { addExpenseAction } from '../../../store/actions/expenseActions';
 import CustomInput from '../../form/Input/CustomInput';
 import Dropdown from '../../form/Dropdown/Dropdown';
@@ -75,11 +75,29 @@ const ExpenseForm = () => {
       };
 
       dispatch(addExpenseAction(Expense));
+      const userDocRef = doc(firestore, 'users', currentUser?.uid);
+      const userDoc = await getDoc(userDocRef);
+      const money = userDoc.data().money;
 
-      await updateDoc(doc(firestore, 'users', currentUser?.uid), {
-        expenses: arrayUnion(Expense),
-        totalExpense: totalExpense + parseFloat(Expense.amount),
-      });
+      if (Expense.pay === 'Card') {
+        await updateDoc(userDocRef, {
+          expenses: arrayUnion(Expense),
+          totalExpense: totalExpense + parseFloat(Expense.amount),
+          money: {
+            totalCard: money.totalCard - parseFloat(Expense.amount),
+            totalCash: money.totalCash,
+          },
+        });
+      } else if (Expense.pay === 'Cash') {
+        await updateDoc(userDocRef, {
+          expenses: arrayUnion(Expense),
+          totalExpense: totalExpense + parseFloat(Expense.amount),
+          money: {
+            totalCash: money.totalCash - parseFloat(Expense.amount),
+            totalCard: money.totalCard,
+          },
+        });
+      }
 
       setExpenseItem({ amount: '', type: '', description: '', pay: '' });
       setLoading(false);

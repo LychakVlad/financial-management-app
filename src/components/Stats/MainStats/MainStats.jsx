@@ -11,14 +11,13 @@ import {
 } from '../../../store/actions/incomeActions';
 import { formatNumber } from '../../../utils/formatNumber';
 import { setTotalTaxLiabilityAction } from '../../../store/actions/taxActions';
+import MoneyStats from '../MoneyStats/MoneyStats';
+import ExpenseStats from '../ExpenseStats/ExpenseStats';
 
 const MainStats = () => {
   const [loading, setLoading] = useState(false);
-  const { totalExpense, expenses } = useSelector((state) => state.expenses);
   const totalTax = useSelector((state) => state.taxes.totalTaxLiability);
-  const { totalIncome, totalCard, totalCash } = useSelector(
-    (state) => state.incomes
-  );
+  const { totalIncome } = useSelector((state) => state.incomes);
 
   const dispatch = useDispatch();
 
@@ -45,33 +44,22 @@ const MainStats = () => {
     }
   }, [currentUser, dispatch]);
 
-  const totalSavings = expenses
-    .filter((item) => item.type === 'Savings')
-    .reduce((total, item) => total + parseFloat(item.amount), 0);
-
   const totalAfterTax = Math.round(totalIncome - totalTax);
 
   return (
     <section className={styles.section}>
-      <h2 className={styles.title}>Your Financial Summary</h2>
-      <div className={styles.summary}>
-        <div>
-          {' '}
-          <p>Your total savings: {formatNumber(totalSavings) + ' $'}</p>
-          <p>Money in cash: {formatNumber(totalCash) + ' $'}</p>
-          <p>Money on Card: {formatNumber(totalCard) + ' $'}</p>
-          <p>Your total expenses: {formatNumber(totalExpense) + ' $'}</p>
-        </div>
-
-        <div>
-          <p>
-            Your total income before tax: {formatNumber(totalIncome) + ' $'}
-          </p>
-          <p>You need to pay: {formatNumber(totalTax) + ' $'}</p>
-          <p>
-            Your total income after tax: {formatNumber(totalAfterTax) + ' $'}
-          </p>
-        </div>
+      <div className={styles.money}>
+        <h2 className={styles.title}>Your Financial Summary</h2>
+        <MoneyStats />
+      </div>
+      <div className={styles.expense}>
+        {' '}
+        <ExpenseStats />
+      </div>
+      <div className={styles.income}>
+        <p>Your total income before tax: {formatNumber(totalIncome) + ' $'}</p>
+        <p>You need to pay: {formatNumber(totalTax) + ' $'}</p>
+        <p>Your total income after tax: {formatNumber(totalAfterTax) + ' $'}</p>
       </div>
     </section>
   );
