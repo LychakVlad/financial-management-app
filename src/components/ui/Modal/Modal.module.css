@@ -29,3 +29,12 @@
   max-width: 600px;
   min-width: 300px;
 }
+
+.close {
+  top: 4%;
+  right: 3%;
+  position: absolute;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}

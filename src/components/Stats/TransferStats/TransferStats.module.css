@@ -1,0 +1,15 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.forms {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.transferError {
+  color: red;
+}

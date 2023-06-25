@@ -9,7 +9,7 @@ const Modal = ({ children, handleClose }) => {
   return (
     <div className={styles.modal}>
       <div className={styles.wrapper}>
-        <button className="modal__close-icon" onClick={handleClick}>
+        <button className={styles.close} onClick={handleClick}>
           <Close />
         </button>
         {children}

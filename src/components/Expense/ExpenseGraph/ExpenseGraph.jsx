@@ -16,7 +16,7 @@ const ExpenseGraph = () => {
         display: false,
       },
     },
-    maintainAspectRatio: false, // Set maintainAspectRatio to false
+    maintainAspectRatio: false,
   };
 
   const categoryTotals = expenses.reduce((totals, item) => {
