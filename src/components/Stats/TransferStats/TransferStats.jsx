@@ -6,8 +6,13 @@ import CustomButton from '../../form/Button/CustomButton';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { firestore } from '../../../firebase';
 import { useAuth } from '../../../contexts/AuthContext';
+import { useDispatch } from 'react-redux';
+import {
+  updateCardAction,
+  updateCashAction,
+} from '../../../store/actions/incomeActions';
 
-const TransferStats = () => {
+const TransferStats = ({ handleClick }) => {
   const [loading, setLoading] = useState(false);
   const [transferError, setTransferError] = useState(false);
   const [dropdownFromError, setDropdownFromError] = useState(false);
@@ -22,6 +27,7 @@ const TransferStats = () => {
     to: '',
   });
   const { currentUser } = useAuth();
+  const dispatch = useDispatch();
 
   const optionsFrom = [
     { value: 'Cash', label: 'Cash' },
@@ -94,16 +100,23 @@ const TransferStats = () => {
 
         setTransferItem({ amount: '', from: '', to: '' });
         setInputError('');
+        dispatch(
+          updateCardAction(money.totalCard + parseFloat(transfer.amount))
+        );
+        dispatch(
+          updateCashAction(money.totalCash + parseFloat(transfer.amount))
+        );
         setDropdownToPlaceholder('To');
         setDropdownFromPlaceholder('From');
         setLoading(false);
+        handleClick(false);
       } else {
         setTransferError('Invalid transfer combination');
       }
     } catch (error) {
       console.log('Transfer error:', error);
     }
-  }, [currentUser?.uid, transferItem]);
+  }, [currentUser?.uid, transferItem, handleClick]);
 
   const handleDropdownFromChange = (option) => {
     setTransferItem({ ...transferItem, from: option.value });

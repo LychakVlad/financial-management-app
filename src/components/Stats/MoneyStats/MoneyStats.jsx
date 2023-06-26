@@ -52,7 +52,7 @@ const MoneyStats = () => {
       </div>
       {openModal && (
         <Modal handleClose={handleOpenModal}>
-          <TransferStats />
+          <TransferStats handleClick={setOpenModal} />
         </Modal>
       )}
     </div>
