@@ -99,13 +99,13 @@ const TransferStats = ({ handleClick }) => {
 
         await updateDoc(userDocRef, { money: updatedMoney });
 
-        if (transfer.to === 'Card ') {
+        if (transfer.to === 'Card') {
           dispatch(
             updateCardAction(money.totalCard + parseFloat(transfer.amount))
           );
           dispatch(updateCashAction(money.totalCash));
           dispatch(updateSavingsAction(money.totalSavings));
-        } else if (transfer.to === 'Cash ') {
+        } else if (transfer.to === 'Cash') {
           dispatch(
             updateCashAction(money.totalCash + parseFloat(transfer.amount))
           );
