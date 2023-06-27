@@ -8,6 +8,7 @@ import {
   updateCardAction,
   updateCashAction,
   updateIncomeAction,
+  updateSavingsAction,
 } from '../../../store/actions/incomeActions';
 import { formatNumber } from '../../../utils/formatNumber';
 import { setTotalTaxLiabilityAction } from '../../../store/actions/taxActions';
@@ -17,7 +18,9 @@ import ExpenseStats from '../ExpenseStats/ExpenseStats';
 const MainStats = () => {
   const [loading, setLoading] = useState(false);
   const totalTax = useSelector((state) => state.taxes.totalTaxLiability);
-  const { totalIncome } = useSelector((state) => state.incomes);
+  const { totalIncome, totalCard, totalCash, totalSavings } = useSelector(
+    (state) => state.incomes
+  );
 
   const dispatch = useDispatch();
 
@@ -38,11 +41,12 @@ const MainStats = () => {
 
         dispatch(updateCashAction(userData?.money.totalCash));
         dispatch(updateCardAction(userData?.money.totalCard));
+        dispatch(updateSavingsAction(userData?.money.totalSavings));
       };
 
       fetchData();
     }
-  }, [currentUser, dispatch]);
+  }, [currentUser, dispatch, totalCard, totalCash, totalSavings]);
 
   const totalAfterTax = Math.round(totalIncome - totalTax);
 

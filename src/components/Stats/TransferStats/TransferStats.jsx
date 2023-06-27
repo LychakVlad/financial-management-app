@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import {
   updateCardAction,
   updateCashAction,
+  updateSavingsAction,
 } from '../../../store/actions/incomeActions';
 
 const TransferStats = ({ handleClick }) => {
@@ -98,14 +99,30 @@ const TransferStats = ({ handleClick }) => {
 
         await updateDoc(userDocRef, { money: updatedMoney });
 
+        if (transfer.to === 'Card ') {
+          dispatch(
+            updateCardAction(money.totalCard + parseFloat(transfer.amount))
+          );
+          dispatch(updateCashAction(money.totalCash));
+          dispatch(updateSavingsAction(money.totalSavings));
+        } else if (transfer.to === 'Cash ') {
+          dispatch(
+            updateCashAction(money.totalCash + parseFloat(transfer.amount))
+          );
+          dispatch(updateCardAction(money.totalCard));
+          dispatch(updateSavingsAction(money.totalSavings));
+        } else if (transfer.to === 'Savings') {
+          dispatch(
+            updateSavingsAction(
+              money.totalSavings + parseFloat(transfer.amount)
+            )
+          );
+          dispatch(updateCardAction(money.totalCard));
+          dispatch(updateCashAction(money.totalCash));
+        }
+
         setTransferItem({ amount: '', from: '', to: '' });
         setInputError('');
-        dispatch(
-          updateCardAction(money.totalCard + parseFloat(transfer.amount))
-        );
-        dispatch(
-          updateCashAction(money.totalCash + parseFloat(transfer.amount))
-        );
         setDropdownToPlaceholder('To');
         setDropdownFromPlaceholder('From');
         setLoading(false);
@@ -116,7 +133,7 @@ const TransferStats = ({ handleClick }) => {
     } catch (error) {
       console.log('Transfer error:', error);
     }
-  }, [currentUser?.uid, transferItem, handleClick]);
+  }, [currentUser?.uid, transferItem, handleClick, dispatch]);
 
   const handleDropdownFromChange = (option) => {
     setTransferItem({ ...transferItem, from: option.value });

@@ -35,7 +35,6 @@ const ExpenseForm = () => {
     { value: 'Healthcare', label: 'Healthcare' },
     { value: 'Education', label: 'Education' },
     { value: 'Entertainment', label: 'Entertainment' },
-    { value: 'Savings', label: 'Savings' },
     { value: 'Other', label: 'Other' },
   ];
 
@@ -86,6 +85,7 @@ const ExpenseForm = () => {
           money: {
             totalCard: money.totalCard - parseFloat(Expense.amount),
             totalCash: money.totalCash,
+            totalSavings: money.totalSavings,
           },
         });
       } else if (Expense.pay === 'Cash') {
@@ -95,6 +95,7 @@ const ExpenseForm = () => {
           money: {
             totalCash: money.totalCash - parseFloat(Expense.amount),
             totalCard: money.totalCard,
+            totalSavings: money.totalSavings,
           },
         });
       }
