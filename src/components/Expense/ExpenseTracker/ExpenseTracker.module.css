@@ -3,7 +3,7 @@
   background-color: #f4f6f8;
 
   row-gap: 32px;
-  column-gap: 100px;
+  column-gap: 20px;
   grid-template-columns: 0.5fr 1fr;
   grid-template-rows: minmax(200px, 350px) 1fr;
 }

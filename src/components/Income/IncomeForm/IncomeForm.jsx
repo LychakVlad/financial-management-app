@@ -6,7 +6,7 @@ import {
   updateCardAction,
   updateCashAction,
 } from '../../../store/actions/incomeActions';
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
 
 import { firestore } from '../../../firebase';
 import styles from './IncomeForm.module.css';
@@ -82,7 +82,11 @@ function IncomeForm() {
         .filter((item) => item.type === 'Card')
         .reduce((total, item) => total + parseFloat(item.amount), 0);
 
-      await updateDoc(doc(firestore, 'users', currentUser?.uid), {
+      const userDocRef = doc(firestore, 'users', currentUser?.uid);
+      const userDoc = await getDoc(userDocRef);
+      const money = userDoc.data().money;
+
+      await updateDoc(userDocRef, {
         incomes: arrayUnion(income),
         money: {
           totalCash:
@@ -91,6 +95,7 @@ function IncomeForm() {
           totalCard:
             totalCard +
             (incomeItem.type === 'Card' ? parseFloat(incomeItem.amount) : 0),
+          totalSavings: money.totalSavings,
           totalMoney: totalAmount + parseFloat(incomeItem.amount),
         },
       });

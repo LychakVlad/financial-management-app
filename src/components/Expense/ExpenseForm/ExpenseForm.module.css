@@ -15,7 +15,6 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
-  width: 100%;
 
   padding: 28px;
 }
@@ -27,8 +26,8 @@
 }
 
 .inputs {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
 }
