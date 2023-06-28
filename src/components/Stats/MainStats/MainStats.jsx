@@ -14,6 +14,7 @@ import { formatNumber } from '../../../utils/formatNumber';
 import { setTotalTaxLiabilityAction } from '../../../store/actions/taxActions';
 import MoneyStats from '../MoneyStats/MoneyStats';
 import ExpenseStats from '../ExpenseStats/ExpenseStats';
+import { Link } from 'react-router-dom';
 
 const MainStats = () => {
   const [loading, setLoading] = useState(false);
@@ -61,9 +62,30 @@ const MainStats = () => {
         <ExpenseStats />
       </div>
       <div className={styles.income}>
-        <p>Your total income before tax: {formatNumber(totalIncome) + ' $'}</p>
-        <p>You need to pay: {formatNumber(totalTax) + ' $'}</p>
-        <p>Your total income after tax: {formatNumber(totalAfterTax) + ' $'}</p>
+        <p>
+          Your total income before tax:{' '}
+          <span className={styles.number}>
+            {' '}
+            {formatNumber(totalIncome) + ' $'}
+          </span>{' '}
+        </p>
+        <p>
+          You need to pay:{' '}
+          <span className={styles.number}>
+            {' '}
+            {formatNumber(totalTax) + ' $'}
+          </span>{' '}
+          <Link to="/tax-calculator" className={styles.taxLink}>
+            Calculate
+          </Link>
+        </p>
+        <p>
+          Your total income after tax:{' '}
+          <span className={styles.number}>
+            {' '}
+            {formatNumber(totalAfterTax) + ' $'}
+          </span>{' '}
+        </p>
       </div>
     </section>
   );
