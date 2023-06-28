@@ -46,6 +46,12 @@
   font-weight: 700;
 }
 
+.numberTax {
+  font-size: 24px;
+  font-weight: 700;
+  color: #f85842;
+}
+
 .taxLink {
   text-decoration: none;
   color: gray;

@@ -71,7 +71,7 @@ const MainStats = () => {
         </p>
         <p>
           You need to pay:{' '}
-          <span className={styles.number}>
+          <span className={styles.numberTax}>
             {' '}
             {formatNumber(totalTax) + ' $'}
           </span>{' '}
