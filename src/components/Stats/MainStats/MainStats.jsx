@@ -3,7 +3,6 @@ import styles from './MainStats.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { firestore } from '../../../firebase';
 import { useAuth } from '../../../contexts/AuthContext';
-import { updateExpenseAction } from '../../../store/actions/expenseActions';
 import {
   updateCardAction,
   updateCashAction,

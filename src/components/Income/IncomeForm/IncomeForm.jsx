@@ -89,13 +89,13 @@ function IncomeForm() {
       await updateDoc(userDocRef, {
         incomes: arrayUnion(income),
         money: {
+          ...money,
           totalCash:
             totalCash +
             (incomeItem.type === 'Cash' ? parseFloat(incomeItem.amount) : 0),
           totalCard:
             totalCard +
             (incomeItem.type === 'Card' ? parseFloat(incomeItem.amount) : 0),
-          totalSavings: money?.totalSavings,
           totalMoney: totalAmount + parseFloat(incomeItem.amount),
         },
       });
