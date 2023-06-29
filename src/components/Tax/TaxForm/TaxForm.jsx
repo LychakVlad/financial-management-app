@@ -79,50 +79,57 @@ function TaxForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <Dropdown
-        placeHolder={dropdownPlaceholder}
-        setPlaceHolder={setDropdownPlaceholder}
-        options={options}
-        onChange={handleDropdownChange}
-        error={dropdownError}
-      />
-      <div className={styles.radios}>
-        <label htmlFor="useStandardDeduction">Use standard deduction:</label>
-
-        <Radio
-          id="useStandardDeductionNo"
-          name="StandardDeduction"
-          value="No"
-          selectedOption={!useStandardDeduction}
-          onChange={() => setUseStandardDeduction(false)}
+    <div className={styles.form}>
+      <form onSubmit={handleSubmit}>
+        <Dropdown
+          placeHolder={dropdownPlaceholder}
+          setPlaceHolder={setDropdownPlaceholder}
+          options={options}
+          onChange={handleDropdownChange}
+          error={dropdownError}
         />
-        <Radio
-          id="useStandardDeductionYes"
-          name="StandardDeduction"
-          value="Yes"
-          selectedOption={useStandardDeduction}
-          onChange={() => setUseStandardDeduction(true)}
-        />
-      </div>
+        <div className={styles.radios}>
+          <label htmlFor="useStandardDeduction">Use standard deduction:</label>
 
-      {useStandardDeduction ? (
-        <p className={styles.deductions}>Standard deduction: $12,500</p>
-      ) : (
-        <div className={styles.deductionsBlock}>
-          <CustomInput
-            label="Set your deductions"
-            type="number"
-            id="deductions"
-            step="0.01"
-            value={deductions}
-            onChange={handleDeductionsInputChange}
+          <Radio
+            id="useStandardDeductionNo"
+            name="StandardDeduction"
+            value="No"
+            selectedOption={!useStandardDeduction}
+            onChange={() => setUseStandardDeduction(false)}
+          />
+          <Radio
+            id="useStandardDeductionYes"
+            name="StandardDeduction"
+            value="Yes"
+            selectedOption={useStandardDeduction}
+            onChange={() => setUseStandardDeduction(true)}
           />
         </div>
-      )}
 
-      <CustomButton type="submit" title="Calculate" disabled={loading} />
-    </form>
+        {useStandardDeduction ? (
+          <p className={styles.deductions}>Standard deduction: $12,500</p>
+        ) : (
+          <div className={styles.deductionsBlock}>
+            <CustomInput
+              label="Set your deductions"
+              type="number"
+              id="deductions"
+              step="0.01"
+              value={deductions}
+              onChange={handleDeductionsInputChange}
+            />
+          </div>
+        )}
+
+        <CustomButton type="submit" title="Calculate" disabled={loading} />
+      </form>
+      <div className={styles.description}>
+        Here you can calculate aproxiamte amount of money that you need to pay
+        in taxes based on{' '}
+        <span className={styles.thickText}>2022 VA State tax rates</span>
+      </div>
+    </div>
   );
 }
 

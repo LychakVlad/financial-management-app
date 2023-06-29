@@ -136,7 +136,7 @@ const ExpenseForm = () => {
     setExpenseItem({ ...expenseItem, description: value });
   };
 
-  const buttonTitle = loading ? 'Loading...' : 'Add income';
+  const buttonTitle = loading ? 'Loading...' : 'Add expense';
 
   return (
     <form onSubmit={handleAddExpense} className={styles.form}>

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import firebase from 'firebase/compat/app';
 import { firestore } from '../../../firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   removeIncomeAction,
+  updateCardAction,
+  updateCashAction,
   updateIncomeAction,
+  updateSavingsAction,
 } from '../../../store/actions/incomeActions';
 
 import styles from './IncomeList.module.css';
@@ -16,7 +19,9 @@ import { formatNumber } from '../../../utils/formatNumber';
 
 function IncomeList() {
   const incomes = useSelector((state) => state.incomes.incomes || []);
-  const totalIncome = useSelector((state) => state.incomes.totalIncome);
+  const { totalIncome, totalCash, totalCard, totalSavings } = useSelector(
+    (state) => state.incomes
+  );
   const dispatch = useDispatch();
 
   const currentUser = useAuth();
@@ -45,7 +50,7 @@ function IncomeList() {
       {
         incomes: {},
         money: {
-          totalIncome: 0,
+          totalIncome: totalIncome,
         },
       }
     );
@@ -60,7 +65,19 @@ function IncomeList() {
       .doc(userId)
       .update({
         incomes: firebase.firestore.FieldValue.arrayRemove(income),
+        money: {
+          totalCash: totalCash,
+          totalCard: totalCard,
+        },
       });
+
+    if (income.type === 'Cash' && totalIncome !== 0) {
+      dispatch(updateCashAction(totalCash - parseFloat(income.amount)));
+    } else if (income.type === 'Card' && totalIncome !== 0) {
+      dispatch(updateCardAction(totalCard - parseFloat(income.amount)));
+    } else {
+      dispatch(updateSavingsAction(totalSavings - parseFloat(income.amount)));
+    }
 
     dispatch(removeIncomeAction(income.id));
   };
