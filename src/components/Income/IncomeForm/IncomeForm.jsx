@@ -95,7 +95,7 @@ function IncomeForm() {
           totalCard:
             totalCard +
             (incomeItem.type === 'Card' ? parseFloat(incomeItem.amount) : 0),
-          totalSavings: money.totalSavings,
+          totalSavings: money?.totalSavings,
           totalMoney: totalAmount + parseFloat(incomeItem.amount),
         },
       });

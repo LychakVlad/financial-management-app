@@ -125,9 +125,11 @@ function TaxForm() {
         <CustomButton type="submit" title="Calculate" disabled={loading} />
       </form>
       <div className={styles.description}>
-        Here you can calculate aproxiamte amount of money that you need to pay
-        in taxes based on{' '}
-        <span className={styles.thickText}>2022 VA State tax rates</span>
+        Here you can calculate the approximate amount of money that you need to
+        pay <br></br> It takes the income that you marked Taxable and calculates
+        % that you need to pay based on your filing status, amount of
+        deductions, amount of income, federal tax rates and
+        <span className={styles.thickText}> 2022 VA State tax rates</span>
       </div>
     </div>
   );

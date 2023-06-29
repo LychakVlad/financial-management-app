@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { arrayRemove, doc, getDoc, updateDoc } from 'firebase/firestore';
 import firebase from 'firebase/compat/app';
 import { firestore } from '../../../firebase';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,9 +19,8 @@ import { formatNumber } from '../../../utils/formatNumber';
 
 function IncomeList() {
   const incomes = useSelector((state) => state.incomes.incomes || []);
-  const { totalIncome, totalCash, totalCard, totalSavings } = useSelector(
-    (state) => state.incomes
-  );
+  const { totalIncome, totalCash, totalCard, totalSavings, totalAmount } =
+    useSelector((state) => state.incomes);
   const dispatch = useDispatch();
 
   const currentUser = useAuth();
@@ -45,39 +44,73 @@ function IncomeList() {
   }, [currentUser, dispatch]);
 
   const deleteAll = async () => {
-    await updateDoc(
-      doc(firestore, 'users', currentUser?.currentUser?._delegate?.uid),
-      {
-        incomes: {},
-        money: {
-          totalIncome: totalIncome,
-        },
-      }
+    const userDocRef = doc(
+      firestore,
+      'users',
+      currentUser?.currentUser?._delegate?.uid
     );
+
+    const userDoc = await getDoc(userDocRef);
+    const money = userDoc.data().money;
+
+    await updateDoc(userDocRef, {
+      incomes: [],
+      money: {
+        ...money,
+        totalCard: 0,
+        totalSavings: 0,
+        totalCash: 0,
+        totalMoney: 0,
+      },
+    });
+
+    dispatch(updateCashAction(0));
+    dispatch(updateCardAction(0));
+    dispatch(updateSavingsAction(0));
     dispatch(updateIncomeAction([]));
   };
 
   const deletePoint = async (income) => {
-    const userId = currentUser?.currentUser?.uid;
+    const userDocRef = doc(firestore, 'users', currentUser?.currentUser?.uid);
+    const userDoc = await getDoc(userDocRef);
+    const money = userDoc.data().money;
 
-    await firestore
-      .collection('users')
-      .doc(userId)
-      .update({
-        incomes: firebase.firestore.FieldValue.arrayRemove(income),
-        money: {
-          totalCash: totalCash,
-          totalCard: totalCard,
-        },
-      });
+    const updatedCash =
+      money.totalCash -
+      (income.type === 'Cash' ? parseFloat(income.amount) : 0);
+    const updatedCard =
+      money.totalCard -
+      (income.type === 'Card' ? parseFloat(income.amount) : 0);
 
-    if (income.type === 'Cash' && totalIncome !== 0) {
-      dispatch(updateCashAction(totalCash - parseFloat(income.amount)));
-    } else if (income.type === 'Card' && totalIncome !== 0) {
-      dispatch(updateCardAction(totalCard - parseFloat(income.amount)));
+    let adjustedAmount = 0;
+
+    if (updatedCash < 0) {
+      adjustedAmount = Math.abs(updatedCash);
+      dispatch(updateCashAction(0));
+      dispatch(updateSavingsAction(totalSavings - adjustedAmount));
     } else {
-      dispatch(updateSavingsAction(totalSavings - parseFloat(income.amount)));
+      dispatch(updateCashAction(updatedCash));
     }
+
+    if (updatedCard < 0) {
+      adjustedAmount = Math.max(adjustedAmount, Math.abs(updatedCard));
+      dispatch(updateCardAction(0));
+      dispatch(updateSavingsAction(totalSavings - adjustedAmount));
+    } else {
+      dispatch(updateCardAction(updatedCard));
+    }
+
+    const updatedTotalSavings = totalSavings - adjustedAmount;
+
+    await updateDoc(userDocRef, {
+      incomes: arrayRemove(income),
+      money: {
+        ...money,
+        totalCash: updatedCash < 0 ? 0 : updatedCash,
+        totalCard: updatedCard < 0 ? 0 : updatedCard,
+        totalSavings: updatedTotalSavings,
+      },
+    });
 
     dispatch(removeIncomeAction(income.id));
   };

@@ -36,7 +36,6 @@ const MainStats = () => {
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
         setLoading(false);
-        dispatch(updateExpenseAction(userData?.expenses || []));
         dispatch(updateIncomeAction(userData?.incomes || []));
         dispatch(setTotalTaxLiabilityAction(userData?.totalTax || 0));
 
