@@ -58,7 +58,7 @@ function IncomeForm() {
       }
 
       if (!incomeItem.tax) {
-        setDropdownError(true);
+        setDropdownTaxError(true);
         return;
       }
 

@@ -86,7 +86,6 @@ function IncomeList() {
     if (totalSavings === 0) {
       if (updatedCash < 0) {
         adjustedAmount = Math.abs(updatedCash);
-        console.log(adjustedAmount);
         dispatch(updateCardAction(updatedCard - adjustedAmount));
         updatedCard = updatedCard - adjustedAmount;
       } else if (updatedCard < 0) {
@@ -101,10 +100,21 @@ function IncomeList() {
       }
     }
 
-    console.log(adjustedAmount);
+    let leftCard = updatedCard !== 0 ? updatedCard : 0 - adjustedAmount;
+    let leftCash = updatedCash !== 0 ? updatedCash : 0 - adjustedAmount;
 
-    const updatedTotalSavings = totalSavings - adjustedAmount;
+    console.log(leftCard);
+    console.log(leftCash);
+
+    console.log(totalSavings);
+
+    console.log(leftCard + totalSavings);
+
+    const updatedTotalSavings =
+      (income.type === 'Card' ? leftCard : leftCash) + totalSavings;
     const updatedTotalMoney = totalAmount - adjustedAmount;
+
+    console.log(updatedTotalSavings);
 
     await updateDoc(userDocRef, {
       incomes: arrayRemove(income),
@@ -112,7 +122,7 @@ function IncomeList() {
         ...money,
         totalCash: updatedCash <= 0 ? 0 : updatedCash,
         totalCard: updatedCard <= 0 ? 0 : updatedCard,
-        totalSavings: totalSavings > 0 ? updatedTotalSavings : totalSavings,
+        totalSavings: updatedTotalSavings,
         totalMoney: updatedTotalMoney,
       },
     });
@@ -124,6 +134,7 @@ function IncomeList() {
 
     dispatch(updateCardAction(updatedUserData.money.totalCard));
     dispatch(updateCashAction(updatedUserData.money.totalCash));
+    dispatch(updateSavingsAction(updatedUserData.money.totalSavings));
     dispatch(updateIncomeAction(updatedUserData.incomes || []));
   };
 

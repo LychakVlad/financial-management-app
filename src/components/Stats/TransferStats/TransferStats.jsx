@@ -71,6 +71,20 @@ const TransferStats = ({ handleClick }) => {
       const userDoc = await getDoc(userDocRef);
       const money = userDoc.data().money;
 
+      const availableBalance =
+        money[
+          transfer.from === 'Savings'
+            ? 'totalSavings'
+            : transfer.from === 'Card'
+            ? 'totalCard'
+            : 'totalCash'
+        ];
+      if (transfer.amount > availableBalance) {
+        setInputError('Transfer amount exceeds the available balance');
+        setLoading(false);
+        return;
+      }
+
       const transferMapping = {
         Card: {
           Cash: { source: 'totalCard', target: 'totalCash' },
