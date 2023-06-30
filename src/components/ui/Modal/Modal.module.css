@@ -27,7 +27,7 @@
   text-align: center;
 
   max-width: 600px;
-  min-width: 300px;
+  min-width: 200px;
 }
 
 .close {
@@ -37,4 +37,10 @@
   background: transparent;
   border: none;
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .wrapper {
+    padding: 20px;
+  }
 }

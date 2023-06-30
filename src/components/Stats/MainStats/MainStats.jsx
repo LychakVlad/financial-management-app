@@ -73,9 +73,10 @@ const MainStats = () => {
             {' '}
             {formatNumber(totalTax) + ' $'}
           </span>{' '}
-          <Link to="/tax-calculator" className={styles.taxLink}>
-            Calculate
-          </Link>
+          <span className={styles.taxLink}>
+            {' '}
+            <Link to="/tax-calculator">Calculate</Link>
+          </span>
         </p>
         <p>
           Your total income after tax:{' '}

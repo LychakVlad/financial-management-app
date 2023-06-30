@@ -18,8 +18,9 @@ import { formatNumber } from '../../../utils/formatNumber';
 
 function IncomeList() {
   const incomes = useSelector((state) => state.incomes.incomes || []);
-  const { totalIncome, totalCard, totalCash, totalSavings, totalAmount } =
-    useSelector((state) => state.incomes);
+  const { totalIncome, totalSavings, totalAmount } = useSelector(
+    (state) => state.incomes
+  );
   const dispatch = useDispatch();
 
   const currentUser = useAuth();
@@ -91,7 +92,7 @@ function IncomeList() {
       } else if (updatedCard < 0) {
         adjustedAmount = Math.abs(updatedCard);
         dispatch(updateCashAction(updatedCash - adjustedAmount));
-        updatedCash = totalCash - adjustedAmount;
+        updatedCash = updatedCash - adjustedAmount;
       }
     } else {
       adjustedAmount = parseFloat(income.amount);
@@ -103,18 +104,9 @@ function IncomeList() {
     let leftCard = updatedCard !== 0 ? updatedCard : 0 - adjustedAmount;
     let leftCash = updatedCash !== 0 ? updatedCash : 0 - adjustedAmount;
 
-    console.log(leftCard);
-    console.log(leftCash);
-
-    console.log(totalSavings);
-
-    console.log(leftCard + totalSavings);
-
     const updatedTotalSavings =
       (income.type === 'Card' ? leftCard : leftCash) + totalSavings;
     const updatedTotalMoney = totalAmount - adjustedAmount;
-
-    console.log(updatedTotalSavings);
 
     await updateDoc(userDocRef, {
       incomes: arrayRemove(income),
@@ -122,7 +114,7 @@ function IncomeList() {
         ...money,
         totalCash: updatedCash <= 0 ? 0 : updatedCash,
         totalCard: updatedCard <= 0 ? 0 : updatedCard,
-        totalSavings: updatedTotalSavings,
+        totalSavings: updatedTotalSavings <= 0 ? 0 : updatedTotalSavings,
         totalMoney: updatedTotalMoney,
       },
     });
@@ -136,6 +128,18 @@ function IncomeList() {
     dispatch(updateCashAction(updatedUserData.money.totalCash));
     dispatch(updateSavingsAction(updatedUserData.money.totalSavings));
     dispatch(updateIncomeAction(updatedUserData.incomes || []));
+
+    if (updatedUserData.incomes.length === 0) {
+      await updateDoc(userDocRef, {
+        money: {
+          ...updatedUserData.money,
+          totalCash: 0,
+          totalCard: 0,
+          totalSavings: 0,
+          totalMoney: 0,
+        },
+      });
+    }
   };
 
   return (

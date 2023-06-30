@@ -9,3 +9,12 @@
   padding: 32px;
   width: 100%;
 }
+
+/* .side {
+  position: absolute;
+  background-color: white;
+  z-index: 10;
+
+  transition: transform 0.3s ease;
+  transform: translateX(-100%);
+} */

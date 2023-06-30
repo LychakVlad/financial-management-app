@@ -52,7 +52,7 @@
   color: #f85842;
 }
 
-.taxLink {
+.taxLink a {
   text-decoration: none;
   color: gray;
   border: 1px gray solid;
@@ -63,6 +63,22 @@
   transition: opacity 0.3s ease;
 }
 
-.taxLink:hover {
+.taxLink:hover a {
   opacity: 0.5;
+}
+
+@media (max-width: 800px) {
+  .section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .taxLink {
+    display: block;
+    margin-top: 20px;
+  }
+
+  .taxLink a {
+    margin-left: 0px;
+  }
 }

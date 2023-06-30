@@ -8,7 +8,10 @@ const MainPage = ({ children }) => {
     <>
       <Header />
       <div className={styles.main}>
-        <SideBar />
+        <div className={styles.side}>
+          {' '}
+          <SideBar />
+        </div>
         <div className={styles.block}>{children}</div>
       </div>
     </>
