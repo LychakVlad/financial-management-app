@@ -82,64 +82,17 @@ function IncomeList() {
       money.totalCard -
       (income.type === 'Card' ? parseFloat(income.amount) : 0);
 
-    let adjustedAmount = 0;
-
-    if (totalSavings === 0) {
-      if (updatedCash < 0) {
-        adjustedAmount = Math.abs(updatedCash);
-        dispatch(updateCardAction(updatedCard - adjustedAmount));
-        updatedCard = updatedCard - adjustedAmount;
-      } else if (updatedCard < 0) {
-        adjustedAmount = Math.abs(updatedCard);
-        dispatch(updateCashAction(updatedCash - adjustedAmount));
-        updatedCash = updatedCash - adjustedAmount;
-      }
-    } else {
-      adjustedAmount = parseFloat(income.amount);
-      if (totalSavings > 0) {
-        dispatch(updateSavingsAction(totalSavings - adjustedAmount));
-      }
-    }
-
-    let leftCard = updatedCard !== 0 ? updatedCard : 0 - adjustedAmount;
-    let leftCash = updatedCash !== 0 ? updatedCash : 0 - adjustedAmount;
-
-    const updatedTotalSavings =
-      (income.type === 'Card' ? leftCard : leftCash) + totalSavings;
-    const updatedTotalMoney = totalAmount - adjustedAmount;
-
     await updateDoc(userDocRef, {
       incomes: arrayRemove(income),
       money: {
         ...money,
-        totalCash: updatedCash <= 0 ? 0 : updatedCash,
-        totalCard: updatedCard <= 0 ? 0 : updatedCard,
-        totalSavings: updatedTotalSavings <= 0 ? 0 : updatedTotalSavings,
-        totalMoney: updatedTotalMoney,
+        totalCash: updatedCash,
+        totalCard: updatedCard,
+        totalMoney: money.totalMoney - income.amount,
       },
     });
 
     dispatch(removeIncomeAction(income.id));
-
-    const updatedUserDoc = await getDoc(userDocRef);
-    const updatedUserData = updatedUserDoc.data();
-
-    dispatch(updateCardAction(updatedUserData.money.totalCard));
-    dispatch(updateCashAction(updatedUserData.money.totalCash));
-    dispatch(updateSavingsAction(updatedUserData.money.totalSavings));
-    dispatch(updateIncomeAction(updatedUserData.incomes || []));
-
-    if (updatedUserData.incomes.length === 0) {
-      await updateDoc(userDocRef, {
-        money: {
-          ...updatedUserData.money,
-          totalCash: 0,
-          totalCard: 0,
-          totalSavings: 0,
-          totalMoney: 0,
-        },
-      });
-    }
   };
 
   return (

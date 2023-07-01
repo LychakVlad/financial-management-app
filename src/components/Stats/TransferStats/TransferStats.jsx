@@ -80,7 +80,9 @@ const TransferStats = ({ handleClick }) => {
             : 'totalCash'
         ];
       if (transfer.amount > availableBalance) {
-        setInputError('Transfer amount exceeds the available balance');
+        setInputError(
+          'Transfer amount exceeds the available balance or balance is 0'
+        );
         setLoading(false);
         return;
       }

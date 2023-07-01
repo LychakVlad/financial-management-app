@@ -33,7 +33,7 @@
   gap: 24px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1024px) {
   .info {
     flex-direction: column;
     gap: 24px;
