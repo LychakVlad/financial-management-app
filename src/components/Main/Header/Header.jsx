@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import styles from './Header.module.css';
 import { useAuth } from '../../../contexts/AuthContext';
 
-const Header = () => {
+const Header = ({ setSideMenu, sideMenu }) => {
   const { currentUser } = useAuth();
   const [greetings, setGreetings] = useState('Hello');
 
   const today = new Date();
   const currentTime = today.getHours();
+
+  const handleClick = () => {
+    setSideMenu(!sideMenu);
+  };
 
   useEffect(() => {
     if (currentTime >= 0 && currentTime < 5) {
@@ -23,6 +27,7 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
+      <button onClick={handleClick}>CLICK ON MEEEEE</button>
       <h1>
         {' '}
         {`${greetings}${
