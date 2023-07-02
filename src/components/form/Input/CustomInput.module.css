@@ -2,7 +2,10 @@
   position: relative;
   margin: auto;
   width: 100%;
-  width: 300px;
+  min-width: 200px;
+
+  max-width: 300px;
+  height: 46px;
   overflow: hidden;
   display: flex;
 }
@@ -31,7 +34,7 @@
   border: 0;
   font-family: inherit;
   padding: 16px 52px 0 12px;
-  height: 28px;
+  height: 46px;
   font-size: 14px;
   font-weight: 400;
   background: #f4f6f8;

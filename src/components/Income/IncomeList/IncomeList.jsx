@@ -107,12 +107,12 @@ function IncomeList() {
             <div className={styles.listWrapper}>
               {incomes.map((income) => (
                 <div key={income.id} className={styles.item}>
-                  <div className={styles.income}>
+                  <span className={styles.income}>
                     +{formatNumber(income.amount)} $
-                  </div>
-                  <div>{income.type}</div>
-                  <div>{income.tax}</div>
-                  <div>{income.date}</div>
+                  </span>
+                  <span className={styles.date}>{income.date}</span>
+                  <span>{income.type}</span>
+                  <span>{income.tax}</span>
                   <CustomButton
                     type="submit"
                     title="Delete"

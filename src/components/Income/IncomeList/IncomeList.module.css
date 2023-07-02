@@ -48,6 +48,7 @@
   align-items: center;
 
   margin-top: 24px;
+  gap: 24px;
 
   font-style: normal;
   font-weight: 900;
@@ -64,6 +65,9 @@
 .total button {
   background: #f85842;
 }
+.item span {
+  padding: 0px 12px;
+}
 
 .empty {
   font-style: normal;
@@ -79,4 +83,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 2px solid #eceff9;
+
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .total {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .list {
+    font-size: 10px;
+    padding: 12px;
+  }
+
+  .item {
+    font-size: 14px;
+  }
+
+  .item span {
+    padding: 0px 4px;
+  }
 }

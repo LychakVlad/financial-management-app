@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Main/Header/Header';
 import SideBar from '../components/Main/SideBar/SideBar';
 import styles from './MainPage.module.css';
@@ -10,7 +10,7 @@ const MainPage = ({ children }) => {
   useDisableBodyScroll(openSideMenu);
 
   return (
-    <>
+    <div className={styles.body}>
       <Header setSideMenu={setOpenSideMenu} sideMenu={openSideMenu} />
       <div className={styles.main}>
         <div
@@ -24,7 +24,7 @@ const MainPage = ({ children }) => {
           className={`${styles.bg} ${openSideMenu ? styles.isActiveBg : ''}`}
         ></div>
       </div>
-    </>
+    </div>
   );
 };
 

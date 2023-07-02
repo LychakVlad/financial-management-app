@@ -37,42 +37,47 @@ const SideBar = ({ setSideMenu, sideMenu }) => {
     <div className={styles.side}>
       <div className={styles.menu}>
         <h3 className={styles.title}>Main menu</h3>
-        <ul className={styles.list}>
-          <SideItem
-            to="/"
-            icon={MenuIcon4}
-            label="Main Page"
-            onClick={onClick}
-          />
-          <SideItem
-            to="/income-tracker"
-            icon={MenuIcon3}
-            label="Income Tracker"
-            onClick={onClick}
-          />
-          <SideItem
-            to="/expense-tracker"
-            icon={MenuIcon1}
-            label="Expense Tracker"
-            onClick={onClick}
-          />
-          <SideItem
-            to="/tax-calculator"
-            icon={MenuIcon2}
-            label="Tax Calculator"
-            onClick={onClick}
-          />
-          <SideItem
-            to="/budget-planner"
-            icon={MenuIcon}
-            label="Budget Planner"
-            onClick={onClick}
-          />
-        </ul>
-      </div>
-      <div className={styles.logout} onClick={handleLogout}>
-        <LogOut />
-        <span>Logout</span>
+        <div className={styles.container}>
+          {' '}
+          <ul className={styles.list}>
+            <SideItem
+              to="/"
+              icon={MenuIcon4}
+              label="Main Page"
+              onClick={onClick}
+            />
+            <SideItem
+              to="/income-tracker"
+              icon={MenuIcon3}
+              label="Income Tracker"
+              onClick={onClick}
+            />
+            <SideItem
+              to="/expense-tracker"
+              icon={MenuIcon1}
+              label="Expense Tracker"
+              onClick={onClick}
+            />
+            <SideItem
+              to="/tax-calculator"
+              icon={MenuIcon2}
+              label="Tax Calculator"
+              onClick={onClick}
+            />
+            <SideItem
+              to="/budget-planner"
+              icon={MenuIcon}
+              label="Budget Planner"
+              onClick={onClick}
+            />
+          </ul>
+          <div className={styles.point} onClick={handleLogout}>
+            <div className={styles.pointFlex}>
+              <LogOut className={styles.icon} />
+              <span>Log out</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
