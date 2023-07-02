@@ -7,3 +7,10 @@
   grid-template-columns: 0.5fr 1fr;
   grid-template-rows: minmax(200px, 350px) 1fr;
 }
+
+@media (max-width: 768px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+  }
+}
