@@ -10,7 +10,7 @@ import { ReactComponent as LogOut } from '../../../assets/logout.svg';
 import SideItem from './SideItem';
 import { useAuth } from '../../../contexts/AuthContext';
 
-const SideBar = () => {
+const SideBar = ({ setSideMenu, sideMenu }) => {
   const { logout } = useAuth();
   const [error, setError] = useState('');
   const history = useNavigate();
@@ -27,31 +27,46 @@ const SideBar = () => {
     }
   }
 
+  const onClick = () => {
+    if (sideMenu === true) {
+      setSideMenu(false);
+    } else return;
+  };
+
   return (
     <div className={styles.side}>
       <div className={styles.menu}>
         <h3 className={styles.title}>Main menu</h3>
         <ul className={styles.list}>
-          <SideItem to="/" icon={MenuIcon4} label="Main Page" />
+          <SideItem
+            to="/"
+            icon={MenuIcon4}
+            label="Main Page"
+            onClick={onClick}
+          />
           <SideItem
             to="/income-tracker"
             icon={MenuIcon3}
             label="Income Tracker"
+            onClick={onClick}
           />
           <SideItem
             to="/expense-tracker"
             icon={MenuIcon1}
             label="Expense Tracker"
+            onClick={onClick}
           />
           <SideItem
             to="/tax-calculator"
             icon={MenuIcon2}
             label="Tax Calculator"
+            onClick={onClick}
           />
           <SideItem
             to="/budget-planner"
             icon={MenuIcon}
             label="Budget Planner"
+            onClick={onClick}
           />
         </ul>
       </div>

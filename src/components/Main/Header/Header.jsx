@@ -27,7 +27,12 @@ const Header = ({ setSideMenu, sideMenu }) => {
 
   return (
     <header className={styles.header}>
-      <button onClick={handleClick}>CLICK ON MEEEEE</button>
+      <button
+        className={`${styles.menuToggle} ${sideMenu ? styles.isActive : null}`}
+        onClick={handleClick}
+      >
+        Menu
+      </button>
       <h1>
         {' '}
         {`${greetings}${

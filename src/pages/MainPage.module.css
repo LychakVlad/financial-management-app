@@ -1,13 +1,26 @@
 .main {
   display: flex;
-  height: calc(100% - 96px);
+  height: 100%;
+  width: 100%;
 }
 
 .block {
   background: #f4f6f8;
   width: 100%;
   padding: 32px;
+}
+
+.bg {
+  position: absolute;
+  background-color: black;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  min-height: 110vh;
   width: 100%;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 @media (max-width: 768px) {
@@ -22,5 +35,10 @@
 
   .side.isActive {
     transform: translateX(0);
+  }
+
+  .isActiveBg {
+    background-color: black;
+    opacity: 0.6;
   }
 }

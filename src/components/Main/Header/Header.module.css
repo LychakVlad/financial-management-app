@@ -12,11 +12,67 @@
   color: #3f4765;
   border-bottom: 2px solid #eceff9;
   box-shadow: -24px 0px 80px rgba(49, 79, 124, 0.02);
+  position: relative;
+  z-index: 10;
+  background-color: white;
+}
+
+.menuToggle {
+  position: relative;
+  display: none;
+  width: 30px;
+  height: 20px;
+  background: transparent;
+  border-top: 3px solid;
+  border-bottom: 3px solid;
+  color: #3f4765;
+  font-size: 0;
+  transition: all 0.25s ease-in-out;
+
+  margin-right: 20px;
+}
+
+.menuToggle:before,
+.menuToggle:after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 3px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform 0.25s ease-in-out;
+}
+
+button.isActive {
+  border-color: transparent;
+}
+
+button.isActive:before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+button.isActive:after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .menuToggle {
+    display: block;
+  }
 }
 
 @media (max-width: 600px) {
   .header {
-    padding: 0px 32px;
+    padding: 32px;
     font-size: 12px;
     text-align: center;
   }
