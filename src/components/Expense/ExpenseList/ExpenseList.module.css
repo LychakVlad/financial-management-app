@@ -81,3 +81,33 @@
 
   opacity: 0.6;
 }
+
+.item span {
+  padding: 0px 4px;
+}
+
+@media (max-width: 768px) {
+  .item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 2px solid #eceff9;
+
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .total {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .list {
+    font-size: 10px;
+    padding: 12px;
+  }
+
+  .item {
+    font-size: 14px;
+  }
+}

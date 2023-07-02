@@ -61,15 +61,15 @@ const ExpenseList = () => {
             <div className={styles.listWrapper}>
               {expenses.map((expense) => (
                 <div key={expense.id} className={styles.item}>
-                  <div className={styles.expense}>
+                  <span className={styles.expense}>
                     -{formatNumber(expense.amount)} $
-                  </div>
+                  </span>
                   <span className={styles.description}>
                     {expense.description}
                   </span>
-                  <div>{expense.type}</div>
-                  <div>{expense.pay}</div>
-                  <div>{expense.date}</div>
+                  <span>{expense.type}</span>
+                  <span>{expense.pay}</span>
+                  <span>{expense.date}</span>
                   <CustomButton
                     type="submit"
                     title="Delete"
