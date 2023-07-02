@@ -3,7 +3,6 @@
 }
 
 .radioInput {
-  /* Hide the actual radio button */
   display: none;
 }
 
@@ -11,6 +10,7 @@
   position: relative;
   padding-left: 25px;
   cursor: pointer;
+  line-height: 200%;
 }
 
 .radioLabel:before {

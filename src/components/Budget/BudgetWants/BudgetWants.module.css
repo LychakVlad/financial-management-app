@@ -4,6 +4,7 @@
   grid-template-rows: 1fr 1fr 1fr;
 
   row-gap: 24px;
+  column-gap: 20px;
 }
 
 .total {
@@ -16,4 +17,38 @@
 .totalDigit {
   font-size: 32px;
   color: #1cac70;
+}
+
+.total p {
+  padding: 0px 16px;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    column-gap: 20px;
+  }
+
+  .total {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    column-gap: 20px;
+  }
+
+  .total {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .total p {
+    margin-top: 16px;
+    padding: 0;
+  }
 }

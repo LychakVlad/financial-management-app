@@ -26,3 +26,10 @@
   color: white;
   background: linear-gradient(151.19deg, #1cac70 21.77%, #eddc46 111.4%);
 }
+
+@media (max-width: 768px) {
+  .form {
+    flex-direction: column;
+    text-align: center;
+  }
+}
