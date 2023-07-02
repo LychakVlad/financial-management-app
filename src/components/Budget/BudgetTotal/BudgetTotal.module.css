@@ -23,3 +23,13 @@
 
   font-weight: 700;
 }
+
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+}
