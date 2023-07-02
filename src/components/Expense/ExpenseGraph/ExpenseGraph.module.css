@@ -39,3 +39,14 @@
 .graph {
   width: 250px;
 }
+
+@media (max-width: 1000px) {
+  .graph {
+    width: 200px;
+  }
+
+  .form {
+    flex-direction: column;
+    align-items: center;
+  }
+}

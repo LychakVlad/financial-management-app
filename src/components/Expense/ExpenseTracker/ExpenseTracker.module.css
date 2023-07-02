@@ -8,7 +8,7 @@
   grid-template-rows: minmax(200px, 350px) 1fr;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .main {
     display: flex;
     flex-direction: column;
