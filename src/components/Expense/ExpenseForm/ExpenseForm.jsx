@@ -9,6 +9,7 @@ import CustomInput from '../../form/Input/CustomInput';
 import Dropdown from '../../form/Dropdown/Dropdown';
 import CustomButton from '../../form/Button/CustomButton';
 import { formatDate } from '../../../utils/dateFormat';
+import DateChange from '../../form/DateChange/DateChange';
 
 const ExpenseForm = () => {
   const { currentUser } = useAuth();
@@ -19,6 +20,7 @@ const ExpenseForm = () => {
     amount: '',
     description: '',
     pay: '',
+    date: new Date(),
   });
   const [dropdownError, setDropdownError] = useState(false);
   const [dropdownPlaceholder, setDropdownPlaceholder] = useState('Category');
@@ -69,7 +71,7 @@ const ExpenseForm = () => {
         type: expenseItem.type,
         pay: expenseItem.pay,
         description: expenseItem.description,
-        date: formatDate(new Date()),
+        date: formatDate(expenseItem.date),
         id: Date.now(),
       };
 
@@ -112,6 +114,7 @@ const ExpenseForm = () => {
       expenseItem.type,
       expenseItem.description,
       expenseItem.pay,
+      expenseItem.date,
       dispatch,
       totalExpense,
     ]
@@ -134,6 +137,11 @@ const ExpenseForm = () => {
 
   const handleDescChange = (value) => {
     setExpenseItem({ ...expenseItem, description: value });
+  };
+
+  const handleDateChange = (value) => {
+    setExpenseItem({ ...expenseItem, date: value });
+    setInputError('');
   };
 
   const buttonTitle = loading ? 'Loading...' : 'Add expense';
@@ -174,6 +182,7 @@ const ExpenseForm = () => {
           onChange={handleDropdownPayChange}
           error={dropdownPayError}
         />
+        <DateChange onChange={handleDateChange} value={expenseItem.date} />
         <CustomButton type="submit" title={buttonTitle} disabled={loading} />
       </div>
     </form>

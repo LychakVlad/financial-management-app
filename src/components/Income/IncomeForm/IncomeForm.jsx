@@ -7,13 +7,13 @@ import {
   updateCashAction,
 } from '../../../store/actions/incomeActions';
 import { doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
-
 import { firestore } from '../../../firebase';
 import styles from './IncomeForm.module.css';
 import CustomInput from '../../form/Input/CustomInput';
 import Dropdown from '../../form/Dropdown/Dropdown';
 import CustomButton from '../../form/Button/CustomButton';
 import { useAuth } from '../../../contexts/AuthContext';
+import DateChange from '../../form/DateChange/DateChange';
 
 function IncomeForm() {
   const [loading, setLoading] = useState(false);
@@ -24,6 +24,7 @@ function IncomeForm() {
     amount: '',
     type: '',
     tax: '',
+    date: new Date(),
   });
   const [dropdownTaxError, setDropdownTaxError] = useState(false);
   const [dropdownTaxPlaceholder, setDropdownTaxPlaceholder] =
@@ -68,7 +69,7 @@ function IncomeForm() {
         amount: incomeItem.amount,
         type: incomeItem.type,
         tax: incomeItem.tax,
-        date: formatDate(new Date()),
+        date: formatDate(incomeItem.date),
         id: Date.now(),
       };
 
@@ -114,6 +115,7 @@ function IncomeForm() {
       incomeItem.amount,
       incomeItem.type,
       incomeItem.tax,
+      incomeItem.date,
       incomes,
       dispatch,
       totalAmount,
@@ -132,6 +134,11 @@ function IncomeForm() {
 
   const handleInputChange = (value) => {
     setIncomeItem({ ...incomeItem, amount: value });
+    setInputError('');
+  };
+
+  const handleDateChange = (value) => {
+    setIncomeItem({ ...incomeItem, date: value });
     setInputError('');
   };
 
@@ -158,6 +165,7 @@ function IncomeForm() {
           onChange={handleDropdownChange}
           error={dropdownError}
         />
+        <DateChange onChange={handleDateChange} value={incomeItem.date} />
         <Dropdown
           placeHolder={dropdownTaxPlaceholder}
           setPlaceHolder={setDropdownTaxPlaceholder}

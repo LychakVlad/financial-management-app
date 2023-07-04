@@ -1,0 +1,48 @@
+.container {
+  text-align: left;
+  border: 1px solid #dae6ef;
+  position: relative;
+  background: #ffffff;
+  box-shadow: 0px 19px 40px rgba(49, 79, 124, 0.08);
+  border-radius: 12px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 20px;
+
+  color: #6e7499;
+
+  cursor: pointer;
+
+  width: 100%;
+  min-width: 200px;
+  max-width: 300px;
+  height: 46px;
+
+  transition: border 0.3s ease;
+}
+
+.calendar {
+  position: absolute;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 0.3s ease;
+}
+
+.calendar.dropActive {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.selectedValue {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+
+  padding: 0px 12px;
+}

@@ -29,7 +29,12 @@ const ExpenseList = () => {
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
         setLoading(false);
-        dispatch(updateExpenseAction(userData?.expenses || []));
+
+        const sortedExpenses = userData?.expenses?.sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        );
+
+        dispatch(updateExpenseAction(sortedExpenses || []));
       };
 
       fetchData();

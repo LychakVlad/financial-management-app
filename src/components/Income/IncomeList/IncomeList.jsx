@@ -18,9 +18,7 @@ import { formatNumber } from '../../../utils/formatNumber';
 
 function IncomeList() {
   const incomes = useSelector((state) => state.incomes.incomes || []);
-  const { totalIncome, totalSavings, totalAmount } = useSelector(
-    (state) => state.incomes
-  );
+  const { totalIncome } = useSelector((state) => state.incomes);
   const dispatch = useDispatch();
 
   const currentUser = useAuth();
@@ -36,7 +34,12 @@ function IncomeList() {
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
         setLoading(false);
-        dispatch(updateIncomeAction(userData?.incomes || []));
+
+        const sortedIncomes = userData?.incomes?.sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        );
+
+        dispatch(updateIncomeAction(sortedIncomes || []));
       };
 
       fetchData();
