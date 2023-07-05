@@ -12,7 +12,7 @@ import { useAuth } from '../../../contexts/AuthContext';
 import CustomButton from '../../form/Button/CustomButton';
 import { formatNumber } from '../../../utils/formatNumber';
 
-const ExpenseList = () => {
+const ExpenseList = ({ dates, setDates }) => {
   const expenses = useSelector((state) => state.expenses.expenses || []);
   const dispatch = useDispatch();
 

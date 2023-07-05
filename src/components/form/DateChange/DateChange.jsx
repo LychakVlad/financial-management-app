@@ -8,7 +8,6 @@ const DateChange = ({ onChange, value }) => {
   const [dropdown, setDropdown] = useState(false);
   let ref = useRef();
 
-  console.log(value);
   useEffect(() => {
     const handler = (event) => {
       if (dropdown && ref.current && !ref.current.contains(event.target)) {

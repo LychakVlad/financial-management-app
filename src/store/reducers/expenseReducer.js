@@ -14,7 +14,7 @@ export const expenseReducer = (state = initialState, action) => {
     case ADD_EXPENSE:
       return {
         ...state,
-        expenses: [...state.expenses, action.payload],
+        expenses: [action.payload, ...state.expenses],
         totalExpense: state.totalExpense + parseFloat(action.payload.amount),
       };
     case REMOVE_EXPENSE:

@@ -46,6 +46,7 @@
 
 .listWrapper {
   overflow-y: auto;
+
   max-height: 300px;
 
   font-style: normal;

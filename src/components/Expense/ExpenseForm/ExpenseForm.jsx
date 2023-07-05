@@ -66,7 +66,7 @@ const ExpenseForm = () => {
 
       setLoading(true);
 
-      const Expense = {
+      const newExpense = {
         amount: expenseItem.amount,
         type: expenseItem.type,
         pay: expenseItem.pay,
@@ -75,27 +75,29 @@ const ExpenseForm = () => {
         id: Date.now(),
       };
 
-      dispatch(addExpenseAction(Expense));
+      dispatch(addExpenseAction(newExpense));
       const userDocRef = doc(firestore, 'users', currentUser?.uid);
       const userDoc = await getDoc(userDocRef);
       const money = userDoc.data().money;
 
-      if (Expense.pay === 'Card') {
+      const updatedExpenses = [newExpense, ...userDoc.data().expenses];
+
+      if (newExpense.pay === 'Card') {
         await updateDoc(userDocRef, {
-          expenses: arrayUnion(Expense),
-          totalExpense: totalExpense + parseFloat(Expense.amount),
+          expenses: updatedExpenses,
+          totalExpense: totalExpense + parseFloat(newExpense.amount),
           money: {
-            totalCard: money.totalCard - parseFloat(Expense.amount),
+            totalCard: money.totalCard - parseFloat(newExpense.amount),
             totalCash: money.totalCash,
             totalSavings: money.totalSavings,
           },
         });
-      } else if (Expense.pay === 'Cash') {
+      } else if (newExpense.pay === 'Cash') {
         await updateDoc(userDocRef, {
-          expenses: arrayUnion(Expense),
-          totalExpense: totalExpense + parseFloat(Expense.amount),
+          expenses: updatedExpenses,
+          totalExpense: totalExpense + parseFloat(newExpense.amount),
           money: {
-            totalCash: money.totalCash - parseFloat(Expense.amount),
+            totalCash: money.totalCash - parseFloat(newExpense.amount),
             totalCard: money.totalCard,
             totalSavings: money.totalSavings,
           },
