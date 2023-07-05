@@ -18,13 +18,14 @@
 .number {
   font-size: 24px;
   font-weight: 700;
+  display: inline-block;
 }
 
 .graph {
   width: 220px;
   height: 220px;
 
-  padding-right: 50px;
+  padding: 12px 0px;
 }
 
 .money {
