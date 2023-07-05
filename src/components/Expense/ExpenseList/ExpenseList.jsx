@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from '../../../contexts/AuthContext';
 import CustomButton from '../../form/Button/CustomButton';
 import { formatNumber } from '../../../utils/formatNumber';
+import { formatDate } from '../../../utils/dateFormat';
 
 const ExpenseList = ({ dates, setDates }) => {
   const expenses = useSelector((state) => state.expenses.expenses || []);
@@ -34,12 +35,18 @@ const ExpenseList = ({ dates, setDates }) => {
           (a, b) => new Date(b.date) - new Date(a.date)
         );
 
-        dispatch(updateExpenseAction(sortedExpenses || []));
+        const filteredExpenses = sortedExpenses?.filter(
+          (item) =>
+            formatDate(dates.from) <= item.date &&
+            item.date <= formatDate(dates.to)
+        );
+
+        dispatch(updateExpenseAction(filteredExpenses || []));
       };
 
       fetchData();
     }
-  }, [currentUser, dispatch]);
+  }, [currentUser, dispatch, dates]);
 
   const deletePoint = async (expense) => {
     const userId = currentUser?.currentUser?.uid;

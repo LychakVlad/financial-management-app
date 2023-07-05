@@ -1,9 +1,7 @@
 .main {
   width: 100%;
-  height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+
   flex-direction: column;
 
   font-size: 20px;
@@ -13,6 +11,8 @@
   color: #f85842;
   font-weight: 700;
   font-size: 24px;
+  margin-bottom: 16px;
+  display: inline-block;
 }
 
 .link {
@@ -20,12 +20,24 @@
   color: gray;
   border: 1px gray solid;
   border-radius: 12px;
-  padding: 8px;
+  padding: 8px 12px;
 
-  margin-top: 20px;
   transition: opacity 0.3s ease;
+  width: fit-content;
+  display: flex;
+  margin: 20px auto 0px;
 }
 
 .link:hover {
   opacity: 0.5;
+}
+
+.graph {
+  height: 200px;
+}
+
+.dates {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 16px;
 }

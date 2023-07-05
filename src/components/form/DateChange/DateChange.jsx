@@ -4,7 +4,7 @@ import Calendar from 'react-calendar';
 import styles from './DateChange.module.css';
 import { formatDate } from '../../../utils/dateFormat';
 
-const DateChange = ({ onChange, value }) => {
+const DateChange = ({ onChange, value, desc }) => {
   const [dropdown, setDropdown] = useState(false);
   let ref = useRef();
 
@@ -34,6 +34,7 @@ const DateChange = ({ onChange, value }) => {
 
   return (
     <div>
+      {desc ? <div className={styles.desc}>{desc}</div> : ''}
       <div
         ref={ref}
         onMouseEnter={onMouseEnter}

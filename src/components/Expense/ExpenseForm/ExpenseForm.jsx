@@ -33,7 +33,7 @@ const ExpenseForm = () => {
   const options = [
     { value: 'Groceries', label: 'Groceries' },
     { value: 'Housing', label: 'Housing' },
-    { value: 'Transportation', label: 'Transportation' },
+    { value: 'Transport', label: 'Transport' },
     { value: 'Healthcare', label: 'Healthcare' },
     { value: 'Education', label: 'Education' },
     { value: 'Entertainment', label: 'Entertainment' },
