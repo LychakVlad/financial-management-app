@@ -3,7 +3,7 @@ import styles from './ExpenseForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from '../../../contexts/AuthContext';
 import { firestore } from '../../../firebase';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { addExpenseAction } from '../../../store/actions/expenseActions';
 import CustomInput from '../../form/Input/CustomInput';
 import Dropdown from '../../form/Dropdown/Dropdown';
@@ -85,11 +85,9 @@ const ExpenseForm = () => {
       const userDoc = await getDoc(userDocRef);
       const money = userDoc.data().money;
 
-      const updatedExpenses = [newExpense, ...userDoc.data().expenses];
-
       if (newExpense.pay === 'Card') {
         await updateDoc(userDocRef, {
-          expenses: updatedExpenses,
+          expenses: arrayUnion(newExpense),
           totalExpense: totalExpense + parseFloat(newExpense.amount),
           money: {
             totalCard: money.totalCard - parseFloat(newExpense.amount),
@@ -99,7 +97,7 @@ const ExpenseForm = () => {
         });
       } else if (newExpense.pay === 'Cash') {
         await updateDoc(userDocRef, {
-          expenses: updatedExpenses,
+          expenses: arrayUnion(newExpense),
           totalExpense: totalExpense + parseFloat(newExpense.amount),
           money: {
             totalCash: money.totalCash - parseFloat(newExpense.amount),

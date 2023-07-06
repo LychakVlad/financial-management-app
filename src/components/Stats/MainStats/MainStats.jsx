@@ -14,6 +14,7 @@ import { setTotalTaxLiabilityAction } from '../../../store/actions/taxActions';
 import MoneyStats from '../MoneyStats/MoneyStats';
 import ExpenseStats from '../ExpenseStats/ExpenseStats';
 import { Link } from 'react-router-dom';
+import { updateExpenseAction } from '../../../store/actions/expenseActions';
 
 const MainStats = () => {
   const [loading, setLoading] = useState(false);
@@ -28,16 +29,15 @@ const MainStats = () => {
 
   useEffect(() => {
     if (currentUser?.currentUser) {
-      console.log(currentUser.currentUser);
       const fetchData = async () => {
         setLoading(true);
         const userId = currentUser.currentUser.uid;
         const userDocRef = firestore.collection('users').doc(userId);
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
-        console.log(userDoc);
         setLoading(false);
         dispatch(updateIncomeAction(userData?.incomes || []));
+        dispatch(updateExpenseAction(userData?.expenses || []));
         dispatch(setTotalTaxLiabilityAction(userData?.totalTax || 0));
 
         dispatch(updateCashAction(userData?.money.totalCash));
@@ -58,34 +58,29 @@ const MainStats = () => {
         <MoneyStats />
       </div>
       <div className={styles.expense}>
-        {' '}
         <ExpenseStats />
       </div>
       <div className={styles.income}>
         <p>
-          Your total income before tax:{' '}
+          Your total income before tax:
           <span className={styles.number}>
-            {' '}
-            {formatNumber(totalIncome) + ' $'}
-          </span>{' '}
+            {' ' + formatNumber(totalIncome) + ' $'}
+          </span>
         </p>
         <p>
-          You need to pay:{' '}
+          You need to pay:
           <span className={styles.numberTax}>
-            {' '}
-            {formatNumber(totalTax) + ' $'}
-          </span>{' '}
+            {' ' + formatNumber(totalTax) + ' $'}
+          </span>
           <span className={styles.taxLink}>
-            {' '}
             <Link to="/tax-calculator">Calculate</Link>
           </span>
         </p>
         <p>
-          Your total income after tax:{' '}
+          Your total income after tax:
           <span className={styles.number}>
-            {' '}
-            {formatNumber(totalAfterTax) + ' $'}
-          </span>{' '}
+            {' ' + formatNumber(totalAfterTax) + ' $'}
+          </span>
         </p>
       </div>
     </section>

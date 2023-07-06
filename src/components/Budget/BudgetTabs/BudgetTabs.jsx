@@ -11,7 +11,6 @@ const BudgetTabs = () => {
     dispatch(setTabAction(type));
   };
 
-  console.log(tab);
   return (
     <div className={styles.form}>
       <div

@@ -44,8 +44,6 @@ function IncomeForm() {
     { value: 'Card', label: 'Card' },
   ];
 
-  console.log(incomeItem.amount.length);
-
   const handleAddIncome = useCallback(
     async (e) => {
       e.preventDefault();
