@@ -3,7 +3,7 @@ import styles from './ExpenseForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from '../../../contexts/AuthContext';
 import { firestore } from '../../../firebase';
-import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { addExpenseAction } from '../../../store/actions/expenseActions';
 import CustomInput from '../../form/Input/CustomInput';
 import Dropdown from '../../form/Dropdown/Dropdown';
@@ -51,6 +51,11 @@ const ExpenseForm = () => {
 
       if (!expenseItem.amount) {
         setInputError('Enter the value');
+        return;
+      }
+
+      if (expenseItem.amount.length > 9) {
+        setInputError('Enter the smaller number');
         return;
       }
 
@@ -104,7 +109,13 @@ const ExpenseForm = () => {
         });
       }
 
-      setExpenseItem({ amount: '', type: '', description: '', pay: '' });
+      setExpenseItem({
+        amount: '',
+        type: '',
+        description: '',
+        pay: '',
+        date: new Date(),
+      });
       setLoading(false);
       setInputError('');
       setDropdownPlaceholder('Category');

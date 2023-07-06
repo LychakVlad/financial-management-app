@@ -44,12 +44,19 @@ function IncomeForm() {
     { value: 'Card', label: 'Card' },
   ];
 
+  console.log(incomeItem.amount.length);
+
   const handleAddIncome = useCallback(
     async (e) => {
       e.preventDefault();
 
       if (!incomeItem.amount) {
         setInputError('Enter the value');
+        return;
+      }
+
+      if (incomeItem.amount.length > 9) {
+        setInputError('Enter the smaller number');
         return;
       }
 
@@ -104,7 +111,7 @@ function IncomeForm() {
       dispatch(updateCashAction(totalCash));
       dispatch(updateCardAction(totalCard));
 
-      setIncomeItem({ amount: '', type: '' });
+      setIncomeItem({ amount: '', type: '', date: new Date() });
       setInputError('');
       setDropdownPlaceholder('Type of Income');
       setDropdownTaxPlaceholder('Is it taxable?');
@@ -157,6 +164,7 @@ function IncomeForm() {
           error={inputError}
           required
           onChange={handleInputChange}
+          maxLength={6}
         />
         <Dropdown
           placeHolder={dropdownPlaceholder}

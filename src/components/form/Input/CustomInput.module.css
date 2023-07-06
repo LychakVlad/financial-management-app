@@ -1,6 +1,6 @@
 .inp {
   position: relative;
-  margin: auto;
+  margin: 0;
   width: 100%;
   min-width: 200px;
 
@@ -70,6 +70,8 @@
   margin-top: 4px;
   margin-bottom: 0px;
   font-size: 14px;
+  max-width: 300px;
+  text-align: left;
 }
 
 .closeIcon {
