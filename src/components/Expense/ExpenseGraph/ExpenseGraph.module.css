@@ -75,3 +75,13 @@
     align-items: center;
   }
 }
+
+@media (max-width: 600px) {
+  .dates {
+    flex-direction: column;
+  }
+
+  .list {
+    grid-template-columns: 1fr 1fr;
+  }
+}

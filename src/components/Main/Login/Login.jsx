@@ -44,6 +44,13 @@ const Login = () => {
 
   return (
     <div className={styles.main}>
+      <div className={styles.popup}>
+        <p>Hi, thanks for visiting this app!👋</p>
+        <br></br> If you want to try all the functionality you can create an
+        account with any fake email Or you can use these details
+        <p className={styles.data}> Email: testing@gmail.com</p>
+        <p className={styles.data}> Password: 123456</p>
+      </div>
       <form onSubmit={handleSubmit} className={styles.form}>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <CustomInput
@@ -69,13 +76,6 @@ const Login = () => {
           <Link to="/signup">Sign up</Link>
         </div>
       </form>
-      <div className={styles.popup}>
-        <p>Hi, thanks for visiting this app!👋</p>
-        <br></br> If you want to try all the functionality you can create an
-        account with any fake email Or you can use these details
-        <p className={styles.data}> Email: testing@gmail.com</p>
-        <p className={styles.data}> Password: 123456</p>
-      </div>
     </div>
   );
 };

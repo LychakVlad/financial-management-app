@@ -28,12 +28,14 @@ const MainStats = () => {
 
   useEffect(() => {
     if (currentUser?.currentUser) {
+      console.log(currentUser.currentUser);
       const fetchData = async () => {
         setLoading(true);
         const userId = currentUser.currentUser.uid;
         const userDocRef = firestore.collection('users').doc(userId);
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
+        console.log(userDoc);
         setLoading(false);
         dispatch(updateIncomeAction(userData?.incomes || []));
         dispatch(setTotalTaxLiabilityAction(userData?.totalTax || 0));

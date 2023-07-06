@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .form {
@@ -39,7 +40,7 @@
 }
 
 .popup {
-  position: absolute;
+  margin-bottom: 40px;
   max-width: 300px;
 
   right: 70%;
