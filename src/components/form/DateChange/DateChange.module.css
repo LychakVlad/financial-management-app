@@ -52,3 +52,11 @@
 .desc {
   margin-bottom: 4px;
 }
+
+@media (max-width: 480px) {
+  .calendar {
+    width: 280px;
+
+    left: -20%;
+  }
+}

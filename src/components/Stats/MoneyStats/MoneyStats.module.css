@@ -12,7 +12,11 @@
 }
 
 .main {
+  height: 85%;
   font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .number {
@@ -22,7 +26,7 @@
 }
 
 .graph {
-  width: 220px;
+  width: 200px;
   height: 220px;
 
   padding: 12px 0px;
