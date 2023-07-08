@@ -6,7 +6,7 @@
     <img src="./src/assets/main-screen.png" alt="main-page-screen" width='900'>
 <h3 align="center">Financial Management Application</h3>
   <p align="center">
-    A web application for a delivery service built using React, SCSS, Jest, and a RESTful API.
+A web application for managing your finance built using React, CSS, Redux, and Firebase.
     <br />
     <a href="https://github.com/LychakVlad/financial-management-app"><strong>Explore the code »</strong></a>
     <br />
