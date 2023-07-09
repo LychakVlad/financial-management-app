@@ -31,17 +31,19 @@ const ExpenseList = ({ dates, setDates }) => {
         const userData = userDoc.data();
         setLoading(false);
 
-        const sortedExpenses = userData?.expenses?.sort(
-          (a, b) => new Date(b.date) - new Date(a.date)
-        );
+        const sortedExpenses = Array.isArray(userData?.expenses)
+          ? userData.expenses.sort(
+              (a, b) => new Date(b.date) - new Date(a.date)
+            )
+          : [];
 
-        const filteredExpenses = sortedExpenses?.filter(
+        const filteredExpenses = sortedExpenses.filter(
           (item) =>
             formatDate(dates.from) <= item.date &&
             item.date <= formatDate(dates.to)
         );
 
-        dispatch(updateExpenseAction(filteredExpenses || []));
+        dispatch(updateExpenseAction(filteredExpenses));
       };
 
       fetchData();
