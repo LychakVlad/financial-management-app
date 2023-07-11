@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './TransferStats.module.css';
 import CustomInput from '../../form/Input/CustomInput';
 import Dropdown from '../../form/Dropdown/Dropdown';
@@ -14,7 +14,6 @@ import {
 } from '../../../store/actions/incomeActions';
 
 const TransferStats = ({ handleClick }) => {
-  const [loading, setLoading] = useState(false);
   const [transferError, setTransferError] = useState(false);
   const [dropdownFromError, setDropdownFromError] = useState(false);
   const [dropdownFromPlaceholder, setDropdownFromPlaceholder] =
@@ -30,19 +29,13 @@ const TransferStats = ({ handleClick }) => {
   const { currentUser } = useAuth();
   const dispatch = useDispatch();
 
-  const optionsFrom = [
+  const options = [
     { value: 'Cash', label: 'Cash' },
     { value: 'Card', label: 'Card' },
     { value: 'Savings', label: 'Savings' },
   ];
 
-  const optionsTo = [
-    { value: 'Cash', label: 'Cash' },
-    { value: 'Card', label: 'Card' },
-    { value: 'Savings', label: 'Savings' },
-  ];
-
-  const handleTransfer = useCallback(async () => {
+  const handleTransfer = async () => {
     try {
       if (!transferItem.from) {
         setDropdownFromError(true);
@@ -59,33 +52,11 @@ const TransferStats = ({ handleClick }) => {
         return;
       }
 
-      setLoading(true);
-
-      const transfer = {
-        amount: parseFloat(transferItem.amount),
-        from: transferItem.from,
-        to: transferItem.to,
-      };
+      const { from, to, amount } = transferItem;
 
       const userDocRef = doc(firestore, 'users', currentUser?.uid);
       const userDoc = await getDoc(userDocRef);
       const money = userDoc.data().money;
-
-      const availableBalance =
-        money[
-          transfer.from === 'Savings'
-            ? 'totalSavings'
-            : transfer.from === 'Card'
-            ? 'totalCard'
-            : 'totalCash'
-        ];
-      if (transfer.amount > availableBalance) {
-        setInputError(
-          'Transfer amount exceeds the available balance or balance is 0'
-        );
-        setLoading(false);
-        return;
-      }
 
       const transferMapping = {
         Card: {
@@ -102,46 +73,51 @@ const TransferStats = ({ handleClick }) => {
         },
       };
 
-      if (
-        transfer.from in transferMapping &&
-        transfer.to in transferMapping[transfer.from]
-      ) {
-        const { source, target } = transferMapping[transfer.from][transfer.to];
+      if (from in transferMapping && to in transferMapping[from]) {
+        const { source, target } = transferMapping[from][to];
+
+        const availableBalance = money[source];
+        if (amount > availableBalance) {
+          setInputError(
+            'Transfer amount exceeds the available balance or balance is 0'
+          );
+          return;
+        }
+
         const updatedMoney = {
           ...money,
-          [source]: money[source] - transfer.amount,
-          [target]: money[target] + transfer.amount,
+          [source]: money[source] - amount,
+          [target]: money[target] + amount,
         };
 
         await updateDoc(userDocRef, { money: updatedMoney });
 
-        if (transfer.to === 'Card') {
-          dispatch(
-            updateCardAction(money.totalCard + parseFloat(transfer.amount))
-          );
-          dispatch(updateCashAction(money.totalCash));
-          dispatch(updateSavingsAction(money.totalSavings));
-        } else if (transfer.to === 'Cash') {
-          dispatch(
-            updateCashAction(money.totalCash + parseFloat(transfer.amount))
-          );
-          dispatch(updateCardAction(money.totalCard));
-          dispatch(updateSavingsAction(money.totalSavings));
-        } else if (transfer.to === 'Savings') {
-          dispatch(
-            updateSavingsAction(
-              money.totalSavings + parseFloat(transfer.amount)
-            )
-          );
-          dispatch(updateCardAction(money.totalCard));
-          dispatch(updateCashAction(money.totalCash));
-        }
+        const dispatchActions = {
+          Card: () => {
+            dispatch(updateCardAction(money.totalCard + parseFloat(amount)));
+            dispatch(updateCashAction(money.totalCash));
+            dispatch(updateSavingsAction(money.totalSavings));
+          },
+          Cash: () => {
+            dispatch(updateCashAction(money.totalCash + parseFloat(amount)));
+            dispatch(updateCardAction(money.totalCard));
+            dispatch(updateSavingsAction(money.totalSavings));
+          },
+          Savings: () => {
+            dispatch(
+              updateSavingsAction(money.totalSavings + parseFloat(amount))
+            );
+            dispatch(updateCardAction(money.totalCard));
+            dispatch(updateCashAction(money.totalCash));
+          },
+        };
+
+        dispatchActions[to]();
 
         setTransferItem({ amount: '', from: '', to: '' });
         setInputError('');
         setDropdownToPlaceholder('To');
         setDropdownFromPlaceholder('From');
-        setLoading(false);
         handleClick(false);
       } else {
         setTransferError('Invalid transfer combination');
@@ -149,7 +125,7 @@ const TransferStats = ({ handleClick }) => {
     } catch (error) {
       console.log('Transfer error:', error);
     }
-  }, [currentUser?.uid, transferItem, handleClick, dispatch]);
+  };
 
   const handleDropdownFromChange = (option) => {
     setTransferItem({ ...transferItem, from: option.value });
@@ -173,14 +149,14 @@ const TransferStats = ({ handleClick }) => {
         <Dropdown
           placeHolder={dropdownFromPlaceholder}
           setPlaceHolder={setDropdownFromPlaceholder}
-          options={optionsFrom}
+          options={options}
           onChange={handleDropdownFromChange}
           error={dropdownFromError}
         />
         <Dropdown
           placeHolder={dropdownToPlaceholder}
           setPlaceHolder={setDropdownToPlaceholder}
-          options={optionsTo}
+          options={options}
           onChange={handleDropdownToChange}
           error={dropdownToError}
         />
@@ -198,7 +174,7 @@ const TransferStats = ({ handleClick }) => {
       {transferError && (
         <div className={styles.transferError}>{transferError}</div>
       )}
-      <CustomButton title={'Confirm transfer'} onClick={handleTransfer} />
+      <CustomButton title="Confirm transfer" onClick={handleTransfer} />
     </div>
   );
 };

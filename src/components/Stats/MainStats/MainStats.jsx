@@ -37,8 +37,11 @@ const MainStats = () => {
         const userData = userDoc.data();
         setLoading(false);
         dispatch(updateIncomeAction(userData?.incomes || []));
-        dispatch(updateExpenseAction(userData?.expenses || []));
+        console.log('1');
+        console.log('2');
+
         dispatch(setTotalTaxLiabilityAction(userData?.totalTax || 0));
+        dispatch(updateExpenseAction(userData?.expenses || []));
 
         dispatch(updateCashAction(userData?.money.totalCash));
         dispatch(updateCardAction(userData?.money.totalCard));
