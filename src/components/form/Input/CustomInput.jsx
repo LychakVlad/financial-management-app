@@ -15,6 +15,7 @@ const CustomInput = React.memo(
     maxLength,
     test,
     testError,
+    id,
   }) => {
     const [isFilled, setIsFilled] = useState(false);
 

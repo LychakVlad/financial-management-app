@@ -60,6 +60,7 @@ const Login = () => {
           name="email"
           required
           onChange={handleEmailChange}
+          id="email"
         />
         <CustomInput
           label="Password"
@@ -68,6 +69,7 @@ const Login = () => {
           name="password"
           required
           onChange={handlePasswordChange}
+          id="password"
         />
         <CustomButton disabled={loading} type="submit" title="Log in" />
 
