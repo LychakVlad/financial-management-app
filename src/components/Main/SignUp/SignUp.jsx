@@ -70,6 +70,7 @@ const SignUp = () => {
           name="email"
           required
           onChange={handleEmailChange}
+          id="email"
         />
         <CustomInput
           label="Name"
@@ -78,6 +79,7 @@ const SignUp = () => {
           name="name"
           required
           onChange={handleNameChange}
+          id="name"
         />
         <CustomInput
           label="Password"
@@ -86,6 +88,7 @@ const SignUp = () => {
           name="password"
           required
           onChange={handlePasswordChange}
+          id="password"
         />
         <CustomInput
           label="Password confirm"
@@ -94,6 +97,7 @@ const SignUp = () => {
           name="password-confirm"
           required
           onChange={handlePasswordConfirmChange}
+          id="password-repeat"
         />
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <CustomButton disabled={loading} type="submit" title="Sign Up" />

@@ -13,6 +13,10 @@ class LoginPage extends Page {
     return $('button[type="submit"]');
   }
 
+  get linkToSignUp() {
+    return $('#link-signup');
+  }
+
   async login(email, password) {
     await this.inputEmail.setValue(email);
     await this.inputPassword.setValue(password);
@@ -20,7 +24,7 @@ class LoginPage extends Page {
   }
 
   open() {
-    return super.open('./login');
+    return super.open('/login');
   }
 }
 

@@ -75,7 +75,9 @@ const Login = () => {
 
         <div className={styles.link}>
           Don't have an account?
-          <Link to="/signup">Sign up</Link>
+          <Link to="/signup" id="link-signup">
+            Sign up
+          </Link>
         </div>
       </form>
     </div>

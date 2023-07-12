@@ -71,7 +71,11 @@ const SideBar = ({ setSideMenu, sideMenu }) => {
               onClick={onClick}
             />
           </ul>
-          <div className={styles.point} onClick={handleLogout}>
+          <div
+            className={styles.point}
+            onClick={handleLogout}
+            id="button-logout"
+          >
             <div className={styles.pointFlex}>
               <LogOut className={styles.icon} />
               <span>Log out</span>
