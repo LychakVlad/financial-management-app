@@ -59,6 +59,11 @@ const ExpenseForm = () => {
         return;
       }
 
+      if (expenseItem.amount < 0) {
+        setInputError('Enter a positive value');
+        return;
+      }
+
       if (!expenseItem.type) {
         setDropdownError(true);
         return;

@@ -58,6 +58,11 @@ function IncomeForm() {
         return;
       }
 
+      if (incomeItem.amount < 0) {
+        setInputError('Enter a positive value');
+        return;
+      }
+
       if (!incomeItem.type) {
         setDropdownError(true);
         return;
