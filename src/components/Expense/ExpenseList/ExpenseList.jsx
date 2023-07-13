@@ -12,9 +12,10 @@ import { useAuth } from '../../../contexts/AuthContext';
 import CustomButton from '../../form/Button/CustomButton';
 import { formatNumber } from '../../../utils/formatNumber';
 import { formatDate } from '../../../utils/dateFormat';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 const ExpenseList = ({ dates, setDates }) => {
-  const expenses = useSelector((state) => state.expenses.expenses || []);
+  const { expenses, totalExpense } = useSelector((state) => state.expenses);
   const dispatch = useDispatch();
 
   const currentUser = useAuth();
@@ -51,14 +52,31 @@ const ExpenseList = ({ dates, setDates }) => {
   }, [currentUser, dispatch, dates]);
 
   const deletePoint = async (expense) => {
-    const userId = currentUser?.currentUser?.uid;
+    const userDocRef = doc(firestore, 'users', currentUser.currentUser.uid);
+    const userDoc = await getDoc(userDocRef);
+    const money = userDoc.data().money;
 
-    await firestore
-      .collection('users')
-      .doc(userId)
-      .update({
+    if (expense.pay === 'Card') {
+      await updateDoc(userDocRef, {
         expenses: firebase.firestore.FieldValue.arrayRemove(expense),
+        totalExpense: totalExpense - parseFloat(expense.amount),
+        money: {
+          totalCard: money.totalCard + parseFloat(expense.amount),
+          totalCash: money.totalCash,
+          totalSavings: money.totalSavings,
+        },
       });
+    } else if (expense.pay === 'Cash') {
+      await updateDoc(userDocRef, {
+        expenses: firebase.firestore.FieldValue.arrayRemove(expense),
+        totalExpense: totalExpense - parseFloat(expense.amount),
+        money: {
+          totalCash: money.totalCash + parseFloat(expense.amount),
+          totalCard: money.totalCard,
+          totalSavings: money.totalSavings,
+        },
+      });
+    }
 
     dispatch(removeExpenseAction(expense.id));
   };
