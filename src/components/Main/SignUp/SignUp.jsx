@@ -94,7 +94,7 @@ const SignUp = () => {
           label="Password confirm"
           type="password"
           inputRef={passwordConfirmRef}
-          name="password-confirm"
+          name="password-repeat"
           required
           onChange={handlePasswordConfirmChange}
           id="password-repeat"

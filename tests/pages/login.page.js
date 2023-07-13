@@ -23,6 +23,11 @@ class LoginPage extends Page {
     await this.btnSubmit.click();
   }
 
+  async toSignUp() {
+    await this.linkToSignUp.waitForDisplayed({ timeout: 5000 });
+    await this.linkToSignUp.click();
+  }
+
   open() {
     return super.open('/login');
   }
