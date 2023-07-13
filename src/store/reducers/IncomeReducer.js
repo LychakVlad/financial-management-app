@@ -52,6 +52,10 @@ export const incomeReducer = (state = defaultState, action) => {
       };
 
     case UPDATE_INCOME:
+      if (!Array.isArray(action.payload)) {
+        return state;
+      }
+
       return {
         ...state,
         incomes: action.payload,

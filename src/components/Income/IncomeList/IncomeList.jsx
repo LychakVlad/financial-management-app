@@ -35,6 +35,8 @@ function IncomeList() {
         const userData = userDoc.data();
         setLoading(false);
 
+        console.log(userData?.incomes);
+
         const sortedIncomes = userData?.incomes?.sort(
           (a, b) => new Date(b.date) - new Date(a.date)
         );

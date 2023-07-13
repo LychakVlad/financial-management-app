@@ -59,21 +59,21 @@ const MoneyStats = () => {
             Money in cash:{' '}
             <span className={styles.number}>
               {' '}
-              {formatNumber(totalCash) + ' $'}
+              {formatNumber(isNaN(totalCash) ? 0 : totalCash) + ' $'}
             </span>{' '}
           </p>
           <p>
             Money on Card:{' '}
             <span className={styles.number}>
               {' '}
-              {formatNumber(totalCard) + ' $'}
+              {formatNumber(isNaN(totalCard) ? 0 : totalCard) + ' $'}
             </span>{' '}
           </p>
           <p>
             Your total savings:{' '}
             <span className={styles.number}>
               {' '}
-              {formatNumber(totalSavings) + ' $'}
+              {formatNumber(isNaN(totalSavings) ? 0 : totalSavings) + ' $'}
             </span>{' '}
           </p>
         </div>
