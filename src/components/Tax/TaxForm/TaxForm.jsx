@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setTotalTaxLiabilityAction,
@@ -32,6 +32,12 @@ function TaxForm() {
     { value: 'single', label: 'Single' },
   ];
 
+  useEffect(() => {
+    useStandardDeduction
+      ? dispatch(setDeductionsAction(12500))
+      : dispatch(setDeductionsAction(deductions));
+  }, [useStandardDeduction, deductions, dispatch]);
+
   const incomeBeforeTax = incomes.reduce((accumulator, item) => {
     if (item.tax === 'Taxable') {
       return accumulator + parseFloat(item.amount);
@@ -42,13 +48,13 @@ function TaxForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setLoading(true);
-
     if (!filingStatus) {
       setDropdownError(true);
       return;
     }
-    const taxLiability = calculateTaxLiability(
+
+    setLoading(true);
+    let taxLiability = calculateTaxLiability(
       deductions,
       filingStatus,
       incomeBeforeTax,
@@ -63,6 +69,8 @@ function TaxForm() {
 
     dispatch(setTotalTaxLiabilityAction(taxLiability));
     setDropdownPlaceholder('Filing status');
+
+    setDropdownError(false);
     dispatch(setFilingStatusAction());
 
     setLoading(false);
@@ -80,7 +88,7 @@ function TaxForm() {
 
   return (
     <div className={styles.form}>
-      <form onSubmit={handleSubmit}>
+      <form>
         <Dropdown
           placeHolder={dropdownPlaceholder}
           setPlaceHolder={setDropdownPlaceholder}
@@ -122,7 +130,12 @@ function TaxForm() {
           </div>
         )}
 
-        <CustomButton type="submit" title="Calculate" disabled={loading} />
+        <CustomButton
+          type="submit"
+          title="Calculate"
+          disabled={loading}
+          onClick={handleSubmit}
+        />
       </form>
       <div className={styles.description}>
         Here you can calculate the approximate amount of money that you need to

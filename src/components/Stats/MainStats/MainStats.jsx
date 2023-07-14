@@ -71,7 +71,7 @@ const MainStats = () => {
         <p>
           You need to pay:
           <span className={styles.numberTax}>
-            {' ' + formatNumber(totalTax) + ' $'}
+            {' ' + (totalIncome > 0 ? formatNumber(totalTax) : 0) + ' $'}
           </span>
           <span className={styles.taxLink}>
             <Link to="/tax-calculator">Calculate</Link>
@@ -80,7 +80,7 @@ const MainStats = () => {
         <p>
           Your total income after tax:
           <span className={styles.number}>
-            {' ' + formatNumber(totalAfterTax) + ' $'}
+            {' ' + (totalIncome > 0 ? formatNumber(totalAfterTax) : 0) + ' $'}
           </span>
         </p>
       </div>
