@@ -33,6 +33,8 @@ const BudgetNeeds = React.memo(() => {
             type="number"
             id={category.key}
             step="0.01"
+            test={`budget-needs-input-${category.category}`}
+            testError="budget-needs-input-error"
             required
             value={category.value !== null ? category.value : ''}
             onChange={(event) => handleInputChange(event, category.category)}
@@ -40,11 +42,21 @@ const BudgetNeeds = React.memo(() => {
         ))}
       </div>
       <div className={styles.total}>
-        <CustomButton type="submit" title="Save Needs" onClick={handleSubmit} />
+        <CustomButton
+          test="btn-needs"
+          type="submit"
+          title="Save Needs"
+          onClick={handleSubmit}
+        />
         <div>
           <p>
             Total spent on necessities:
-            <span className={styles.totalDigit}> {formatNumber(total)} $ </span>
+            <span
+              className={styles.totalDigit}
+              data-testid="total-amount-needs"
+            >
+              {formatNumber(total)} ${' '}
+            </span>
           </p>
         </div>
       </div>
