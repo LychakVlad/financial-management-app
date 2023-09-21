@@ -34,17 +34,30 @@ const BudgetWants = () => {
             id={category.key}
             step="0.01"
             required
+            test={`budget-wants-input-${category.category}`}
+            testError="budget-wants-input-error"
             value={category.value !== null ? category.value : ''}
             onChange={(event) => handleInputChange(event, category.category)}
           />
         ))}
       </div>
       <div className={styles.total}>
-        <CustomButton type="submit" title="Save Wants" onClick={handleSubmit} />
+        <CustomButton
+          test="btn-wants"
+          type="submit"
+          title="Save Wants"
+          onClick={handleSubmit}
+        />
         <div>
           <p>
             Total spent on wants:
-            <span className={styles.totalDigit}> {formatNumber(total)} $</span>
+            <span
+              data-testid="total-amount-wants"
+              className={styles.totalDigit}
+            >
+              {' '}
+              {formatNumber(total)} $
+            </span>
           </p>
         </div>
       </div>
