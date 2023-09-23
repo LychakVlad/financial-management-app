@@ -3,7 +3,7 @@ import BudgetNeeds from './BudgetNeeds';
 import { Provider } from 'react-redux';
 import store from '../../../store/store';
 
-describe('Test BudgetNeeds', () => {
+describe('Test Budget Needs', () => {
   test('Render successfully', () => {
     render(
       <Provider store={store}>

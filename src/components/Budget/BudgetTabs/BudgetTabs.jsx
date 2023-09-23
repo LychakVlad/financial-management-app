@@ -14,6 +14,7 @@ const BudgetTabs = () => {
   return (
     <div className={styles.form}>
       <div
+        data-testid=""
         onClick={() => handleClick('needs')}
         className={`${styles.button} ${tab === 'needs' ? styles.active : ''}`}
       >

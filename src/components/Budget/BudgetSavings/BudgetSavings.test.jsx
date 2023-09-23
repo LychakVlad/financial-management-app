@@ -1,17 +1,19 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import BudgetWants from './BudgetWants';
+import BudgetSavings from './BudgetSavings';
 import { Provider } from 'react-redux';
 import store from '../../../store/store';
 
-describe('Test Budget Wants', () => {
+describe('Test Budget Savings', () => {
   test('Render successfully', () => {
     render(
       <Provider store={store}>
-        <BudgetWants />
+        <BudgetSavings />
       </Provider>
     );
 
-    const totalText = screen.getByText('Total spent on wants:');
+    const totalText = screen.getByText(
+      'Total spent on savings and paying off debt:'
+    );
 
     expect(totalText).toBeInTheDocument();
   });
@@ -19,32 +21,34 @@ describe('Test Budget Wants', () => {
   test('Input and total change', () => {
     render(
       <Provider store={store}>
-        <BudgetWants />
+        <BudgetSavings />
       </Provider>
     );
 
-    const inputGas = screen.getByTestId('budget-wants-input-Travel');
-    const inputRent = screen.getByTestId('budget-wants-input-Shopping');
-    const totalWants = screen.getByTestId('total-amount-wants');
+    const inputGas = screen.getByTestId(
+      'budget-savings-input-Emergency Savings'
+    );
+    const inputRent = screen.getByTestId('budget-savings-input-House Savings');
+    const totalSavings = screen.getByTestId('total-amount-savings');
 
     fireEvent.change(inputGas, { target: { value: '1000' } });
 
-    expect(totalWants).toBeInTheDocument();
-    expect(totalWants).toHaveTextContent('1,000 $');
+    expect(totalSavings).toBeInTheDocument();
+    expect(totalSavings).toHaveTextContent('1,000 $');
 
     fireEvent.change(inputRent, { target: { value: '1000' } });
 
-    expect(totalWants).toHaveTextContent('2,000 $');
+    expect(totalSavings).toHaveTextContent('2,000 $');
   });
 
   test('Button click check', () => {
     render(
       <Provider store={store}>
-        <BudgetWants />
+        <BudgetSavings />
       </Provider>
     );
 
-    const buttonText = screen.getByTestId('btn-wants');
+    const buttonText = screen.getByTestId('btn-savings');
 
     expect(buttonText).toBeInTheDocument();
 
