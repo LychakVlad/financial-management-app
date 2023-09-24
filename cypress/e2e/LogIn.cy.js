@@ -23,11 +23,15 @@ describe('Login Component', () => {
   it('should allow the user to log in with valid credentials', () => {
     cy.get('input[data-testid="input-email-test"]')
       .click()
-      .type('testing@gmail.com');
+      .type('testing-cypress@gmail.com');
     cy.get('input[data-testid="input-pass-test"]').click().type('123456');
 
     cy.get('form').submit();
 
-    cy.get('h1').should('contain', 'Dear Visitor');
+    cy.get('h1').should('contain', 'Test User');
+
+    cy.get('[data-testid="logout-btn"]').click();
+
+    cy.get('form').should('contain', 'Log in');
   });
 });
