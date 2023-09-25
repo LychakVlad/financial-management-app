@@ -8,6 +8,7 @@ const Dropdown = ({
   onChange,
   error,
   setPlaceHolder,
+  test,
 }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [selectedValue, setSelectedValue] = useState(null);
@@ -38,7 +39,11 @@ const Dropdown = ({
   return (
     <div className={styles.wrapper}>
       <div className={`${styles.container} ${error && styles.error}`}>
-        <div onClick={handleInputClick} className={styles.input}>
+        <div
+          data-testid={test}
+          onClick={handleInputClick}
+          className={styles.input}
+        >
           <div className={styles.selectedValue}>{placeHolder}</div>
           <div className={styles.tools}>
             <div className={`${styles.icon} ${showMenu && styles.active}`}>
@@ -48,11 +53,12 @@ const Dropdown = ({
         </div>
         {showMenu && (
           <div className={styles.menu}>
-            {options.map((option) => (
+            {options.map((option, index) => (
               <div
                 onClick={() => handleItemClick(option)}
                 key={option.value}
                 className={styles.item}
+                data-testid={`${test}-${index}`}
               >
                 {option.label}
               </div>

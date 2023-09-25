@@ -31,6 +31,10 @@ export const expenseReducer = (state = initialState, action) => {
         totalExpense: updatedTotalExpense,
       };
     case UPDATE_EXPENSE:
+      if (!Array.isArray(action.payload)) {
+        return state;
+      }
+
       return {
         ...state,
         expenses: action.payload,

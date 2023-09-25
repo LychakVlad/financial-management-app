@@ -15,12 +15,12 @@ describe('SigUp Component', () => {
     cy.get('#link-login').should('have.attr', 'href', '#/login');
   });
 
-  it('should show an error message on failed signup attempt', () => {
+  it('should show an error message on failed sign up attempt', () => {
     cy.get('form').submit();
     cy.get('p').should('contain', 'Failed to create an account');
   });
 
-  it('should allow the user to log in with valid credentials', () => {
+  it('should allow the user to sign up with valid credentials', () => {
     cy.get('input[data-testid="input-email-test"]')
       .click()
       .type('testing-cypress@gmail.com');
