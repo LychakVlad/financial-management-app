@@ -1,4 +1,4 @@
-describe('Login Component', () => {
+describe('Income Tracker Component', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000');
 

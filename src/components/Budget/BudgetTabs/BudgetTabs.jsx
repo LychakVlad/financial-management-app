@@ -35,6 +35,7 @@ const BudgetTabs = () => {
       <div
         onClick={() => handleClick('total')}
         className={`${styles.button} ${tab === 'total' ? styles.active : ''}`}
+        data-testid="total-tab-test"
       >
         Total
       </div>

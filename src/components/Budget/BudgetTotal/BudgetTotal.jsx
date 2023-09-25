@@ -51,15 +51,19 @@ const BudgetTotal = () => {
         <ul className={styles.list}>
           <li className={styles.point}>
             Needs:{' '}
-            <span className={styles.number}>{formatNumber(totalNeeds)} $</span>
+            <span className={styles.number} data-testid="total-needs">
+              {formatNumber(totalNeeds)} $
+            </span>
           </li>
           <li className={styles.point}>
             Wants:{' '}
-            <span className={styles.number}>{formatNumber(totalWants)} $</span>
+            <span className={styles.number} data-testid="total-wants">
+              {formatNumber(totalWants)} $
+            </span>
           </li>
           <li className={styles.point}>
             Savings and debt repayment:{' '}
-            <span className={styles.number}>
+            <span className={styles.number} data-testid="total-savings">
               {formatNumber(totalSavings)} $
             </span>
           </li>
@@ -70,22 +74,31 @@ const BudgetTotal = () => {
         <ul className={styles.list}>
           <li className={styles.point}>
             Your total income after tax:{' '}
-            <span className={styles.number}>
+            <span className={styles.number} data-testid="total-after-tax">
               {formatNumber(totalAfterTax)} $
             </span>
           </li>
 
           <li className={styles.point}>
             50% for necessities:{' '}
-            <span className={styles.number}>{fiftyPercent} </span>
+            <span className={styles.number} data-testid="total-needs-after-tax">
+              {fiftyPercent}{' '}
+            </span>
           </li>
           <li className={styles.point}>
             30% for wants:{' '}
-            <span className={styles.number}>{thirtyPercent} </span>
+            <span className={styles.number} data-testid="total-wants-after-tax">
+              {thirtyPercent}{' '}
+            </span>
           </li>
           <li className={styles.point}>
             20% for savings and debt repayment:{' '}
-            <span className={styles.number}>{twentyPercent} </span>
+            <span
+              className={styles.number}
+              data-testid="total-savings-after-tax"
+            >
+              {twentyPercent}{' '}
+            </span>
           </li>
         </ul>
       </div>

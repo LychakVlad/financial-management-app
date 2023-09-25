@@ -1,4 +1,4 @@
-describe('Login Component', () => {
+describe('Tax Calculator component Component', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000');
 
@@ -29,8 +29,6 @@ describe('Login Component', () => {
     cy.get('[data-testid="dropdown-status-test-1"]').click();
 
     cy.get('[data-testid="radio-no-test"]').click();
-
-    // cy.get('input[data-testid="input-deductions-test"]').click().type('0');
 
     cy.get('[data-testid="btn-tax-calc-test"]').should('exist').click();
 
