@@ -50,7 +50,7 @@ const ExpenseGraph = ({ dates, setDates }) => {
           />
           <DateChange onChange={handleToChange} value={dates.to} desc={'To:'} />
         </div>
-        <div className={styles.total}>
+        <div className={styles.total} data-testid="total-expense-test">
           {' '}
           {formatNumber(totalExpense)} $ Total expense
         </div>
@@ -58,7 +58,7 @@ const ExpenseGraph = ({ dates, setDates }) => {
           {Object.entries(categoryTotals)
             .sort(([, totalA], [, totalB]) => totalB - totalA)
             .map(([category, total]) => (
-              <p key={category}>
+              <p key={category} data-testid={`total-expense-test-${category}`}>
                 {formatNumber(total)} $
                 <span className={styles.category}> in {category}</span>
               </p>

@@ -91,8 +91,12 @@ const ExpenseList = ({ dates, setDates }) => {
         <>
           {expenses.length > 0 ? (
             <div className={styles.listWrapper}>
-              {expenses.map((expense) => (
-                <div key={expense.id} className={styles.item}>
+              {expenses.map((expense, index) => (
+                <div
+                  data-testid={`expense-list-item-test-${index}`}
+                  key={expense.id}
+                  className={styles.item}
+                >
                   <span className={styles.expense}>
                     -{formatNumber(expense.amount)} $
                   </span>
@@ -107,6 +111,7 @@ const ExpenseList = ({ dates, setDates }) => {
                     title="Delete"
                     onClick={() => deletePoint(expense)}
                     disabled={loading}
+                    test={`delete-btn-expense-item-test-${index}`}
                   />
                 </div>
               ))}

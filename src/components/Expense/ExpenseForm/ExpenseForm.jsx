@@ -175,6 +175,7 @@ const ExpenseForm = () => {
           error={inputError}
           required
           onChange={handleAmountChange}
+          test="input-number-test"
         />
         <CustomInput
           label="Description"
@@ -183,6 +184,7 @@ const ExpenseForm = () => {
           value={expenseItem.description}
           required
           onChange={handleDescChange}
+          test="input-desc-test"
         />
         <Dropdown
           placeHolder={dropdownPlaceholder}
@@ -190,6 +192,7 @@ const ExpenseForm = () => {
           options={options}
           onChange={handleDropdownChange}
           error={dropdownError}
+          test="dropdown-category-test"
         />
         <Dropdown
           placeHolder={dropdownPayPlaceholder}
@@ -197,9 +200,15 @@ const ExpenseForm = () => {
           options={optionsPay}
           onChange={handleDropdownPayChange}
           error={dropdownPayError}
+          test="dropdown-type-test"
         />
         <DateChange onChange={handleDateChange} value={expenseItem.date} />
-        <CustomButton type="submit" title={buttonTitle} disabled={loading} />
+        <CustomButton
+          test="btn-add-test"
+          type="submit"
+          title={buttonTitle}
+          disabled={loading}
+        />
       </div>
     </form>
   );

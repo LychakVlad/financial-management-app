@@ -69,5 +69,17 @@ describe('Login Component', () => {
     cy.get('[data-testid="delete-all-income-btn-test"]').click();
 
     cy.get('[data-testid="income-list-item-test-0"]').should('not.exist');
+
+    //Add new income for futher tests
+
+    cy.get('input[data-testid="input-number-test"]').click().type('10000');
+    cy.get('[data-testid="dropdown-type-test"]').click();
+    cy.get('[data-testid="dropdown-type-test-0"]').click();
+    cy.get('[data-testid="dropdown-tax-test"]').click();
+    cy.get('[data-testid="dropdown-tax-test-0"]').click();
+
+    cy.get('[data-testid="btn-add-test"]').should('exist').click();
+
+    cy.wait(1000);
   });
 });
