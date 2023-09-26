@@ -168,6 +168,7 @@ function IncomeForm() {
           required
           onChange={handleInputChange}
           maxLength={6}
+          test="input-number-test"
         />
         <Dropdown
           placeHolder={dropdownPlaceholder}
@@ -175,6 +176,7 @@ function IncomeForm() {
           options={optionsPay}
           onChange={handleDropdownChange}
           error={dropdownError}
+          test="dropdown-type-test"
         />
         <DateChange onChange={handleDateChange} value={incomeItem.date} />
         <Dropdown
@@ -183,8 +185,14 @@ function IncomeForm() {
           options={optionsTax}
           onChange={handleTaxDropdownChange}
           error={dropdownTaxError}
+          test="dropdown-tax-test"
         />
-        <CustomButton type="submit" title={buttonTitle} disabled={loading} />
+        <CustomButton
+          test="btn-add-test"
+          type="submit"
+          title={buttonTitle}
+          disabled={loading}
+        />
       </div>
     </form>
   );

@@ -34,6 +34,8 @@ const BudgetSavings = () => {
             id={category.key}
             step="0.01"
             required
+            test={`budget-savings-input-${category.category}`}
+            testError="budget-savings-input-error"
             value={category.value !== null ? category.value : ''}
             onChange={(event) => handleInputChange(event, category.category)}
           />
@@ -41,6 +43,7 @@ const BudgetSavings = () => {
       </div>
       <div className={styles.total}>
         <CustomButton
+          test="btn-savings"
           type="submit"
           title="Save Savings"
           onClick={handleSubmit}
@@ -48,7 +51,13 @@ const BudgetSavings = () => {
         <div>
           <p>
             Total spent on savings and paying off debt:
-            <span className={styles.totalDigit}> {formatNumber(total)} $</span>
+            <span
+              data-testid="total-amount-savings"
+              className={styles.totalDigit}
+            >
+              {' '}
+              {formatNumber(total)} $
+            </span>
           </p>
         </div>
       </div>

@@ -43,10 +43,16 @@ function TaxSummary() {
   return (
     <div className={styles.form}>
       <p>
-        State tax: <span className={styles.tax}>{stateTax}%</span>
+        State tax:{' '}
+        <span className={styles.tax} data-testid="state-tax-test">
+          {stateTax}%
+        </span>
       </p>
       <p>
-        Federal tax: <span className={styles.tax}>{federalTax}%</span>
+        Federal tax:{' '}
+        <span className={styles.tax} data-testid="federal-tax-test">
+          {federalTax}%
+        </span>
       </p>
       <p>
         FICA tax: <span className={styles.tax}> 7.65%</span>
@@ -54,7 +60,7 @@ function TaxSummary() {
 
       <p>
         Your income before taxes:{' '}
-        <span className={styles.income}>
+        <span className={styles.income} data-testid="total-tax-test">
           {loading ? (
             <span>Loading...</span>
           ) : (
@@ -64,7 +70,7 @@ function TaxSummary() {
       </p>
       <p>
         You need to pay:{' '}
-        <span className={styles.totalTax}>
+        <span className={styles.totalTax} data-testid="total-pay-test">
           {formatNumber(Math.round(totalTaxLiability))} $
         </span>
       </p>

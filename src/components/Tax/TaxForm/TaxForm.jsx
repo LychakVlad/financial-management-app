@@ -95,6 +95,7 @@ function TaxForm() {
           options={options}
           onChange={handleDropdownChange}
           error={dropdownError}
+          test="dropdown-status-test"
         />
         <div className={styles.radios}>
           <label htmlFor="useStandardDeduction">Use standard deduction:</label>
@@ -105,6 +106,7 @@ function TaxForm() {
             value="No"
             selectedOption={!useStandardDeduction}
             onChange={() => setUseStandardDeduction(false)}
+            test="radio-no-test"
           />
           <Radio
             id="useStandardDeductionYes"
@@ -112,6 +114,7 @@ function TaxForm() {
             value="Yes"
             selectedOption={useStandardDeduction}
             onChange={() => setUseStandardDeduction(true)}
+            test="radio-yes-test"
           />
         </div>
 
@@ -126,6 +129,7 @@ function TaxForm() {
               step="0.01"
               value={deductions}
               onChange={handleDeductionsInputChange}
+              test="input-deductions-test"
             />
           </div>
         )}
@@ -135,6 +139,7 @@ function TaxForm() {
           title="Calculate"
           disabled={loading}
           onClick={handleSubmit}
+          test="btn-tax-calc-test"
         />
       </form>
       <div className={styles.description}>

@@ -45,33 +45,43 @@ const SideBar = ({ setSideMenu, sideMenu }) => {
               icon={MenuIcon4}
               label="Main Page"
               onClick={onClick}
+              test="test-main"
             />
             <SideItem
               to="/income-tracker"
               icon={MenuIcon3}
               label="Income Tracker"
               onClick={onClick}
+              test="test-income"
             />
             <SideItem
               to="/expense-tracker"
               icon={MenuIcon1}
               label="Expense Tracker"
               onClick={onClick}
+              test="test-expense"
             />
             <SideItem
               to="/tax-calculator"
               icon={MenuIcon2}
               label="Tax Calculator"
               onClick={onClick}
+              test="test-taxes"
             />
             <SideItem
               to="/budget-planner"
               icon={MenuIcon}
               label="Budget Planner"
               onClick={onClick}
+              test="test-planner"
             />
           </ul>
-          <div className={styles.point} onClick={handleLogout} name="logout">
+          <div
+            className={styles.point}
+            onClick={handleLogout}
+            name="logout"
+            data-testid="logout-btn"
+          >
             <div className={styles.pointFlex}>
               <LogOut className={styles.icon} />
               <span>Log out</span>

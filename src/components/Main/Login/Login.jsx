@@ -61,6 +61,7 @@ const Login = () => {
           required
           onChange={handleEmailChange}
           id="email"
+          test="input-email-test"
         />
         <CustomInput
           label="Password"
@@ -70,8 +71,14 @@ const Login = () => {
           required
           onChange={handlePasswordChange}
           id="password"
+          test="input-pass-test"
         />
-        <CustomButton disabled={loading} type="submit" title="Log in" />
+        <CustomButton
+          disabled={loading}
+          type="submit"
+          title="Log in"
+          test="btn-login-test"
+        />
 
         <div className={styles.link}>
           Don't have an account?

@@ -111,8 +111,12 @@ function IncomeList() {
         <>
           {incomes.length > 0 ? (
             <div className={styles.listWrapper}>
-              {incomes.map((income) => (
-                <div key={income.id} className={styles.item}>
+              {incomes.map((income, index) => (
+                <div
+                  data-testid={`income-list-item-test-${index}`}
+                  key={income.id}
+                  className={styles.item}
+                >
                   <span className={styles.income}>
                     +{formatNumber(income.amount)} $
                   </span>
@@ -124,6 +128,7 @@ function IncomeList() {
                     title="Delete"
                     onClick={() => deletePoint(income)}
                     disabled={loading}
+                    test={`delete-btn-income-item-test-${index}`}
                   />
                 </div>
               ))}
@@ -146,7 +151,12 @@ function IncomeList() {
           )}
         </p>
 
-        <CustomButton type="submit" title="Delete all" onClick={deleteAll} />
+        <CustomButton
+          test={`delete-all-income-btn-test`}
+          type="submit"
+          title="Delete all"
+          onClick={deleteAll}
+        />
       </div>
     </ul>
   );
