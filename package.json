@@ -57,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "@firebase/testing": "^0.20.11",
     "@testing-library/react": "^14.0.0",
     "@wdio/cli": "^8.12.2",
     "@wdio/local-runner": "^8.12.1",

@@ -1,19 +1,50 @@
 describe('Budget Planner Component', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit('http://localhost:3000/#/login');
+
+    cy.get('input[data-testid="input-email-test"]')
+      .click()
+      .type('testing-cypress@gmail.com');
+    cy.get('input[data-testid="input-pass-test"]').click().type('123456');
+
+    cy.get('form').submit();
+
+    cy.get('h1').should('contain', 'Test User');
 
     cy.get('[data-testid="test-planner"]').should('exist').click();
   });
 
   it('should load main page', () => {
     cy.get('h1').should('contain', 'Test User');
+
+    cy.get('[data-testid="logout-btn"]').click();
+
+    cy.get('form').should('contain', 'Log in');
   });
 
   it('should load income tracker page', () => {
     cy.get('div').should('contain', 'Save Needs');
+
+    cy.get('[data-testid="logout-btn"]').click();
+
+    cy.get('form').should('contain', 'Log in');
   });
 
   it('should validate total calculation in budget form', () => {
+    cy.get('[data-testid="test-income"]').should('exist').click();
+
+    cy.get('input[data-testid="input-number-test"]').click().type('10000');
+    cy.get('[data-testid="dropdown-type-test"]').click();
+    cy.get('[data-testid="dropdown-type-test-1"]').click();
+    cy.get('[data-testid="dropdown-tax-test"]').click();
+    cy.get('[data-testid="dropdown-tax-test-1"]').click();
+
+    cy.get('[data-testid="btn-add-test"]').should('exist').click();
+
+    cy.wait(1000);
+
+    cy.get('[data-testid="test-planner"]').should('exist').click();
+
     cy.get('[data-testid="budget-needs-input-Rent/Mortgage"]')
       .click()
       .type('2000');
@@ -57,6 +88,10 @@ describe('Budget Planner Component', () => {
     cy.get('[data-testid="total-needs"]').should('contain', '4,600 $');
     cy.get('[data-testid="total-wants"]').should('contain', '2,760 $');
     cy.get('[data-testid="total-savings"]').should('contain', '1,840 $');
+
+    cy.get('[data-testid="logout-btn"]').click();
+
+    cy.get('form').should('contain', 'Log in');
   });
 
   it('should correctly split a total income after tax', () => {
@@ -70,5 +105,19 @@ describe('Budget Planner Component', () => {
       'contain',
       '1,840$'
     );
+
+    cy.get('[data-testid="test-income"]').should('exist').click();
+
+    cy.get('[data-testid="delete-all-income-btn-test"]').should('exist');
+
+    cy.get('[data-testid="delete-all-income-btn-test"]').click();
+
+    cy.wait(1000);
+
+    cy.get('[data-testid="income-list-item-test-0"]').should('not.exist');
+
+    cy.get('[data-testid="logout-btn"]').click();
+
+    cy.get('form').should('contain', 'Log in');
   });
 });

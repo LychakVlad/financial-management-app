@@ -1,22 +1,43 @@
 describe('Expense Tracker Component', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit('http://localhost:3000/#/login');
+
+    cy.get('input[data-testid="input-email-test"]')
+      .click()
+      .type('testing-cypress@gmail.com');
+    cy.get('input[data-testid="input-pass-test"]').click().type('123456');
+
+    cy.get('form').submit();
+
+    cy.get('h1').should('contain', 'Test User');
 
     cy.get('[data-testid="test-expense"]').should('exist').click();
   });
 
   it('should load main page', () => {
     cy.get('h1').should('contain', 'Test User');
+
+    cy.get('[data-testid="logout-btn"]').click();
+
+    cy.get('form').should('contain', 'Log in');
   });
 
   it('should load income tracker page', () => {
     cy.get('h2').should('contain', 'Write down your expense');
+
+    cy.get('[data-testid="logout-btn"]').click();
+
+    cy.get('form').should('contain', 'Log in');
   });
 
   it('should give an error if input empty', () => {
     cy.get('[data-testid="btn-add-test"]').click();
 
     cy.get('p').should('contain', 'Enter the value');
+
+    cy.get('[data-testid="logout-btn"]').click();
+
+    cy.get('form').should('contain', 'Log in');
   });
 
   it('should fill out the income form and add income item', () => {
@@ -54,15 +75,29 @@ describe('Expense Tracker Component', () => {
       'contain',
       '5,000'
     );
+
+    cy.get('[data-testid="logout-btn"]').click();
+
+    cy.get('form').should('contain', 'Log in');
   });
 
-  it('should delete an expense item', () => {
+  it('should delete an expenses items', () => {
     cy.get('[data-testid="expense-list-item-test-1"]').should('exist');
+
+    cy.get('[data-testid="expense-list-item-test-0"]').should('exist');
 
     cy.get('[data-testid="delete-btn-expense-item-test-1"]').click();
 
+    cy.get('[data-testid="delete-btn-expense-item-test-0"]').click();
+
     cy.get('[data-testid="expense-list-item-test-1"]').should('not.exist');
 
-    cy.get('[data-testid="total-expense-test"]').should('contain', '10,000');
+    cy.get('[data-testid="expense-list-item-test-0"]').should('not.exist');
+
+    cy.get('[data-testid="total-expense-test"]').should('contain', '0');
+
+    cy.get('[data-testid="logout-btn"]').click();
+
+    cy.get('form').should('contain', 'Log in');
   });
 });
