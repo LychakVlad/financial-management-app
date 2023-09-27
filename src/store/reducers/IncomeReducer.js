@@ -5,7 +5,7 @@ import {
   UPDATE_CASH,
   UPDATE_INCOME,
   UPDATE_SAVINGS,
-} from '../actions/incomeActions';
+} from "../actions/incomeActions";
 
 const defaultState = {
   incomes: [],
@@ -27,18 +27,18 @@ export const incomeReducer = (state = defaultState, action) => {
         incomes: newIncomes,
         totalIncome: newIncomes.reduce(
           (total, income) => total + Number(income.amount),
-          0
+          0,
         ),
         totalAmount: newTotalAmount,
       };
 
     case REMOVE_INCOME:
       const updatedIncomes = state.incomes.filter(
-        (income) => income.id !== action.payload
+        (income) => income.id !== action.payload,
       );
       const newTotalAmountAfterRemove = updatedIncomes.reduce(
         (total, income) => total + Number(income.amount),
-        0
+        0,
       );
 
       return {
@@ -46,7 +46,7 @@ export const incomeReducer = (state = defaultState, action) => {
         incomes: updatedIncomes,
         totalIncome: updatedIncomes.reduce(
           (total, income) => total + Number(income.amount),
-          0
+          0,
         ),
         totalAmount: newTotalAmountAfterRemove,
       };
@@ -61,11 +61,11 @@ export const incomeReducer = (state = defaultState, action) => {
         incomes: action.payload,
         totalIncome: action.payload.reduce(
           (total, income) => total + Number(income.amount),
-          0
+          0,
         ),
         totalAmount: action.payload.reduce(
           (total, income) => total + Number(income.amount),
-          0
+          0,
         ),
       };
     case UPDATE_CARD:

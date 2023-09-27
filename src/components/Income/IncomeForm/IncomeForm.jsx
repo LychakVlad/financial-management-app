@@ -1,19 +1,19 @@
-import React, { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { formatDate } from '../../../utils/dateFormat';
+import React, { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { formatDate } from "../../../utils/dateFormat";
 import {
   addIncomeAction,
   updateCardAction,
   updateCashAction,
-} from '../../../store/actions/incomeActions';
-import { doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
-import { firestore } from '../../../firebase';
-import styles from './IncomeForm.module.css';
-import CustomInput from '../../form/Input/CustomInput';
-import Dropdown from '../../form/Dropdown/Dropdown';
-import CustomButton from '../../form/Button/CustomButton';
-import { useAuth } from '../../../contexts/AuthContext';
-import DateChange from '../../form/DateChange/DateChange';
+} from "../../../store/actions/incomeActions";
+import { doc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
+import { firestore } from "../../../firebase";
+import styles from "./IncomeForm.module.css";
+import CustomInput from "../../form/Input/CustomInput";
+import Dropdown from "../../form/Dropdown/Dropdown";
+import CustomButton from "../../form/Button/CustomButton";
+import { useAuth } from "../../../contexts/AuthContext";
+import DateChange from "../../form/DateChange/DateChange";
 
 function IncomeForm() {
   const [loading, setLoading] = useState(false);
@@ -21,27 +21,27 @@ function IncomeForm() {
   const { totalAmount, incomes } = useSelector((state) => state.incomes);
   const dispatch = useDispatch();
   const [incomeItem, setIncomeItem] = useState({
-    amount: '',
-    type: '',
-    tax: '',
+    amount: "",
+    type: "",
+    tax: "",
     date: new Date(),
   });
   const [dropdownTaxError, setDropdownTaxError] = useState(false);
   const [dropdownTaxPlaceholder, setDropdownTaxPlaceholder] =
-    useState('Is it taxable?');
+    useState("Is it taxable?");
   const [dropdownError, setDropdownError] = useState(false);
   const [dropdownPlaceholder, setDropdownPlaceholder] =
-    useState('Type of Income');
-  const [inputError, setInputError] = useState('');
+    useState("Type of Income");
+  const [inputError, setInputError] = useState("");
 
   const optionsTax = [
-    { value: 'Taxable', label: 'Taxable' },
-    { value: 'After tax', label: 'After tax' },
+    { value: "Taxable", label: "Taxable" },
+    { value: "After tax", label: "After tax" },
   ];
 
   const optionsPay = [
-    { value: 'Cash', label: 'Cash' },
-    { value: 'Card', label: 'Card' },
+    { value: "Cash", label: "Cash" },
+    { value: "Card", label: "Card" },
   ];
 
   const handleAddIncome = useCallback(
@@ -49,17 +49,17 @@ function IncomeForm() {
       e.preventDefault();
 
       if (!incomeItem.amount) {
-        setInputError('Enter the value');
+        setInputError("Enter the value");
         return;
       }
 
       if (incomeItem.amount.length > 9) {
-        setInputError('Enter the smaller number');
+        setInputError("Enter the smaller number");
         return;
       }
 
       if (incomeItem.amount < 0) {
-        setInputError('Enter a positive value');
+        setInputError("Enter a positive value");
         return;
       }
 
@@ -86,14 +86,14 @@ function IncomeForm() {
       dispatch(addIncomeAction(income));
 
       const totalCash = incomes
-        .filter((item) => item.type === 'Cash')
+        .filter((item) => item.type === "Cash")
         .reduce((total, item) => total + parseFloat(item.amount), 0);
 
       const totalCard = incomes
-        .filter((item) => item.type === 'Card')
+        .filter((item) => item.type === "Card")
         .reduce((total, item) => total + parseFloat(item.amount), 0);
 
-      const userDocRef = doc(firestore, 'users', currentUser?.uid);
+      const userDocRef = doc(firestore, "users", currentUser?.uid);
       const userDoc = await getDoc(userDocRef);
       const money = userDoc.data().money;
 
@@ -103,10 +103,10 @@ function IncomeForm() {
           ...money,
           totalCash:
             totalCash +
-            (incomeItem.type === 'Cash' ? parseFloat(incomeItem.amount) : 0),
+            (incomeItem.type === "Cash" ? parseFloat(incomeItem.amount) : 0),
           totalCard:
             totalCard +
-            (incomeItem.type === 'Card' ? parseFloat(incomeItem.amount) : 0),
+            (incomeItem.type === "Card" ? parseFloat(incomeItem.amount) : 0),
           totalMoney: totalAmount + parseFloat(incomeItem.amount),
         },
       });
@@ -114,10 +114,10 @@ function IncomeForm() {
       dispatch(updateCashAction(totalCash));
       dispatch(updateCardAction(totalCard));
 
-      setIncomeItem({ amount: '', type: '', date: new Date() });
-      setInputError('');
-      setDropdownPlaceholder('Type of Income');
-      setDropdownTaxPlaceholder('Is it taxable?');
+      setIncomeItem({ amount: "", type: "", date: new Date() });
+      setInputError("");
+      setDropdownPlaceholder("Type of Income");
+      setDropdownTaxPlaceholder("Is it taxable?");
       setLoading(false);
     },
     [
@@ -129,7 +129,7 @@ function IncomeForm() {
       incomes,
       dispatch,
       totalAmount,
-    ]
+    ],
   );
 
   const handleDropdownChange = (option) => {
@@ -144,15 +144,15 @@ function IncomeForm() {
 
   const handleInputChange = (value) => {
     setIncomeItem({ ...incomeItem, amount: value });
-    setInputError('');
+    setInputError("");
   };
 
   const handleDateChange = (value) => {
     setIncomeItem({ ...incomeItem, date: value });
-    setInputError('');
+    setInputError("");
   };
 
-  const buttonTitle = loading ? 'Loading...' : 'Add income';
+  const buttonTitle = loading ? "Loading..." : "Add income";
 
   return (
     <form onSubmit={handleAddIncome} className={styles.form}>

@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import styles from './MainStats.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { firestore } from '../../../firebase';
-import { useAuth } from '../../../contexts/AuthContext';
+import React, { useEffect, useState } from "react";
+import styles from "./MainStats.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { firestore } from "../../../firebase";
+import { useAuth } from "../../../contexts/AuthContext";
 import {
   updateCardAction,
   updateCashAction,
   updateIncomeAction,
   updateSavingsAction,
-} from '../../../store/actions/incomeActions';
-import { formatNumber } from '../../../utils/formatNumber';
-import { setTotalTaxLiabilityAction } from '../../../store/actions/taxActions';
-import MoneyStats from '../MoneyStats/MoneyStats';
-import ExpenseStats from '../ExpenseStats/ExpenseStats';
-import { Link } from 'react-router-dom';
-import { updateExpenseAction } from '../../../store/actions/expenseActions';
+} from "../../../store/actions/incomeActions";
+import { formatNumber } from "../../../utils/formatNumber";
+import { setTotalTaxLiabilityAction } from "../../../store/actions/taxActions";
+import MoneyStats from "../MoneyStats/MoneyStats";
+import ExpenseStats from "../ExpenseStats/ExpenseStats";
+import { Link } from "react-router-dom";
+import { updateExpenseAction } from "../../../store/actions/expenseActions";
 
 const MainStats = () => {
   const [loading, setLoading] = useState(false);
   const totalTax = useSelector((state) => state.taxes.totalTaxLiability);
   const { totalIncome, totalCard, totalCash, totalSavings } = useSelector(
-    (state) => state.incomes
+    (state) => state.incomes,
   );
 
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const MainStats = () => {
       const fetchData = async () => {
         setLoading(true);
         const userId = currentUser.currentUser.uid;
-        const userDocRef = firestore.collection('users').doc(userId);
+        const userDocRef = firestore.collection("users").doc(userId);
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
         setLoading(false);
@@ -65,13 +65,13 @@ const MainStats = () => {
         <p>
           Your total income before tax:
           <span className={styles.number}>
-            {' ' + formatNumber(totalIncome) + ' $'}
+            {" " + formatNumber(totalIncome) + " $"}
           </span>
         </p>
         <p>
           You need to pay:
           <span className={styles.numberTax}>
-            {' ' + (totalIncome > 0 ? formatNumber(totalTax) : 0) + ' $'}
+            {" " + (totalIncome > 0 ? formatNumber(totalTax) : 0) + " $"}
           </span>
           <span className={styles.taxLink}>
             <Link to="/tax-calculator">Calculate</Link>
@@ -80,7 +80,7 @@ const MainStats = () => {
         <p>
           Your total income after tax:
           <span className={styles.number}>
-            {' ' + (totalIncome > 0 ? formatNumber(totalAfterTax) : 0) + ' $'}
+            {" " + (totalIncome > 0 ? formatNumber(totalAfterTax) : 0) + " $"}
           </span>
         </p>
       </div>

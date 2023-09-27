@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import styles from './CustomInput.module.css';
-import { ReactComponent as Icon } from '../../../assets/input-close.svg';
+import React, { useState, useEffect } from "react";
+import styles from "./CustomInput.module.css";
+import { ReactComponent as Icon } from "../../../assets/input-close.svg";
 
 const CustomInput = React.memo(
   ({
@@ -24,7 +24,7 @@ const CustomInput = React.memo(
     }, [value]);
 
     const handleClearInput = () => {
-      onChange('');
+      onChange("");
       setIsFilled(false);
     };
 
@@ -72,7 +72,7 @@ const CustomInput = React.memo(
         )}
       </div>
     );
-  }
+  },
 );
 
 export default CustomInput;

@@ -1,11 +1,11 @@
-import React from 'react';
-import CustomInput from '../../form/Input/CustomInput';
-import styles from './BudgetNeeds.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { addNeedsAction } from '../../../store/actions/budgetActions';
-import CustomButton from '../../form/Button/CustomButton';
-import { setTabAction } from '../../../store/actions/tabsActions';
-import { formatNumber } from '../../../utils/formatNumber';
+import React from "react";
+import CustomInput from "../../form/Input/CustomInput";
+import styles from "./BudgetNeeds.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { addNeedsAction } from "../../../store/actions/budgetActions";
+import CustomButton from "../../form/Button/CustomButton";
+import { setTabAction } from "../../../store/actions/tabsActions";
+import { formatNumber } from "../../../utils/formatNumber";
 
 const BudgetNeeds = React.memo(() => {
   const needs = useSelector((state) => state.budget.needs);
@@ -13,14 +13,14 @@ const BudgetNeeds = React.memo(() => {
   const dispatch = useDispatch();
 
   const handleInputChange = (event, category) => {
-    const value = event !== '' ? parseFloat(event) : null;
+    const value = event !== "" ? parseFloat(event) : null;
     dispatch(addNeedsAction({ category, value }));
   };
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    dispatch(setTabAction('wants'));
+    dispatch(setTabAction("wants"));
   }
 
   return (
@@ -36,7 +36,7 @@ const BudgetNeeds = React.memo(() => {
             test={`budget-needs-input-${category.category}`}
             testError="budget-needs-input-error"
             required
-            value={category.value !== null ? category.value : ''}
+            value={category.value !== null ? category.value : ""}
             onChange={(event) => handleInputChange(event, category.category)}
           />
         ))}
@@ -55,7 +55,7 @@ const BudgetNeeds = React.memo(() => {
               className={styles.totalDigit}
               data-testid="total-amount-needs"
             >
-              {formatNumber(total)} ${' '}
+              {formatNumber(total)} ${" "}
             </span>
           </p>
         </div>

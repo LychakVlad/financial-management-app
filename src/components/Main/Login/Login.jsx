@@ -81,7 +81,7 @@ const Login = () => {
         />
 
         <div className={styles.link}>
-          Don't have an account?
+          Don&apos;t have an account?
           <Link to="/signup" id="link-signup">
             Sign up
           </Link>

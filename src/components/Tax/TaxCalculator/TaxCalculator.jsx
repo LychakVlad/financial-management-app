@@ -1,7 +1,7 @@
-import React from 'react';
-import TaxForm from '../TaxForm/TaxForm';
-import TaxSummary from '../TaxSummary/TaxSummary';
-import styles from './TaxCalculator.module.css';
+import React from "react";
+import TaxForm from "../TaxForm/TaxForm";
+import TaxSummary from "../TaxSummary/TaxSummary";
+import styles from "./TaxCalculator.module.css";
 
 function TaxCalculator() {
   return (

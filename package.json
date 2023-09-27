@@ -27,7 +27,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll --coverage",
+    "test": "react-scripts test ",
+    "lint": "eslint .",
     "eject": "react-scripts eject",
     "e2e": "cypress open"
   },
@@ -57,6 +58,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15",
     "@firebase/testing": "^0.20.11",
     "@testing-library/react": "^14.0.0",
     "@wdio/cli": "^8.12.2",
@@ -66,6 +71,12 @@
     "chromedriver": "^114.0.2",
     "css-loader": "^6.7.3",
     "cypress": "^13.2.0",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-es": "^4.1.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.2",
+    "prettier": "3.0.3",
     "react-test-renderer": "^18.2.0",
     "redux-mock-store": "^1.5.4",
     "style-loader": "^3.3.2",

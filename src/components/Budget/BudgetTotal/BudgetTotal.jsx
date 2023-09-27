@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import styles from './BudgetTotal.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { useAuth } from '../../../contexts/AuthContext';
-import { firestore } from '../../../firebase';
-import { updateIncomeAction } from '../../../store/actions/incomeActions';
-import { setTotalTaxLiabilityAction } from '../../../store/actions/taxActions';
-import { formatNumber } from '../../../utils/formatNumber';
+import React, { useEffect, useState } from "react";
+import styles from "./BudgetTotal.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth } from "../../../contexts/AuthContext";
+import { firestore } from "../../../firebase";
+import { updateIncomeAction } from "../../../store/actions/incomeActions";
+import { setTotalTaxLiabilityAction } from "../../../store/actions/taxActions";
+import { formatNumber } from "../../../utils/formatNumber";
 
 const BudgetTotal = () => {
   const [loading, setLoading] = useState(true);
   const { totalWants, totalSavings, totalNeeds } = useSelector(
-    (state) => state.budget
+    (state) => state.budget,
   );
   const totalTax = useSelector((state) => state.taxes.totalTaxLiability);
   const totalIncome = useSelector((state) => state.incomes.totalIncome);
@@ -21,7 +21,7 @@ const BudgetTotal = () => {
     if (currentUser?.currentUser) {
       const fetchData = async () => {
         const userId = currentUser.currentUser.uid;
-        const userDocRef = firestore.collection('users').doc(userId);
+        const userDocRef = firestore.collection("users").doc(userId);
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
         setLoading(false);
@@ -35,14 +35,14 @@ const BudgetTotal = () => {
 
   const totalAfterTax = Math.round(totalIncome - totalTax);
   const fiftyPercent = loading
-    ? 'Loading...'
-    : formatNumber(Math.round(totalAfterTax / 100) * 50) + '$';
+    ? "Loading..."
+    : formatNumber(Math.round(totalAfterTax / 100) * 50) + "$";
   const thirtyPercent = loading
-    ? 'Loading...'
-    : formatNumber(Math.round(totalAfterTax / 100) * 30) + '$';
+    ? "Loading..."
+    : formatNumber(Math.round(totalAfterTax / 100) * 30) + "$";
   const twentyPercent = loading
-    ? 'Loading...'
-    : formatNumber(Math.round(totalAfterTax / 100) * 20) + '$';
+    ? "Loading..."
+    : formatNumber(Math.round(totalAfterTax / 100) * 20) + "$";
 
   return (
     <div className={styles.main}>
@@ -50,19 +50,19 @@ const BudgetTotal = () => {
         <h2 className={styles.title}>Your totals:</h2>
         <ul className={styles.list}>
           <li className={styles.point}>
-            Needs:{' '}
+            Needs:{" "}
             <span className={styles.number} data-testid="total-needs">
               {formatNumber(totalNeeds)} $
             </span>
           </li>
           <li className={styles.point}>
-            Wants:{' '}
+            Wants:{" "}
             <span className={styles.number} data-testid="total-wants">
               {formatNumber(totalWants)} $
             </span>
           </li>
           <li className={styles.point}>
-            Savings and debt repayment:{' '}
+            Savings and debt repayment:{" "}
             <span className={styles.number} data-testid="total-savings">
               {formatNumber(totalSavings)} $
             </span>
@@ -73,31 +73,31 @@ const BudgetTotal = () => {
         <h2 className={styles.title}>50/30/20 comparison:</h2>
         <ul className={styles.list}>
           <li className={styles.point}>
-            Your total income after tax:{' '}
+            Your total income after tax:{" "}
             <span className={styles.number} data-testid="total-after-tax">
               {formatNumber(totalAfterTax)} $
             </span>
           </li>
 
           <li className={styles.point}>
-            50% for necessities:{' '}
+            50% for necessities:{" "}
             <span className={styles.number} data-testid="total-needs-after-tax">
-              {fiftyPercent}{' '}
+              {fiftyPercent}{" "}
             </span>
           </li>
           <li className={styles.point}>
-            30% for wants:{' '}
+            30% for wants:{" "}
             <span className={styles.number} data-testid="total-wants-after-tax">
-              {thirtyPercent}{' '}
+              {thirtyPercent}{" "}
             </span>
           </li>
           <li className={styles.point}>
-            20% for savings and debt repayment:{' '}
+            20% for savings and debt repayment:{" "}
             <span
               className={styles.number}
               data-testid="total-savings-after-tax"
             >
-              {twentyPercent}{' '}
+              {twentyPercent}{" "}
             </span>
           </li>
         </ul>

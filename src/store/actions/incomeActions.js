@@ -1,9 +1,9 @@
-export const ADD_INCOME = 'ADD_INCOME';
-export const REMOVE_INCOME = 'REMOVE_INCOME';
-export const UPDATE_INCOME = 'UPDATE_INCOME';
-export const UPDATE_CARD = 'UPDATE_CARD';
-export const UPDATE_CASH = 'UPDATE_CASH';
-export const UPDATE_SAVINGS = 'UPDATE_SAVINGS';
+export const ADD_INCOME = "ADD_INCOME";
+export const REMOVE_INCOME = "REMOVE_INCOME";
+export const UPDATE_INCOME = "UPDATE_INCOME";
+export const UPDATE_CARD = "UPDATE_CARD";
+export const UPDATE_CASH = "UPDATE_CASH";
+export const UPDATE_SAVINGS = "UPDATE_SAVINGS";
 
 export const addIncomeAction = (payload) => ({ type: ADD_INCOME, payload });
 export const updateIncomeAction = (payload) => ({

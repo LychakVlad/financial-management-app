@@ -4,10 +4,10 @@ import {
   SET_TOTAL_TAX_LIABILITY,
   SET_STATE_TAX,
   SET_FEDERAL_TAX,
-} from '../actions/taxActions';
+} from "../actions/taxActions";
 
 const initialState = {
-  filingStatus: '',
+  filingStatus: "",
   deductions: 0,
   totalTaxLiability: 0,
   stateTax: 0,

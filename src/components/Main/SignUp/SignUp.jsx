@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
-import { useAuth } from '../../../contexts/AuthContext';
-import styles from './SignUp.module.css';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import CustomInput from '../../form/Input/CustomInput';
-import CustomButton from '../../form/Button/CustomButton';
+import React, { useRef, useState } from "react";
+import { useAuth } from "../../../contexts/AuthContext";
+import styles from "./SignUp.module.css";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import CustomInput from "../../form/Input/CustomInput";
+import CustomButton from "../../form/Button/CustomButton";
 
 const SignUp = () => {
   const emailRef = useRef();
@@ -12,7 +12,7 @@ const SignUp = () => {
   const nameRef = useRef();
 
   const { signup } = useAuth();
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { currentUser } = useAuth();
 
@@ -22,19 +22,19 @@ const SignUp = () => {
     e.preventDefault();
 
     if (passwordConfirmRef.current.value !== passwordRef.current.value) {
-      return setError('Passwords do not match');
+      return setError("Passwords do not match");
     }
     try {
-      setError('');
+      setError("");
       setLoading(true);
       await signup(
         nameRef.current.value,
         emailRef.current.value,
-        passwordRef.current.value
+        passwordRef.current.value,
       );
-      history('/');
+      history("/");
     } catch {
-      setError('Failed to create an account');
+      setError("Failed to create an account");
     }
 
     setLoading(false);
@@ -103,7 +103,7 @@ const SignUp = () => {
           id="password-repeat"
           test="input-pass-confirm-test"
         />
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <CustomButton disabled={loading} type="submit" title="Sign Up" />
       </form>
       <div className={styles.link}>

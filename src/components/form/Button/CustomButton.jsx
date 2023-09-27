@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './CustomButton.module.css';
+import React from "react";
+import styles from "./CustomButton.module.css";
 
 const CustomButton = ({ disabled, type, onClick, title, test }) => {
   return (

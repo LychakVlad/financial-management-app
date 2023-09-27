@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from './SideBar.module.css';
-import { Link, useLocation } from 'react-router-dom';
+import React from "react";
+import styles from "./SideBar.module.css";
+import { Link, useLocation } from "react-router-dom";
 
 const SideItem = ({ to, icon: Icon, label, onClick, test }) => {
   const location = useLocation();
@@ -10,7 +10,7 @@ const SideItem = ({ to, icon: Icon, label, onClick, test }) => {
     <Link
       to={to}
       onClick={onClick}
-      className={`${styles.point} ${isActive ? styles.active : ''}`}
+      className={`${styles.point} ${isActive ? styles.active : ""}`}
       data-testid={test}
     >
       <li className={styles.pointFlex}>

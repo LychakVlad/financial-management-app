@@ -1,10 +1,10 @@
-import React from 'react';
-import styles from './ExpenseGraph.module.css';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { useSelector } from 'react-redux';
-import { formatNumber } from '../../../utils/formatNumber';
-import DateChange from '../../form/DateChange/DateChange';
-import { formatDate } from '../../../utils/dateFormat';
+import React from "react";
+import styles from "./ExpenseGraph.module.css";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { useSelector } from "react-redux";
+import { formatNumber } from "../../../utils/formatNumber";
+import DateChange from "../../form/DateChange/DateChange";
+import { formatDate } from "../../../utils/dateFormat";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -13,7 +13,7 @@ const ExpenseGraph = ({ dates, setDates }) => {
 
   const filteredExpenses = expenses?.filter(
     (item) =>
-      formatDate(dates.from) <= item.date && item.date <= formatDate(dates.to)
+      formatDate(dates.from) <= item.date && item.date <= formatDate(dates.to),
   );
 
   const categoryTotals = filteredExpenses?.reduce((totals, item) => {
@@ -27,7 +27,7 @@ const ExpenseGraph = ({ dates, setDates }) => {
 
   const totalExpense = filteredExpenses?.reduce(
     (total, item) => total + parseFloat(item.amount),
-    0
+    0,
   );
 
   const handleFromChange = (value) => {
@@ -46,12 +46,12 @@ const ExpenseGraph = ({ dates, setDates }) => {
           <DateChange
             onChange={handleFromChange}
             value={dates.from}
-            desc={'From:'}
+            desc={"From:"}
           />
-          <DateChange onChange={handleToChange} value={dates.to} desc={'To:'} />
+          <DateChange onChange={handleToChange} value={dates.to} desc={"To:"} />
         </div>
         <div className={styles.total} data-testid="total-expense-test">
-          {' '}
+          {" "}
           {formatNumber(totalExpense)} $ Total expense
         </div>
         <div className={styles.list}>

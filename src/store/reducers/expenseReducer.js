@@ -2,7 +2,7 @@ import {
   ADD_EXPENSE,
   REMOVE_EXPENSE,
   UPDATE_EXPENSE,
-} from '../actions/expenseActions';
+} from "../actions/expenseActions";
 
 const initialState = {
   expenses: [],
@@ -19,11 +19,11 @@ export const expenseReducer = (state = initialState, action) => {
       };
     case REMOVE_EXPENSE:
       const updatedExpenses = state.expenses.filter(
-        (expense) => expense.id !== action.payload
+        (expense) => expense.id !== action.payload,
       );
       const updatedTotalExpense = updatedExpenses.reduce(
         (total, expense) => total + parseFloat(expense.amount),
-        0
+        0,
       );
       return {
         ...state,
@@ -40,7 +40,7 @@ export const expenseReducer = (state = initialState, action) => {
         expenses: action.payload,
         totalExpense: action.payload.reduce(
           (total, expense) => total + parseFloat(expense.amount),
-          0
+          0,
         ),
       };
     default:

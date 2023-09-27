@@ -1,7 +1,7 @@
 import {
   setStateTaxAction,
   setFederalTaxAction,
-} from '../../../store/actions/taxActions';
+} from "../../../store/actions/taxActions";
 
 export const calculateTaxLiability = (
   deductions,
@@ -9,7 +9,7 @@ export const calculateTaxLiability = (
   totalIncome,
   virginiaTaxRates,
   federalTaxRates,
-  dispatch
+  dispatch,
 ) => {
   const deductionsNum = deductions ? parseFloat(deductions) : 0;
 
@@ -33,7 +33,7 @@ export const calculateTaxLiability = (
   const virginiaTaxLiability = calculateTaxLiabilityForBracket(
     virginiaTaxBrackets,
     remainingIncome,
-    setStateTaxAction
+    setStateTaxAction,
   );
 
   const federalTaxBrackets = federalTaxRates[filingStatus];
@@ -41,7 +41,7 @@ export const calculateTaxLiability = (
   const federalTaxLiability = calculateTaxLiabilityForBracket(
     federalTaxBrackets,
     remainingIncome,
-    setFederalTaxAction
+    setFederalTaxAction,
   );
 
   const ficaTaxLiability = totalIncome * (7.65 / 100);

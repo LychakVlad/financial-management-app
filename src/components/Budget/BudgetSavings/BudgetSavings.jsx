@@ -1,11 +1,11 @@
-import React from 'react';
-import CustomInput from '../../form/Input/CustomInput';
-import styles from './BudgetSavings.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { addSavingsAction } from '../../../store/actions/budgetActions';
-import CustomButton from '../../form/Button/CustomButton';
-import { setTabAction } from '../../../store/actions/tabsActions';
-import { formatNumber } from '../../../utils/formatNumber';
+import React from "react";
+import CustomInput from "../../form/Input/CustomInput";
+import styles from "./BudgetSavings.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { addSavingsAction } from "../../../store/actions/budgetActions";
+import CustomButton from "../../form/Button/CustomButton";
+import { setTabAction } from "../../../store/actions/tabsActions";
+import { formatNumber } from "../../../utils/formatNumber";
 
 const BudgetSavings = () => {
   const savings = useSelector((state) => state.budget.savings);
@@ -13,14 +13,14 @@ const BudgetSavings = () => {
   const dispatch = useDispatch();
 
   const handleInputChange = (event, category) => {
-    const value = event !== '' ? parseFloat(event) : null;
+    const value = event !== "" ? parseFloat(event) : null;
     dispatch(addSavingsAction({ category, value }));
   };
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    dispatch(setTabAction('total'));
+    dispatch(setTabAction("total"));
   }
 
   return (
@@ -36,7 +36,7 @@ const BudgetSavings = () => {
             required
             test={`budget-savings-input-${category.category}`}
             testError="budget-savings-input-error"
-            value={category.value !== null ? category.value : ''}
+            value={category.value !== null ? category.value : ""}
             onChange={(event) => handleInputChange(event, category.category)}
           />
         ))}
@@ -55,7 +55,7 @@ const BudgetSavings = () => {
               data-testid="total-amount-savings"
               className={styles.totalDigit}
             >
-              {' '}
+              {" "}
               {formatNumber(total)} $
             </span>
           </p>

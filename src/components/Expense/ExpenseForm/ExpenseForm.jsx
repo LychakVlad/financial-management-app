@@ -1,48 +1,48 @@
-import React, { useCallback, useState } from 'react';
-import styles from './ExpenseForm.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { useAuth } from '../../../contexts/AuthContext';
-import { firestore } from '../../../firebase';
-import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
-import { addExpenseAction } from '../../../store/actions/expenseActions';
-import CustomInput from '../../form/Input/CustomInput';
-import Dropdown from '../../form/Dropdown/Dropdown';
-import CustomButton from '../../form/Button/CustomButton';
-import { formatDate } from '../../../utils/dateFormat';
-import DateChange from '../../form/DateChange/DateChange';
+import React, { useCallback, useState } from "react";
+import styles from "./ExpenseForm.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth } from "../../../contexts/AuthContext";
+import { firestore } from "../../../firebase";
+import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { addExpenseAction } from "../../../store/actions/expenseActions";
+import CustomInput from "../../form/Input/CustomInput";
+import Dropdown from "../../form/Dropdown/Dropdown";
+import CustomButton from "../../form/Button/CustomButton";
+import { formatDate } from "../../../utils/dateFormat";
+import DateChange from "../../form/DateChange/DateChange";
 
 const ExpenseForm = () => {
   const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const totalExpense = useSelector((state) => state.expenses.totalExpense);
   const [expenseItem, setExpenseItem] = useState({
-    type: '',
-    amount: '',
-    description: '',
-    pay: '',
+    type: "",
+    amount: "",
+    description: "",
+    pay: "",
     date: new Date(),
   });
   const [dropdownError, setDropdownError] = useState(false);
-  const [dropdownPlaceholder, setDropdownPlaceholder] = useState('Category');
+  const [dropdownPlaceholder, setDropdownPlaceholder] = useState("Category");
   const [dropdownPayError, setDropdownPayError] = useState(false);
   const [dropdownPayPlaceholder, setDropdownPayPlaceholder] =
-    useState('Type of Expense');
-  const [inputError, setInputError] = useState('');
+    useState("Type of Expense");
+  const [inputError, setInputError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const options = [
-    { value: 'Groceries', label: 'Groceries' },
-    { value: 'Housing', label: 'Housing' },
-    { value: 'Transport', label: 'Transport' },
-    { value: 'Healthcare', label: 'Healthcare' },
-    { value: 'Education', label: 'Education' },
-    { value: 'Entertainment', label: 'Entertainment' },
-    { value: 'Other', label: 'Other' },
+    { value: "Groceries", label: "Groceries" },
+    { value: "Housing", label: "Housing" },
+    { value: "Transport", label: "Transport" },
+    { value: "Healthcare", label: "Healthcare" },
+    { value: "Education", label: "Education" },
+    { value: "Entertainment", label: "Entertainment" },
+    { value: "Other", label: "Other" },
   ];
 
   const optionsPay = [
-    { value: 'Cash', label: 'Cash' },
-    { value: 'Card', label: 'Card' },
+    { value: "Cash", label: "Cash" },
+    { value: "Card", label: "Card" },
   ];
 
   const handleAddExpense = useCallback(
@@ -50,17 +50,17 @@ const ExpenseForm = () => {
       e.preventDefault();
 
       if (!expenseItem.amount) {
-        setInputError('Enter the value');
+        setInputError("Enter the value");
         return;
       }
 
       if (expenseItem.amount.length > 9) {
-        setInputError('Enter the smaller number');
+        setInputError("Enter the smaller number");
         return;
       }
 
       if (expenseItem.amount < 0) {
-        setInputError('Enter a positive value');
+        setInputError("Enter a positive value");
         return;
       }
 
@@ -86,11 +86,11 @@ const ExpenseForm = () => {
       };
 
       dispatch(addExpenseAction(newExpense));
-      const userDocRef = doc(firestore, 'users', currentUser?.uid);
+      const userDocRef = doc(firestore, "users", currentUser?.uid);
       const userDoc = await getDoc(userDocRef);
       const money = userDoc.data().money;
 
-      if (newExpense.pay === 'Card') {
+      if (newExpense.pay === "Card") {
         await updateDoc(userDocRef, {
           expenses: arrayUnion(newExpense),
           totalExpense: totalExpense + parseFloat(newExpense.amount),
@@ -100,7 +100,7 @@ const ExpenseForm = () => {
             totalSavings: money.totalSavings,
           },
         });
-      } else if (newExpense.pay === 'Cash') {
+      } else if (newExpense.pay === "Cash") {
         await updateDoc(userDocRef, {
           expenses: arrayUnion(newExpense),
           totalExpense: totalExpense + parseFloat(newExpense.amount),
@@ -113,16 +113,16 @@ const ExpenseForm = () => {
       }
 
       setExpenseItem({
-        amount: '',
-        type: '',
-        description: '',
-        pay: '',
+        amount: "",
+        type: "",
+        description: "",
+        pay: "",
         date: new Date(),
       });
       setLoading(false);
-      setInputError('');
-      setDropdownPlaceholder('Category');
-      setDropdownPayPlaceholder('Type of expense');
+      setInputError("");
+      setDropdownPlaceholder("Category");
+      setDropdownPayPlaceholder("Type of expense");
     },
     [
       currentUser?.uid,
@@ -133,7 +133,7 @@ const ExpenseForm = () => {
       expenseItem.date,
       dispatch,
       totalExpense,
-    ]
+    ],
   );
 
   const handleDropdownChange = (option) => {
@@ -148,7 +148,7 @@ const ExpenseForm = () => {
 
   const handleAmountChange = (value) => {
     setExpenseItem({ ...expenseItem, amount: value });
-    setInputError('');
+    setInputError("");
   };
 
   const handleDescChange = (value) => {
@@ -157,10 +157,10 @@ const ExpenseForm = () => {
 
   const handleDateChange = (value) => {
     setExpenseItem({ ...expenseItem, date: value });
-    setInputError('');
+    setInputError("");
   };
 
-  const buttonTitle = loading ? 'Loading...' : 'Add expense';
+  const buttonTitle = loading ? "Loading..." : "Add expense";
 
   return (
     <form onSubmit={handleAddExpense} className={styles.form}>

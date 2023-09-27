@@ -1,0 +1,24 @@
+name: github-actions
+run-name: ${{ github.actor }} using GitHub Actions
+on: [push]
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm ci
+      - run: npm run build
+      - run: npm start &
+      - run: npm run test
+      - run: npm run lint
+      - name: Cypress run
+        uses: cypress-io/github-action@v3
+        with:
+          project: ./src
+          browser: chrome
+          build: npm build
+          start: npm start
+          wait-on: 'http://localhost:3000'

@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { arrayRemove, doc, getDoc, updateDoc } from 'firebase/firestore';
-import { firestore } from '../../../firebase';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { arrayRemove, doc, getDoc, updateDoc } from "firebase/firestore";
+import { firestore } from "../../../firebase";
+import { useDispatch, useSelector } from "react-redux";
 import {
   removeIncomeAction,
   updateCardAction,
   updateCashAction,
   updateIncomeAction,
   updateSavingsAction,
-} from '../../../store/actions/incomeActions';
+} from "../../../store/actions/incomeActions";
 
-import styles from './IncomeList.module.css';
-import MoonLoader from 'react-spinners/MoonLoader';
-import { useAuth } from '../../../contexts/AuthContext';
-import CustomButton from '../../form/Button/CustomButton';
-import { formatNumber } from '../../../utils/formatNumber';
+import styles from "./IncomeList.module.css";
+import MoonLoader from "react-spinners/MoonLoader";
+import { useAuth } from "../../../contexts/AuthContext";
+import CustomButton from "../../form/Button/CustomButton";
+import { formatNumber } from "../../../utils/formatNumber";
 
 function IncomeList() {
   const incomes = useSelector((state) => state.incomes.incomes || []);
@@ -30,7 +30,7 @@ function IncomeList() {
       const fetchData = async () => {
         setLoading(true);
         const userId = currentUser.currentUser.uid;
-        const userDocRef = firestore.collection('users').doc(userId);
+        const userDocRef = firestore.collection("users").doc(userId);
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
         setLoading(false);
@@ -38,7 +38,7 @@ function IncomeList() {
         const sortedIncomes =
           userData.incomes.length > 0
             ? userData?.incomes?.sort(
-                (a, b) => new Date(b.date) - new Date(a.date)
+                (a, b) => new Date(b.date) - new Date(a.date),
               )
             : [];
 
@@ -52,8 +52,8 @@ function IncomeList() {
   const deleteAll = async () => {
     const userDocRef = doc(
       firestore,
-      'users',
-      currentUser?.currentUser?._delegate?.uid
+      "users",
+      currentUser?.currentUser?._delegate?.uid,
     );
 
     const userDoc = await getDoc(userDocRef);
@@ -77,16 +77,16 @@ function IncomeList() {
   };
 
   const deletePoint = async (income) => {
-    const userDocRef = doc(firestore, 'users', currentUser?.currentUser?.uid);
+    const userDocRef = doc(firestore, "users", currentUser?.currentUser?.uid);
     const userDoc = await getDoc(userDocRef);
     const money = userDoc.data().money;
 
     let updatedCash =
       money.totalCash -
-      (income.type === 'Cash' ? parseFloat(income.amount) : 0);
+      (income.type === "Cash" ? parseFloat(income.amount) : 0);
     let updatedCard =
       money.totalCard -
-      (income.type === 'Card' ? parseFloat(income.amount) : 0);
+      (income.type === "Card" ? parseFloat(income.amount) : 0);
 
     await updateDoc(userDocRef, {
       incomes: arrayRemove(income),
@@ -145,7 +145,7 @@ function IncomeList() {
             <span className={styles.totalDigit}> Loading...</span>
           ) : (
             <span className={styles.totalDigit}>
-              {' '}
+              {" "}
               {formatNumber(totalIncome)} $
             </span>
           )}

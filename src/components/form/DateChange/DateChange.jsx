@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import 'react-calendar/dist/Calendar.css';
-import Calendar from 'react-calendar';
-import styles from './DateChange.module.css';
-import { formatDate } from '../../../utils/dateFormat';
+import React, { useEffect, useRef, useState } from "react";
+import "react-calendar/dist/Calendar.css";
+import Calendar from "react-calendar";
+import styles from "./DateChange.module.css";
+import { formatDate } from "../../../utils/dateFormat";
 
 const DateChange = ({ onChange, value, desc }) => {
   const [dropdown, setDropdown] = useState(false);
@@ -14,11 +14,11 @@ const DateChange = ({ onChange, value, desc }) => {
         setDropdown(false);
       }
     };
-    document.addEventListener('mousedown', handler);
-    document.addEventListener('touchstart', handler);
+    document.addEventListener("mousedown", handler);
+    document.addEventListener("touchstart", handler);
     return () => {
-      document.removeEventListener('mousedown', handler);
-      document.removeEventListener('touchstart', handler);
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("touchstart", handler);
     };
   }, [dropdown]);
 
@@ -30,11 +30,11 @@ const DateChange = ({ onChange, value, desc }) => {
     window.innerWidth > 960 && setDropdown(false);
   };
 
-  const formattedValue = value ? formatDate(value) : 'Choose date';
+  const formattedValue = value ? formatDate(value) : "Choose date";
 
   return (
     <div>
-      {desc ? <div className={styles.desc}>{desc}</div> : ''}
+      {desc ? <div className={styles.desc}>{desc}</div> : ""}
       <div
         ref={ref}
         onMouseEnter={onMouseEnter}
@@ -48,7 +48,7 @@ const DateChange = ({ onChange, value, desc }) => {
           {formattedValue}
         </p>
         <div
-          className={`${styles.calendar} ${dropdown ? styles.dropActive : ''}`}
+          className={`${styles.calendar} ${dropdown ? styles.dropActive : ""}`}
         >
           <Calendar onChange={onChange} value={value} />
         </div>

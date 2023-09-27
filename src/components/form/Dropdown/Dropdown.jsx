@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import styles from './Dropdown.module.css';
-import { ReactComponent as Icon } from '../../../assets/dropdown.svg';
+import React, { useEffect, useState } from "react";
+import styles from "./Dropdown.module.css";
+import { ReactComponent as Icon } from "../../../assets/dropdown.svg";
 
 const Dropdown = ({
   placeHolder,
@@ -16,9 +16,9 @@ const Dropdown = ({
   useEffect(() => {
     const handler = () => setShowMenu(false);
 
-    window.addEventListener('click', handler);
+    window.addEventListener("click", handler);
     return () => {
-      window.removeEventListener('click', handler);
+      window.removeEventListener("click", handler);
     };
   });
 

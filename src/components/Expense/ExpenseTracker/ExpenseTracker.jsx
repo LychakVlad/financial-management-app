@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import styles from './ExpenseTracker.module.css';
-import ExpenseForm from '../ExpenseForm/ExpenseForm';
-import ExpenseGraph from '../ExpenseGraph/ExpenseGraph';
-import ExpenseList from '../ExpenseList/ExpenseList';
+import React, { useState } from "react";
+import styles from "./ExpenseTracker.module.css";
+import ExpenseForm from "../ExpenseForm/ExpenseForm";
+import ExpenseGraph from "../ExpenseGraph/ExpenseGraph";
+import ExpenseList from "../ExpenseList/ExpenseList";
 
 const ExpenseTracker = () => {
   const date = new Date();

@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from './Modal.module.css';
-import { ReactComponent as Close } from '../../../assets/close-icon.svg';
+import React from "react";
+import styles from "./Modal.module.css";
+import { ReactComponent as Close } from "../../../assets/close-icon.svg";
 
 const Modal = ({ children, handleClose }) => {
   const handleClick = () => {

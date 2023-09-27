@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styles from './TaxSummary.module.css';
-import { updateIncomeAction } from '../../../store/actions/incomeActions';
-import { firestore } from '../../../firebase';
-import { useAuth } from '../../../contexts/AuthContext';
-import { formatNumber } from '../../../utils/formatNumber';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styles from "./TaxSummary.module.css";
+import { updateIncomeAction } from "../../../store/actions/incomeActions";
+import { firestore } from "../../../firebase";
+import { useAuth } from "../../../contexts/AuthContext";
+import { formatNumber } from "../../../utils/formatNumber";
 
 function TaxSummary() {
   const incomes = useSelector((state) => state.incomes.incomes);
   const { stateTax, federalTax, totalTaxLiability } = useSelector(
-    (state) => state.taxes
+    (state) => state.taxes,
   );
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function TaxSummary() {
       const fetchData = async () => {
         setLoading(true);
         const userId = currentUser.currentUser.uid;
-        const userDocRef = firestore.collection('users').doc(userId);
+        const userDocRef = firestore.collection("users").doc(userId);
         const userDoc = await userDocRef.get();
         const userData = userDoc.data();
         setLoading(false);
@@ -33,7 +33,7 @@ function TaxSummary() {
   }, [currentUser, dispatch]);
 
   const incomeBeforeTax = incomes.reduce((accumulator, item) => {
-    if (item.tax === 'Taxable') {
+    if (item.tax === "Taxable") {
       return accumulator + parseFloat(item.amount);
     } else {
       return accumulator;
@@ -43,13 +43,13 @@ function TaxSummary() {
   return (
     <div className={styles.form}>
       <p>
-        State tax:{' '}
+        State tax:{" "}
         <span className={styles.tax} data-testid="state-tax-test">
           {stateTax}%
         </span>
       </p>
       <p>
-        Federal tax:{' '}
+        Federal tax:{" "}
         <span className={styles.tax} data-testid="federal-tax-test">
           {federalTax}%
         </span>
@@ -59,7 +59,7 @@ function TaxSummary() {
       </p>
 
       <p>
-        Your income before taxes:{' '}
+        Your income before taxes:{" "}
         <span className={styles.income} data-testid="total-tax-test">
           {loading ? (
             <span>Loading...</span>
@@ -69,7 +69,7 @@ function TaxSummary() {
         </span>
       </p>
       <p>
-        You need to pay:{' '}
+        You need to pay:{" "}
         <span className={styles.totalTax} data-testid="total-pay-test">
           {formatNumber(Math.round(totalTaxLiability))} $
         </span>

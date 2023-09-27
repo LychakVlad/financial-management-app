@@ -1,7 +1,7 @@
-import { SET_TAB } from '../actions/tabsActions';
+import { SET_TAB } from "../actions/tabsActions";
 
 const initialState = {
-  currentTab: 'needs',
+  currentTab: "needs",
 };
 
 export const tabsReducer = (state = initialState, action) => {
