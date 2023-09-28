@@ -8,7 +8,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '14.x'
       - name: Clear npm cache
         run: npm cache clean --force
       - name: Install dependencies
