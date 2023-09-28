@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { auth, firestore } from "../firebase";
+import React, { useContext, useEffect, useState } from 'react';
+import { auth, firestore } from '../firebase';
 
 const AuthContext = React.createContext();
 
@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
         })
         .then(() => {
           return firestore
-            .collection("users")
+            .collection('users')
             .doc(cred.user.uid)
             .set({
               incomes: {},
