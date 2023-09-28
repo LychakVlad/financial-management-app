@@ -27,7 +27,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll --coverage ",
+    "test": "react-scripts test ",
     "lint": "eslint .",
     "eject": "react-scripts eject",
     "e2e": "cypress open"
@@ -76,6 +76,7 @@
     "eslint-plugin-es": "^4.1.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.33.2",
+    "firebase-mock": "^2.3.2",
     "prettier": "3.0.3",
     "react-test-renderer": "^18.2.0",
     "redux-mock-store": "^1.5.4",
