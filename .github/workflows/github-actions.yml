@@ -9,10 +9,17 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - run: npm ci
-      - run: npm run build
-      - run: npm start &
-      - run: npm run test
-      - run: npm run lint
-      - name: Cypress run
+      - name: Clear npm cache
+        run: npm cache clean --force
+      - name: Install dependencies
+        run: npm ci
+      - name: Build the app
+        run: npm run build
+      - name: Start the server
+        run: npm start &
+      - name: Unit testing
+        run: npm run test
+      - name: Lint check
+        run: npm run lint
+      - name: Cypress run e2e tests
         uses: cypress-io/github-action@v6
