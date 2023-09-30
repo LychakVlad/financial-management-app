@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { auth, firestore } from '../firebase';
+import { firestore } from '../firebase';
+import { setDoc, doc } from 'firebase/firestore'; // Import doc from Firestore
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  updateProfile,
 } from 'firebase/auth';
 
 const AuthContext = React.createContext();
@@ -30,30 +32,24 @@ export function AuthProvider({ children }) {
   function signup(name, email, password) {
     return createUserWithEmailAndPassword(auth, email, password).then(
       (cred) => {
-        return cred.user
-          .updateProfile({
-            displayName: name,
-          })
-          .then(() => {
-            return firestore
-              .collection('users')
-              .doc(cred.user.uid)
-              .set({
-                incomes: {},
-                expenses: {},
-                money: {
-                  totalCard: 0,
-                  totalCash: 0,
-                  totalSavings: 0,
-                  totalMoney: 0,
-                },
-                totalTax: 0,
-                totalExpense: 0,
-              });
-          })
-          .catch((error) => {
-            console.error('Firebase Authentication Error:', error);
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        }).then(() => {
+          console.log(cred.user);
+          const userDocRef = doc(firestore, 'users', cred.user.uid);
+          return setDoc(userDocRef, {
+            incomes: {},
+            expenses: {},
+            money: {
+              totalCard: 0,
+              totalCash: 0,
+              totalSavings: 0,
+              totalMoney: 0,
+            },
+            totalTax: 0,
+            totalExpense: 0,
           });
+        });
       }
     );
   }
@@ -74,7 +70,7 @@ export function AuthProvider({ children }) {
   };
 
   if (loading) {
-    return;
+    return null;
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

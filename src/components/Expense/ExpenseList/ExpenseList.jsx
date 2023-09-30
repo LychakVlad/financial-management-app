@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import styles from "./ExpenseList.module.css";
-import MoonLoader from "react-spinners/MoonLoader";
-import firebase from "firebase/compat/app";
+import React, { useEffect, useState } from 'react';
+import styles from './ExpenseList.module.css';
+import MoonLoader from 'react-spinners/MoonLoader';
+import firebase from 'firebase/compat/app';
 import {
   removeExpenseAction,
   updateExpenseAction,
-} from "../../../store/actions/expenseActions";
-import { firestore } from "../../../firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { useAuth } from "../../../contexts/AuthContext";
-import CustomButton from "../../form/Button/CustomButton";
-import { formatNumber } from "../../../utils/formatNumber";
-import { formatDate } from "../../../utils/dateFormat";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+} from '../../../store/actions/expenseActions';
+import { firestore } from '../../../firebase';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAuth } from '../../../contexts/AuthContext';
+import CustomButton from '../../form/Button/CustomButton';
+import { formatNumber } from '../../../utils/formatNumber';
+import { formatDate } from '../../../utils/dateFormat';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 const ExpenseList = ({ dates, setDates }) => {
   const { expenses, totalExpense } = useSelector((state) => state.expenses);
@@ -27,21 +27,21 @@ const ExpenseList = ({ dates, setDates }) => {
       const fetchData = async () => {
         setLoading(true);
         const userId = currentUser.currentUser.uid;
-        const userDocRef = firestore.collection("users").doc(userId);
-        const userDoc = await userDocRef.get();
+        const userDocRef = doc(firestore, 'users', userId);
+        const userDoc = await getDoc(userDocRef);
         const userData = userDoc.data();
         setLoading(false);
 
         const sortedExpenses = Array.isArray(userData?.expenses)
           ? userData.expenses.sort(
-              (a, b) => new Date(b.date) - new Date(a.date),
+              (a, b) => new Date(b.date) - new Date(a.date)
             )
           : [];
 
         const filteredExpenses = sortedExpenses.filter(
           (item) =>
             formatDate(dates.from) <= item.date &&
-            item.date <= formatDate(dates.to),
+            item.date <= formatDate(dates.to)
         );
 
         dispatch(updateExpenseAction(filteredExpenses));
@@ -52,33 +52,38 @@ const ExpenseList = ({ dates, setDates }) => {
   }, [currentUser, dispatch, dates]);
 
   const deletePoint = async (expense) => {
-    const userDocRef = doc(firestore, "users", currentUser.currentUser.uid);
-    const userDoc = await getDoc(userDocRef);
-    const money = userDoc.data().money;
+    try {
+      const userId = currentUser.currentUser.uid;
+      const userDocRef = doc(firestore, 'users', userId);
+      const userDoc = await getDoc(userDocRef);
+      const userData = userDoc.data();
+      const expenses = userData.expenses || [];
 
-    if (expense.pay === "Card") {
-      await updateDoc(userDocRef, {
-        expenses: firebase.firestore.FieldValue.arrayRemove(expense),
-        totalExpense: totalExpense - parseFloat(expense.amount),
-        money: {
-          totalCard: money.totalCard + parseFloat(expense.amount),
-          totalCash: money.totalCash,
-          totalSavings: money.totalSavings,
-        },
-      });
-    } else if (expense.pay === "Cash") {
-      await updateDoc(userDocRef, {
-        expenses: firebase.firestore.FieldValue.arrayRemove(expense),
-        totalExpense: totalExpense - parseFloat(expense.amount),
-        money: {
-          totalCash: money.totalCash + parseFloat(expense.amount),
-          totalCard: money.totalCard,
-          totalSavings: money.totalSavings,
-        },
-      });
+      const updatedExpenses = expenses.filter((item) => item.id !== expense.id);
+
+      const newTotalExpense =
+        userData.totalExpense - parseFloat(expense.amount);
+
+      const moneyUpdate = { ...userData.money };
+
+      if (expense.pay === 'Card') {
+        moneyUpdate.totalCard += parseFloat(expense.amount);
+      } else if (expense.pay === 'Cash') {
+        moneyUpdate.totalCash += parseFloat(expense.amount);
+      }
+
+      const updateData = {
+        expenses: updatedExpenses,
+        totalExpense: newTotalExpense,
+        money: moneyUpdate,
+      };
+
+      await updateDoc(userDocRef, updateData);
+
+      dispatch(removeExpenseAction(expense.id));
+    } catch (error) {
+      console.error('Error deleting expense item:', error);
     }
-
-    dispatch(removeExpenseAction(expense.id));
   };
 
   return (

@@ -1,6 +1,6 @@
 describe('Login Component', () => {
   beforeEach(() => {
-    cy.visit('https://budget-buddy-finance.netlify.app/#/login');
+    cy.visit('http://localhost:3000/#/login');
   });
 
   it('should display the login form', () => {
