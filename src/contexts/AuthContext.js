@@ -1,5 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { auth, firestore } from '../firebase';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from 'firebase/auth';
 
 const AuthContext = React.createContext();
 
@@ -10,9 +16,10 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const auth = getAuth();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       setLoading(false);
     });
@@ -21,33 +28,38 @@ export function AuthProvider({ children }) {
   }, []);
 
   function signup(name, email, password) {
-    return auth.createUserWithEmailAndPassword(email, password).then((cred) => {
-      return cred.user
-        .updateProfile({
-          displayName: name,
-        })
-        .then(() => {
-          return firestore
-            .collection('users')
-            .doc(cred.user.uid)
-            .set({
-              incomes: {},
-              expenses: {},
-              money: {
-                totalCard: 0,
-                totalCash: 0,
-                totalSavings: 0,
-                totalMoney: 0,
-              },
-              totalTax: 0,
-              totalExpense: 0,
-            });
-        });
-    });
+    return createUserWithEmailAndPassword(auth, email, password).then(
+      (cred) => {
+        return cred.user
+          .updateProfile({
+            displayName: name,
+          })
+          .then(() => {
+            return firestore
+              .collection('users')
+              .doc(cred.user.uid)
+              .set({
+                incomes: {},
+                expenses: {},
+                money: {
+                  totalCard: 0,
+                  totalCash: 0,
+                  totalSavings: 0,
+                  totalMoney: 0,
+                },
+                totalTax: 0,
+                totalExpense: 0,
+              });
+          })
+          .catch((error) => {
+            console.error('Firebase Authentication Error:', error);
+          });
+      }
+    );
   }
 
   function login(email, password) {
-    return auth.signInWithEmailAndPassword(email, password).then(() => {});
+    return signInWithEmailAndPassword(auth, email, password).then(() => {});
   }
 
   function logout() {

@@ -12,10 +12,13 @@ jobs:
         uses: actions/checkout@v4
       - name: Install dependencies
         run: npm install
-      - name: Unit testing
-        run: npm run test
       - name: Lint check
         run: npm run lint
+      - name: 'Create env file'
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
+      - name: Unit testing
+        run: npm run test
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
