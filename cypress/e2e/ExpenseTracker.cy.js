@@ -86,9 +86,13 @@ describe('Expense Tracker Component', () => {
 
     cy.get('[data-testid="expense-list-item-test-0"]').should('exist');
 
-    cy.get('[data-testid="delete-btn-expense-item-test-1"]').click();
+    cy.get('[data-testid="delete-btn-expense-item-test-0"]').click();
+
+    cy.wait(1000);
 
     cy.get('[data-testid="delete-btn-expense-item-test-0"]').click();
+
+    cy.wait(1000);
 
     cy.get('[data-testid="expense-list-item-test-1"]').should('not.exist');
 
