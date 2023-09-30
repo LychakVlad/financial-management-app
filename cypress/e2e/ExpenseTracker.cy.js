@@ -1,6 +1,6 @@
 describe('Expense Tracker Component', () => {
   beforeEach(() => {
-    cy.visit('https://budget-buddy-finance.netlify.app/#/login');
+    cy.visit('http://localhost:3000/#/login');
 
     cy.get('input[data-testid="input-email-test"]')
       .click()

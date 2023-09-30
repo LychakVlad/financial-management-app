@@ -1,6 +1,6 @@
 describe('SigUp Component', () => {
   beforeEach(() => {
-    cy.visit('https://budget-buddy-finance.netlify.app/#/signup');
+    cy.visit('http://localhost:3000/#/signup');
   });
 
   const randomEmail = `test-${Math.floor(Math.random() * 100000)}@example.com`;
