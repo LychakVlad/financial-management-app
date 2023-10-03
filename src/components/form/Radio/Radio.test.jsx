@@ -33,8 +33,8 @@ test('calls the onChange function when the radio is clicked', () => {
   const label = 'Option 1';
   const name = 'radioGroup';
   const id = 'radioOption1';
-  const selectedOption = false; // It's not selected initially
-  const onChange = jest.fn(); // Mocked onChange function
+  const selectedOption = false;
+  const onChange = jest.fn();
 
   const { getByTestId } = render(
     <Radio
