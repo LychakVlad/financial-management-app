@@ -19,21 +19,14 @@ describe('DateChange', () => {
 
     const calendarElement = getByTestId('test-calendar');
 
-    // Initially, the calendar should not have the 'dropActive' class
     expect(calendarElement).not.toHaveClass('dropActive');
 
-    // Click on the date display
     fireEvent.click(getByText('Choose date'));
 
-    // Now, the calendar should have the 'dropActive' class
     expect(calendarElement).toHaveClass('dropActive');
 
-    // Click on the date display again to close the calendar
     fireEvent.click(getByText('Choose date'));
 
-    // The calendar should not have the 'dropActive' class again
     expect(calendarElement).not.toHaveClass('dropActive');
   });
-
-  // You can add more test cases for interactions and events as needed
 });

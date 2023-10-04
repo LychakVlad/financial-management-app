@@ -15,9 +15,9 @@ const initialState = {
   taxes: {
     filingStatus: '',
     deductions: 12500,
-    totalTaxLiability: 0,
-    stateTax: 0,
-    federalTax: 0,
+    totalTaxLiability: 26395,
+    stateTax: 5.75,
+    federalTax: 22,
   },
 };
 
@@ -77,9 +77,11 @@ describe('TaxForm', () => {
       expect(screen.getByText('Federal tax:')).toBeInTheDocument();
       expect(screen.getByText('You need to pay:')).toBeInTheDocument();
 
-      expect(screen.getByTestId('state-tax-test')).toHaveTextContent('0%');
-      expect(screen.getByTestId('federal-tax-test')).toHaveTextContent('0%');
-      expect(screen.getByTestId('total-pay-test')).toHaveTextContent('0 $');
+      expect(screen.getByTestId('state-tax-test')).toHaveTextContent('5.75%');
+      expect(screen.getByTestId('federal-tax-test')).toHaveTextContent('22%');
+      expect(screen.getByTestId('total-pay-test')).toHaveTextContent(
+        '26,395 $'
+      );
     });
   });
 });
