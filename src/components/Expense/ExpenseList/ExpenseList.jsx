@@ -89,12 +89,12 @@ const ExpenseList = ({ dates, setDates }) => {
   return (
     <ul className={styles.list}>
       {loading ? (
-        <div className={styles.loading}>
+        <div className={styles.loading} data-testid="loading-spinner">
           <MoonLoader color="#2e8b43" />
         </div>
       ) : (
         <>
-          {expenses.length > 0 ? (
+          {expenses?.length > 0 ? (
             <div className={styles.listWrapper}>
               {expenses.map((expense, index) => (
                 <div
