@@ -52,7 +52,7 @@ describe('ExpenseForm', () => {
     );
   });
 
-  it('submits the form with valid data', async () => {
+  it('submits the form with valid data', () => {
     render(
       <Provider store={store}>
         <ExpenseForm />
