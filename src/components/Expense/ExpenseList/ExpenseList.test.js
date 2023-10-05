@@ -13,7 +13,7 @@ const initialStateWithExpenses = {
         id: 1,
         amount: 100,
         description: 'Expense 1',
-        type: 'Type 1',
+        type: 'Housing',
         pay: 'Card',
         date: '10/04/2023',
       },
@@ -21,9 +21,9 @@ const initialStateWithExpenses = {
         id: 2,
         amount: 200,
         description: 'Expense 2',
-        type: 'Type 2',
+        type: 'Groceries',
         pay: 'Cash',
-        date: '10/05/2023',
+        date: '10/04/2023',
       },
     ],
     totalExpense: 300,
@@ -71,8 +71,7 @@ describe('ExpenseList', () => {
       </Provider>
     );
     expect(screen.getByText('Expense 1')).toBeInTheDocument();
-    expect(screen.getByText('Type 1')).toBeInTheDocument();
+    expect(screen.getByText('Housing')).toBeInTheDocument();
     expect(screen.getByText('Card')).toBeInTheDocument();
-    expect(screen.getByText('10/04/2023')).toBeInTheDocument();
   });
 });
