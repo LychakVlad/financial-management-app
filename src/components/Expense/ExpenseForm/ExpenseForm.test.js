@@ -5,12 +5,17 @@ import { Provider } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
 import configureMockStore from 'redux-mock-store';
 import { useAuth } from '../../../contexts/AuthContext'; // Mock the AuthContext if needed
+import { formatDate } from '../../../utils/dateFormat';
+
+const currentDate = new Date();
+const formattedDate = formatDate(currentDate);
 
 jest.mock('../../../contexts/AuthContext', () => ({
   useAuth: jest.fn(),
 }));
 
 const mockStore = configureMockStore();
+
 const initialState = {
   expenses: {
     expenses: [
@@ -18,17 +23,17 @@ const initialState = {
         id: 1,
         amount: 100,
         description: 'Expense 1',
-        type: 'Type 1',
+        type: 'Housing',
         pay: 'Card',
-        date: '10/04/2023',
+        date: formattedDate,
       },
       {
         id: 2,
         amount: 200,
         description: 'Expense 2',
-        type: 'Type 2',
+        type: 'Groceries',
         pay: 'Cash',
-        date: '10/05/2023',
+        date: formattedDate,
       },
     ],
     totalExpense: 300,

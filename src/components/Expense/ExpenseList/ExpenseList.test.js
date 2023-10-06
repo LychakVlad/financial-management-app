@@ -4,6 +4,10 @@ import '@testing-library/jest-dom/extend-expect'; // Import this for additional 
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import ExpenseList from './ExpenseList';
+import { formatDate } from '../../../utils/dateFormat';
+
+const currentDate = new Date();
+const formattedDate = formatDate(currentDate);
 
 const mockStore = configureMockStore();
 const initialStateWithExpenses = {
@@ -15,7 +19,7 @@ const initialStateWithExpenses = {
         description: 'Expense 1',
         type: 'Housing',
         pay: 'Card',
-        date: '10/04/2023',
+        date: formattedDate,
       },
       {
         id: 2,
@@ -23,7 +27,7 @@ const initialStateWithExpenses = {
         description: 'Expense 2',
         type: 'Groceries',
         pay: 'Cash',
-        date: '10/04/2023',
+        date: formattedDate,
       },
     ],
     totalExpense: 300,

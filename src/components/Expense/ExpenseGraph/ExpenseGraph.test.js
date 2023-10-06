@@ -4,8 +4,15 @@ import '@testing-library/jest-dom/extend-expect'; // Import this for additional 
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import ExpenseGraph from './ExpenseGraph';
-import ExpenseList from '../ExpenseList/ExpenseList';
-import { useAuth } from '../../../contexts/AuthContext'; // Mock the AuthContext if needed
+import { useAuth } from '../../../contexts/AuthContext';
+import { formatDate } from '../../../utils/dateFormat';
+
+jest.mock('../../../contexts/AuthContext', () => ({
+  useAuth: jest.fn(),
+}));
+
+const currentDate = new Date();
+const formattedDate = formatDate(currentDate);
 
 jest.mock('../../../contexts/AuthContext', () => ({
   useAuth: jest.fn(),
@@ -22,7 +29,7 @@ const initialState = {
         description: 'Expense 1',
         type: 'Housing',
         pay: 'Card',
-        date: '10/04/2023',
+        date: formattedDate,
       },
       {
         id: 2,
@@ -30,7 +37,7 @@ const initialState = {
         description: 'Expense 2',
         type: 'Groceries',
         pay: 'Cash',
-        date: '10/04/2023',
+        date: formattedDate,
       },
     ],
     totalExpense: 300,
