@@ -20,6 +20,12 @@ A web application for managing your finance built using React, CSS, Redux, and F
 
 This web-based financial management application was created to address a personal challenge I faced while working as a server. I struggled with accurately tracking my income and saving enough to cover my tax obligations. To solve this problem, I initially developed a tax calculator using Virginia tax rates. Building upon that, I added an income tracker to monitor my earnings, an expense tracker to keep track of my spending, and a budget planner to plan my finances effectively. I am continuously working on developing and improving this product to provide comprehensive financial management solutions.
 
+### - Testing Coverage
+
+- **End-to-End (E2E) Tests:** Major features like expense tracking, income tracking, tax calculation, and budget planning are thoroughly tested to ensure seamless user experiences.
+
+- **Unit Tests:** Approximately 50% of the codebase is covered by unit tests, validating individual components and functions for accuracy.
+
 ### - Expense Tracker
 
 With the expense tracking feature, users can easily monitor and categorize their expenses. They can input their expenditures, assign them to relevant categories (e.g., housing, transportation, groceries), and track their spending over time. The application provides visual representation such as chart to help users understand their spending patterns and make adjustments to their budgets if needed.
