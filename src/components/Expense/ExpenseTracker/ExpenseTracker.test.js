@@ -34,7 +34,7 @@ beforeEach(() => {
 });
 
 describe('Expense Tracker', () => {
-  it('renders the Expense Tracker component', () => {
+  it('renders the Expense Tracker component', async () => {
     render(
       <Provider store={store}>
         <ExpenseTracker />
