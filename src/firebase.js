@@ -13,8 +13,5 @@ const app = initializeApp({
 
 const auth = getAuth(app);
 const firestore = getFirestore(app);
-firestore.settings({ timestampsInSnapshots: true });
-firestore.enablePersistence();
-firestore.setLogLevel('debug');
 
 export { auth, firestore };
