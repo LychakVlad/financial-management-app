@@ -11,24 +11,33 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const ExpenseGraph = ({ dates, setDates }) => {
   const expenses = useSelector((state) => state.expenses?.expenses || []);
 
-  const filteredExpenses = expenses?.filter(
-    (item) =>
-      formatDate(dates.from) <= item.date && item.date <= formatDate(dates.to)
+  const filteredExpenses = useMemo(
+    () =>
+      expenses?.filter(
+        (item) =>
+          formatDate(dates.from) <= item.date &&
+          item.date <= formatDate(dates.to)
+      ),
+    [expenses, dates]
   );
 
-  const categoryTotals = filteredExpenses?.reduce((totals, item) => {
-    if (totals[item.type]) {
-      totals[item.type] += parseFloat(item.amount);
-    } else {
-      totals[item.type] = parseFloat(item.amount);
-    }
-    return totals;
-  }, {});
+  const categoryTotals = useMemo(() => {
+    return filteredExpenses?.reduce((totals, item) => {
+      if (totals[item.type]) {
+        totals[item.type] += parseFloat(item.amount);
+      } else {
+        totals[item.type] = parseFloat(item.amount);
+      }
+      return totals;
+    }, {});
+  }, [filteredExpenses]);
 
-  const totalExpense = filteredExpenses?.reduce(
-    (total, item) => total + parseFloat(item.amount),
-    0
-  );
+  const totalExpense = useMemo(() => {
+    return filteredExpenses?.reduce(
+      (total, item) => total + parseFloat(item.amount),
+      0
+    );
+  }, [filteredExpenses]);
 
   const handleFromChange = (value) => {
     setDates({ ...dates, from: value });

@@ -28,7 +28,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll --detectOpenHandles",
+    "test": "react-scripts test --detectOpenHandles",
     "lint": "eslint .",
     "eject": "react-scripts eject",
     "e2e": "cypress open"

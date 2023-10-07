@@ -37,7 +37,7 @@ const initialState = {
         description: 'Expense 2',
         type: 'Groceries',
         pay: 'Cash',
-        date: formattedDate,
+        date: formattedDatea,
       },
     ],
     totalExpense: 300,
