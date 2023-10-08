@@ -1,5 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  cleanup,
+} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'; // Import this for additional matching options
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
@@ -45,6 +51,9 @@ let store;
 
 beforeEach(() => {
   store = mockStore(initialStateWithExpenses);
+});
+afterEach(() => {
+  cleanup();
 });
 
 describe('ExpenseList', () => {

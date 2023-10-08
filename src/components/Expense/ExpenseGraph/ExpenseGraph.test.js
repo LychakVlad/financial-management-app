@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'; // Import this for additional matching options
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
@@ -50,6 +50,10 @@ beforeEach(() => {
   useAuth.mockReturnValue({ currentUser: { uid: 'testUserId' } });
 
   store = mockStore(initialState);
+});
+
+afterEach(() => {
+  cleanup();
 });
 
 describe('ExpenseGraph', () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'; // Import this for additional matching options
 import { Provider } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
@@ -46,6 +46,10 @@ beforeEach(() => {
   useAuth.mockReturnValue({ currentUser: { uid: 'testUserId' } });
 
   store = mockStore(initialState);
+});
+
+afterEach(() => {
+  cleanup();
 });
 
 describe('ExpenseForm', () => {
