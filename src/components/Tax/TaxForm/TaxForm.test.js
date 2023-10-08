@@ -52,7 +52,7 @@ describe('TaxForm', () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
-  it('correctly calculates taxes with standard deduction', async () => {
+  it('correctly calculates taxes with standard deduction', () => {
     render(
       <Provider store={store}>
         <TaxForm />
@@ -72,16 +72,12 @@ describe('TaxForm', () => {
     const calculateButton = screen.getByTestId('btn-tax-calc-test');
     fireEvent.click(calculateButton);
 
-    await waitFor(() => {
-      expect(screen.getByText('State tax:')).toBeInTheDocument();
-      expect(screen.getByText('Federal tax:')).toBeInTheDocument();
-      expect(screen.getByText('You need to pay:')).toBeInTheDocument();
+    expect(screen.getByText('State tax:')).toBeInTheDocument();
+    expect(screen.getByText('Federal tax:')).toBeInTheDocument();
+    expect(screen.getByText('You need to pay:')).toBeInTheDocument();
 
-      expect(screen.getByTestId('state-tax-test')).toHaveTextContent('5.75%');
-      expect(screen.getByTestId('federal-tax-test')).toHaveTextContent('22%');
-      expect(screen.getByTestId('total-pay-test')).toHaveTextContent(
-        '26,395 $'
-      );
-    });
+    expect(screen.getByTestId('state-tax-test')).toHaveTextContent('5.75%');
+    expect(screen.getByTestId('federal-tax-test')).toHaveTextContent('22%');
+    expect(screen.getByTestId('total-pay-test')).toHaveTextContent('26,395 $');
   });
 });
