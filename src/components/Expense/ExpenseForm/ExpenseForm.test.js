@@ -3,15 +3,14 @@ import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'; // Import this for additional matching options
 import { Provider } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
-import configureMockStore from 'redux-mock-store';
-import { useAuth } from '../../../contexts/AuthContext'; // Mock the AuthContext if needed
+import configureMockStore from 'redux-mock-store'; // Mock the AuthContext if needed
 import { formatDate } from '../../../utils/dateFormat';
 
 const currentDate = new Date();
 const formattedDate = formatDate(currentDate);
 
 jest.mock('../../../contexts/AuthContext', () => ({
-  useAuth: jest.fn(),
+  useAuth: () => ({ currentUser: { uid: 'testUserId' } }),
 }));
 
 const mockStore = configureMockStore();
@@ -43,8 +42,6 @@ const initialState = {
 let store;
 
 beforeEach(() => {
-  useAuth.mockReturnValue({ currentUser: { uid: 'testUserId' } });
-
   store = mockStore(initialState);
 });
 

@@ -8,7 +8,7 @@ import { useAuth } from '../../../contexts/AuthContext';
 import { formatDate } from '../../../utils/dateFormat';
 
 jest.mock('../../../contexts/AuthContext', () => ({
-  useAuth: jest.fn(),
+  useAuth: () => ({ currentUser: { uid: 'testUserId' } }),
 }));
 
 const currentDate = new Date();
@@ -47,8 +47,6 @@ const initialState = {
 let store;
 
 beforeEach(() => {
-  useAuth.mockReturnValue({ currentUser: { uid: 'testUserId' } });
-
   store = mockStore(initialState);
 });
 
