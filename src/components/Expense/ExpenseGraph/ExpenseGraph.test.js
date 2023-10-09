@@ -55,7 +55,7 @@ afterEach(() => {
 });
 
 describe('ExpenseGraph', () => {
-  it('renders ExpenseGraph correctly', () => {
+  it('renders ExpenseGraph correctly', async () => {
     render(
       <Provider store={store}>
         <ExpenseGraph dates={{ from: new Date(), to: new Date() }} />
@@ -65,7 +65,7 @@ describe('ExpenseGraph', () => {
     expect(screen.getByText('Expenses:')).toBeInTheDocument();
   });
 
-  it('displays the total expense correctly', () => {
+  it('displays the total expense correctly', async () => {
     render(
       <Provider store={store}>
         <ExpenseGraph dates={{ from: new Date(), to: new Date() }} />
@@ -77,7 +77,7 @@ describe('ExpenseGraph', () => {
     );
   });
 
-  it('displays expense categories correctly', () => {
+  it('displays expense categories correctly', async () => {
     render(
       <Provider store={store}>
         <ExpenseGraph dates={{ from: new Date(), to: new Date() }} />
