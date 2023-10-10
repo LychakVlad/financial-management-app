@@ -57,7 +57,7 @@ afterEach(() => {
 });
 
 describe('ExpenseList', () => {
-  it('renders ExpenseList correctly', async () => {
+  it('renders ExpenseList correctly', () => {
     render(
       <Provider store={store}>
         <ExpenseList dates={{ from: new Date(), to: new Date() }} />
@@ -67,7 +67,7 @@ describe('ExpenseList', () => {
     expect(screen.getByText('Expense 2')).toBeInTheDocument();
   });
 
-  it('displays a message when there are no expenses', async () => {
+  it('displays a message when there are no expenses', () => {
     store = mockStore(initialStateWithoutExpenses);
     render(
       <Provider store={store}>
@@ -77,7 +77,7 @@ describe('ExpenseList', () => {
     expect(screen.getByText('No expense yet...')).toBeInTheDocument();
   });
 
-  it('displays expense items correctly when there are expenses', async () => {
+  it('displays expense items correctly when there are expenses', () => {
     render(
       <Provider store={store}>
         <ExpenseList dates={{ from: new Date(), to: new Date() }} />

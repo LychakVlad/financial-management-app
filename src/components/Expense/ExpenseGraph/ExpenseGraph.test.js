@@ -4,7 +4,6 @@ import '@testing-library/jest-dom/extend-expect'; // Import this for additional 
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import ExpenseGraph from './ExpenseGraph';
-import { useAuth } from '../../../contexts/AuthContext';
 import { formatDate } from '../../../utils/dateFormat';
 
 jest.mock('../../../contexts/AuthContext', () => ({
@@ -55,7 +54,7 @@ afterEach(() => {
 });
 
 describe('ExpenseGraph', () => {
-  it('renders ExpenseGraph correctly', async () => {
+  it('renders ExpenseGraph correctly', () => {
     render(
       <Provider store={store}>
         <ExpenseGraph dates={{ from: new Date(), to: new Date() }} />
@@ -65,7 +64,7 @@ describe('ExpenseGraph', () => {
     expect(screen.getByText('Expenses:')).toBeInTheDocument();
   });
 
-  it('displays the total expense correctly', async () => {
+  it('displays the total expense correctly', () => {
     render(
       <Provider store={store}>
         <ExpenseGraph dates={{ from: new Date(), to: new Date() }} />
@@ -77,7 +76,7 @@ describe('ExpenseGraph', () => {
     );
   });
 
-  it('displays expense categories correctly', async () => {
+  it('displays expense categories correctly', () => {
     render(
       <Provider store={store}>
         <ExpenseGraph dates={{ from: new Date(), to: new Date() }} />

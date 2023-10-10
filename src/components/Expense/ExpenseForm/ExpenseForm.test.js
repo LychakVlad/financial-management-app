@@ -50,7 +50,7 @@ afterEach(() => {
 });
 
 describe('ExpenseForm', () => {
-  it('renders ExpenseForm correctly', async () => {
+  it('renders ExpenseForm correctly', () => {
     render(
       <Provider store={store}>
         <ExpenseForm />
@@ -58,7 +58,7 @@ describe('ExpenseForm', () => {
     );
   });
 
-  it('submits the form with valid data', async () => {
+  it('submits the form with valid data', () => {
     render(
       <Provider store={store}>
         <ExpenseForm />
