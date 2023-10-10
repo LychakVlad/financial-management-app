@@ -15,7 +15,8 @@ import { formatDate } from '../../../utils/dateFormat';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 const ExpenseList = ({ dates, setDates }) => {
-  const { expenses, totalExpense } = useSelector((state) => state.expenses);
+  const expensesSelector = (state) => state.expenses;
+  const { expenses, totalExpense } = useSelector(expensesSelector);
   const dispatch = useDispatch();
 
   const currentUser = useAuth();
