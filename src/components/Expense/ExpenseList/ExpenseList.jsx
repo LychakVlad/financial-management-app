@@ -1,56 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ExpenseList.module.css';
 import MoonLoader from 'react-spinners/MoonLoader';
-import firebase from 'firebase/compat/app';
-import {
-  removeExpenseAction,
-  updateExpenseAction,
-} from '../../../store/actions/expenseActions';
+import { removeExpenseAction } from '../../../store/actions/expenseActions';
 import { firestore } from '../../../firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from '../../../contexts/AuthContext';
 import CustomButton from '../../form/Button/CustomButton';
 import { formatNumber } from '../../../utils/formatNumber';
-import { formatDate } from '../../../utils/dateFormat';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
-const ExpenseList = ({ dates, setDates }) => {
+const ExpenseList = ({ loading }) => {
   const expensesSelector = (state) => state.expenses;
-  const { expenses, totalExpense } = useSelector(expensesSelector);
+  const { expenses } = useSelector(expensesSelector);
   const dispatch = useDispatch();
 
   const currentUser = useAuth();
-
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (currentUser?.currentUser) {
-      const fetchData = async () => {
-        setLoading(true);
-        const userId = currentUser.currentUser.uid;
-        const userDocRef = doc(firestore, 'users', userId);
-        const userDoc = await getDoc(userDocRef);
-        const userData = userDoc.data();
-        setLoading(false);
-
-        const sortedExpenses = Array.isArray(userData?.expenses)
-          ? userData.expenses.sort(
-              (a, b) => new Date(b.date) - new Date(a.date)
-            )
-          : [];
-
-        const filteredExpenses = sortedExpenses.filter(
-          (item) =>
-            formatDate(dates.from) <= item.date &&
-            item.date <= formatDate(dates.to)
-        );
-
-        dispatch(updateExpenseAction(filteredExpenses));
-      };
-
-      fetchData();
-    }
-  }, [currentUser, dispatch, dates]);
 
   const deletePoint = async (expense) => {
     try {
