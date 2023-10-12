@@ -35,9 +35,9 @@ describe('Budget Planner Component', () => {
 
     cy.get('input[data-testid="input-number-test"]').click().type('10000');
     cy.get('[data-testid="dropdown-type-test"]').click();
-    cy.get('[data-testid="dropdown-type-test-1"]').click();
+    cy.get('[data-testid="dropdown-type-test-0"]').click();
     cy.get('[data-testid="dropdown-tax-test"]').click();
-    cy.get('[data-testid="dropdown-tax-test-1"]').click();
+    cy.get('[data-testid="dropdown-tax-test-0"]').click();
 
     cy.get('[data-testid="btn-add-test"]').should('exist').click();
 
@@ -95,6 +95,19 @@ describe('Budget Planner Component', () => {
   });
 
   it('should correctly split a total income after tax', () => {
+    cy.get('[data-testid="test-taxes"]').should('exist').click();
+
+    cy.get('[data-testid="dropdown-status-test"]').click();
+    cy.get('[data-testid="dropdown-status-test-1"]').click();
+
+    cy.get('[data-testid="radio-yes-test"]').click();
+
+    cy.get('[data-testid="btn-tax-calc-test"]').should('exist').click();
+
+    cy.wait(1000);
+
+    cy.get('[data-testid="test-planner"]').should('exist').click();
+
     cy.get('[data-testid="total-tab-test"]').should('exist').click();
 
     cy.get('[data-testid="total-after-tax"]').should('contain', '9,235 $');
