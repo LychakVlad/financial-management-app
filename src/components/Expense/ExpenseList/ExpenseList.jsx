@@ -50,7 +50,7 @@ const ExpenseList = ({ dates, setDates }) => {
 
       fetchData();
     }
-  }, [currentUser, dispatch, dates]);
+  }, [currentUser, dispatch, dates, expenses]);
 
   const deletePoint = async (expense) => {
     try {
