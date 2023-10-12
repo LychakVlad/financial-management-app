@@ -29,7 +29,7 @@ const ExpenseGraph = ({ dates, setDates }) => {
 
     setTotalExpense(totalExpense);
     setCategoryTotals(categoryTotals);
-  }, [expenses]);
+  }, [expenses, dates]);
 
   const handleFromChange = (value) => {
     setDates({ ...dates, from: value });

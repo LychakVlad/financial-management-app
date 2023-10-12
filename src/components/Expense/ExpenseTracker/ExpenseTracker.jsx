@@ -29,7 +29,7 @@ const ExpenseTracker = ({ fetchData }) => {
         const userId = currentUser.currentUser.uid;
         const userDocRef = doc(firestore, 'users', userId);
         const userDoc = await getDoc(userDocRef);
-        const userData = userDoc.data();
+        const userData = userDoc?.data();
         setLoading(false);
 
         const sortedExpenses = Array.isArray(userData?.expenses)
