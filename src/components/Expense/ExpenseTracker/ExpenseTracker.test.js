@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import { cleanup } from '@testing-library/react';
 import { useAuth } from '../../../contexts/AuthContext';
-import { doc, getDoc } from 'firebase/firestore'; // Import the functions
+import { doc } from 'firebase/firestore'; // Import the functions
 
 jest.mock('../../../contexts/AuthContext', () => ({
   useAuth: jest.fn(),
@@ -34,6 +34,11 @@ const initialState = {
       },
     ],
     totalExpense: 1000,
+    money: {
+      totalCard: 100,
+      totalCash: 200,
+      totalSavings: 0,
+    },
   },
 };
 

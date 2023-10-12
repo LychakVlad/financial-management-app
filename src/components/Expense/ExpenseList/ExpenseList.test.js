@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  cleanup,
-} from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'; // Import this for additional matching options
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
@@ -37,6 +31,11 @@ const initialStateWithExpenses = {
       },
     ],
     totalExpense: 300,
+    money: {
+      totalCard: 100,
+      totalCash: 200,
+      totalSavings: 0,
+    },
   },
 };
 
@@ -44,6 +43,11 @@ const initialStateWithoutExpenses = {
   expenses: {
     expenses: [],
     totalExpense: 0,
+    money: {
+      totalCard: 0,
+      totalCash: 0,
+      totalSavings: 0,
+    },
   },
 };
 
